@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
-          'email-username': {
+          'email': {
             validators: {
               notEmpty: {
                 message: 'Please enter email / username'
