@@ -23,14 +23,6 @@ class AdminAuth
         if (
             !session()->has('LoggedAdmin') &&
             ($request->path() != 'users/login'
-                &&
-                $request->path() != 'users/dashboard'
-
-                //  &&
-                // $request->path() != 'users/register' &&
-                // $request->path() != 'users/home-page' &&
-                // $request->path() != 'users/user-otp' &&
-                // ! $request->routeIs('auth-user-check') &&
                 // ! $request->routeIs('auth-user-check') &&
                 // ! $request->routeIs('regenerate-otp') &&
                 // ! $request->routeIs('password/reset') &&
@@ -43,11 +35,9 @@ class AdminAuth
 
         }
 
-        if (
-            session()->has('LoggedAdmin') &&
-            ($request->path() == 'users/login' || $request->path() == 'users/register' || $request->path() == 'users/home-page' || $request->routeIs('auth-user-check'))
-        ) {
-            return redirect('/');
+        if (session()->has('LoggedAdmin') && ($request->path() == 'users/login' || $request->path() == '/')) {
+
+            return redirect('/users/dashboard');
         }
 
         $response = $next($request);
@@ -58,4 +48,5 @@ class AdminAuth
 
         return $response;
     }
+
 }

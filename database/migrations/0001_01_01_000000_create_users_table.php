@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('password')->nullable();
 
             // User Role and Status
-            $table->integer('user_role')->default(0); // 0: Student, 1: Admin, 5: Farmer, etc.
+            $table->integer('user_role')->default(1); //  1: Admin, 5: Farmer, etc.
             $table->integer('account_status')->default(10); // 10: Active, 0: Banned, etc.
             $table->integer('registration_status')->default(0);
 

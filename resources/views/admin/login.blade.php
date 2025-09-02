@@ -38,6 +38,9 @@
   <!-- Vendor -->
   <link rel="stylesheet" href="../../assets/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
 
+  <!-- Icon CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <!-- Page CSS -->
   <!-- Page -->
   <link rel="stylesheet" href="../../assets/vendor/css/pages/page-auth.css" />
@@ -130,21 +133,22 @@
                 </div>
               </div>
 
-
-              <!-- Password -->
               <div class="input-group">
-                <div class="input-wrapper w-100">
-                  <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-                  <span class="text-danger d-block" id="password-error"></span>
-                </div>
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+
+                <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+                  <i class="fa fa-eye" id="eyeIcon"></i>
+                </span>
               </div>
+              <span class="text-danger d-block" id="password-error"></span>
 
               <!-- Actions -->
               <div class="row">
                 <div class="col-12">
-                  <a href="{{ url('/users/forgot-password') }}" class="btn btn-link box-shadow-0 px-0">
+                  {{-- <a href="{{ url('/users/forgot-password') }}" class="btn btn-link box-shadow-0 px-0">
                     Forgot password?
-                  </a>
+                  </a> --}}
+                  <br>
                 </div>
                 <div class="col-12">
                   <button type="submit" class="btn btn-primary btn-block" id="login_button">
@@ -251,6 +255,22 @@
         });
       });
     });
+
+
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
   </script>
 
 

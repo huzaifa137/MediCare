@@ -60,18 +60,26 @@
         <!-- Layouts -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Layouts</div>
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                <div data-i18n="Users">Users</div>
             </a>
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="layouts-collapsed-menu.html" class="menu-link">
-                        <div data-i18n="Collapsed menu">Collapsed menu</div>
+                    <a href="{{ route ('add.admin')}} " class="menu-link">
+                        <i class="bx bx-user-plus me-2"></i>
+                        <div data-i18n="Add Admin">Add Admin</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route ('all.admins') }}" class="menu-link">
+                        <i class="bx bx-cog me-2"></i>
+                        <div data-i18n="Manage Admin">Manage Admins</div>
                     </a>
                 </li>
             </ul>
         </li>
+
     </ul>
 
 </aside>

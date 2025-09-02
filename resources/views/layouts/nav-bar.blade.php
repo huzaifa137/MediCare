@@ -118,21 +118,24 @@
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                        <div class="avatar avatar-online">
-                            <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
+                        <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center avatar-online"
+                            style="width: 40px; height: 40px; font-weight: 600;">
+                            {{ strtoupper(substr(Helper::logged_username(), 0, 1)) }}
                         </div>
+
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="{{route('user.profile')}}">
+                            <a class="dropdown-item" href="{{ route('user.profile') }}">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
-                                        <div class="avatar avatar-online">
-                                            <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
+                                        <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 40px; height: 40px; font-weight: 600;">
+                                            {{ strtoupper(substr(Helper::logged_username(), 0, 1)) }}
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <span class="lh-1 d-block fw-semibold">John Doe</span>
+                                        <span class="lh-1 d-block fw-semibold">{{ Helper::logged_username() }}</span>
                                         <small>Admin</small>
                                     </div>
                                 </div>
@@ -151,19 +154,42 @@
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
-                        
+
 
                         <li>
-                            <a class="dropdown-item" href="{{ route('user.login') }}" >
+                            <a class="dropdown-item" href="javascript:void(0);" id="logout-btn">
                                 <i class="bx bx-power-off me-2"></i>
                                 <span class="align-middle">Log Out</span>
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <!--/ User -->
             </ul>
         </div>
+
+        <script>
+            $(document).on('click', '#logout-btn', function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will be logged out of your session.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, log me out!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('user.logout') }}";
+                    }
+                });
+            });
+
+        </script>
 
         <!-- Search Small Screens -->
         <div class="navbar-search-wrapper search-input-wrapper d-none">
