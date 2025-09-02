@@ -323,4 +323,88 @@ class AdminController extends Controller
         return back()->with('success', 'A password reset link has been sent to your email: ' . $email);
     }
 
+    public function createNewPassword($id)
+    {
+        $generated_id = url('password/reset/' . $id);
+        $resetEntry = DB::table('password_reset_tables')->where('token', $generated_id)->first();
+
+        if ($resetEntry) {
+            if ($resetEntry->link_status == 0) {
+                if (now()->diffInMinutes($resetEntry->created_at) <= 30) {
+                    return view('admin.reset-password-2', compact(['generated_id']));
+                } else {
+                    return ('admin.login')->with('fail', 'This reset password link has expired');
+                }
+            } else {
+                return redirect()->route('admin.login')->with('fail', 'This link has already been used, request for a new link');
+            }
+        } else {
+            return redirect()->route('admin.login')->with('fail', 'Invalid Link');
+        }
+    }
+
+    public function store_new_password(Request $request)
+    {
+        $request->validate(
+            [
+                'password' => [
+                    'required',
+                    'string',
+                    'min:6',
+                    'regex:/[A-Z]/',
+                    'regex:/[a-z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[@$!%*?&#]/',
+                    'confirmed'
+                ],
+            ],
+            [
+                'password.required' => 'The password field is required.',
+                'password.string' => 'The password must be a string.',
+                'password.min' => 'The password must be at least 6 characters.',
+                'password.regex' => 'The password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.',
+                'password.confirmed' => 'Passwords do not match.'
+            ],
+        );
+
+
+        $password = $request->password;
+        $confirm = $request->password_confirmation;
+        $generated_id = $request->generated_id;
+
+        dd($request->all());
+        
+        if ($password == $confirm) {
+
+            $record = DB::table('password_reset_tables')->where('token', $generated_id)->first();
+            $record_id = $record->id;
+            $user_email = $record->email;
+
+            $new_password = Hash::make($password);
+
+            DB::table('users')
+                ->where('email', $user_email)
+                ->update(['password' => $new_password]);
+
+            $post = password_reset_table::find($record_id);
+            $post->link_status = 1;
+            $post->save();
+
+            $user = DB::table('users')
+                ->where('email', $user_email)
+                ->first();
+
+            if ($user->registration_status == 0) {
+                DB::table('users')
+                    ->where('id', $user->id)
+                    ->update(['registration_status' => 1]);
+            }
+
+
+            return redirect()->route('user.login')->with('success', 'Password has been updated successfully');
+        } else {
+            return back()->with('fail', 'Passwords do not match');
+        }
+    }
+
 }

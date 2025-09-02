@@ -38,6 +38,8 @@ Route::controller(AdminController::class)->group(function () {
     });
 
     Route::get('/clear-session', 'flushSession');
+    Route::get('password/reset/{id}', 'createNewPassword')->name('password/reset');
+    Route::post('user-store-new-password', 'store_new_password')->name('user-store-new-password');
     Route::post('auth-user-check', 'checkUser')->name('auth-user-check');
     Route::post('user-generate-forgot-password-link', 'generateForgotPasswordLink')->name('user-generate-forgot-password-link');
 
