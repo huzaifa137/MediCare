@@ -64,14 +64,14 @@
                                     <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
                                         <i class="bx bx-calendar fs-4"></i>
                                     </span>
-                                    <a href="app-calendar.html" class="stretched-link">Calendar</a>
+                                    <a href="javascript:void();" class="stretched-link">Calendar</a>
                                     <small class="text-muted mb-0">Appointments</small>
                                 </div>
                                 <div class="dropdown-shortcuts-item col">
                                     <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
                                         <i class="bx bx-food-menu fs-4"></i>
                                     </span>
-                                    <a href="app-invoice-list.html" class="stretched-link">Invoice
+                                    <a href="javascript:void();" class="stretched-link">Invoice
                                         App</a>
                                     <small class="text-muted mb-0">Manage Accounts</small>
                                 </div>
@@ -81,14 +81,14 @@
                                     <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
                                         <i class="bx bx-user fs-4"></i>
                                     </span>
-                                    <a href="app-user-list.html" class="stretched-link">User App</a>
+                                    <a href="javascript:void();" class="stretched-link">User App</a>
                                     <small class="text-muted mb-0">Manage Users</small>
                                 </div>
                                 <div class="dropdown-shortcuts-item col">
                                     <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
                                         <i class="bx bx-check-shield fs-4"></i>
                                     </span>
-                                    <a href="app-access-roles.html" class="stretched-link">Role
+                                    <a href="javascript:void();" class="stretched-link">Role
                                         Management</a>
                                     <small class="text-muted mb-0">Permission</small>
                                 </div>
@@ -105,7 +105,7 @@
                                     <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
                                         <i class="bx bx-cog fs-4"></i>
                                     </span>
-                                    <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
+                                    <a href="javascript:void();" class="stretched-link">Setting</a>
                                     <small class="text-muted mb-0">Account Settings</small>
                                 </div>
                             </div>

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\password_reset_table;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -37,6 +40,11 @@ class AdminController extends Controller
     {
         $admins = User::where('user_role', 1)->get();
         return view('admin.all-admins', compact('admins'));
+    }
+
+    public function forgotPassword()
+    {
+        return view('admin.forgot-password');
     }
 
     public function editAdmin(User $admin)
@@ -241,7 +249,7 @@ class AdminController extends Controller
                 'required',
                 'string',
                 'min:8',
-                'regex:/[A-Z]/',    
+                'regex:/[A-Z]/',
                 'regex:/[^a-zA-Z0-9]/'
             ],
             'confirmPassword' => 'required|same:newPassword'
@@ -274,5 +282,45 @@ class AdminController extends Controller
         ]);
     }
 
+    public function generateForgotPasswordLink(Request $request)
+    {
+        // Validate email
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.required' => 'Email is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.exists' => 'The email provided is not registered in the system.',
+        ]);
+
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return back()->withInput()->with('fail', 'The email provided is not registered in the system.');
+        }
+
+        $token = Str::random(60);
+        $resetUrl = url('password/reset', $token);
+
+        $post = new password_reset_table();
+        $post->email = $email;
+        $post->token = $resetUrl;
+        $post->created_at = now();
+        $post->save();
+
+        $data = [
+            'email' => $email,
+            'username' => $user->username,
+            'resetUrl' => $resetUrl,
+            'title' => Helper::app_name() . ' : Reset Password Link',
+        ];
+
+        Mail::send('emails.reset_email', $data, function ($message) use ($data) {
+            $message->to($data['email'])->subject($data['title']);
+        });
+
+        return back()->with('success', 'A password reset link has been sent to your email: ' . $email);
+    }
 
 }

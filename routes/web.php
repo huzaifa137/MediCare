@@ -14,6 +14,7 @@ Route::controller(AdminController::class)->group(function () {
             Route::get('dashboard', 'adminDashboard')->name('user.dashboard');
             Route::get('login', 'userLogin')->name('user.login');
             Route::get('profile', 'userProfile')->name('user.profile');
+            Route::get('/forgot-password', 'forgotPassword')->name('forgot-password');
 
 
             Route::get('add-admin', 'addAdmin')->name('add.admin');
@@ -38,5 +39,7 @@ Route::controller(AdminController::class)->group(function () {
 
     Route::get('/clear-session', 'flushSession');
     Route::post('auth-user-check', 'checkUser')->name('auth-user-check');
+    Route::post('user-generate-forgot-password-link', 'generateForgotPasswordLink')->name('user-generate-forgot-password-link');
+
 
 });

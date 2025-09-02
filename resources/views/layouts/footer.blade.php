@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex justify-content-between align-items-center py-2">
         <div class="text-start">
             &copy;
-            <script>document.write(new Date().getFullYear());</script> Wakulima Portal. All rights reserved.
+            <script>document.write(new Date().getFullYear());</script> {{Helper::app_name()}} Portal. All rights reserved.
         </div>
         <div class="text-end">
             Designed & developed by

@@ -22,8 +22,8 @@ class AdminAuth
 
         if (
             !session()->has('LoggedAdmin') &&
-            ($request->path() != 'users/login'
-                // ! $request->routeIs('auth-user-check') &&
+            ($request->path() != 'users/login' &&
+                ! $request->routeIs('forgot-password')
                 // ! $request->routeIs('regenerate-otp') &&
                 // ! $request->routeIs('password/reset') &&
                 // $request->path() != 'users/forgot-password'
