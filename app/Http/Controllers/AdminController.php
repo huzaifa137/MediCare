@@ -333,18 +333,19 @@ class AdminController extends Controller
                 if (now()->diffInMinutes($resetEntry->created_at) <= 30) {
                     return view('admin.reset-password-2', compact(['generated_id']));
                 } else {
-                    return ('admin.login')->with('fail', 'This reset password link has expired');
+                    return redirect()->route('reset-password-access-link')->with('fail', 'This reset password link has expired');
                 }
             } else {
-                return redirect()->route('admin.login')->with('fail', 'This link has already been used, request for a new link');
+                return redirect()->route('reset-password-access-link')->with('fail', 'This link has already been used, request for a new link');
             }
         } else {
-            return redirect()->route('admin.login')->with('fail', 'Invalid Link');
+
+            return redirect()->route('reset-password-access-link')->with('fail', 'Invalid link');
         }
     }
 
     public function store_new_password(Request $request)
-    {
+    {        
         $request->validate(
             [
                 'password' => [
@@ -372,8 +373,6 @@ class AdminController extends Controller
         $confirm = $request->password_confirmation;
         $generated_id = $request->generated_id;
 
-        dd($request->all());
-        
         if ($password == $confirm) {
 
             $record = DB::table('password_reset_tables')->where('token', $generated_id)->first();

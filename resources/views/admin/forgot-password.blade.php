@@ -154,6 +154,12 @@
                                         onclick="confirmSubmission(this)">
                                         <i class="fas fa-paper-plane"></i> Send
                                     </button>
+                                    <br>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ url('/') }}" class="btn btn-link box-shadow-0 px-0">
+                                            Return to Login
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -216,7 +222,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     button.disabled = true;
-                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    button.innerHTML = 'Sending...<i class="fas fa-spinner fa-spin"></i> ';
                     button.closest('form').submit();
                 }
             });

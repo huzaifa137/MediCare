@@ -190,121 +190,64 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
-        // Submit on Enter key
-        document.addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                const button = document.querySelector("button[type='button']");
-                confirmSubmission(button);
-            }
-        });
+
 
         function confirmSubmission(button) {
-            const emailInput = document.getElementById('email-input');
-            const emailErrorClient = document.getElementById('email-error-client');
-            const email = emailInput.value.trim();
+            const password = document.getElementById('password').value.trim();
+            const passwordConfirm = document.getElementById('password_confirmation').value.trim();
 
-            // Clear previous client-side errors
-            emailErrorClient.style.display = 'none';
-            emailErrorClient.textContent = '';
-            emailInput.classList.remove('is-invalid');
 
-            if (!email) {
-                // Show inline client-side error
-                emailErrorClient.textContent = 'Please enter your email address.';
-                emailErrorClient.style.display = 'block';
-                emailInput.classList.add('is-invalid');
-                return;
+            document.getElementById('password-error-client').innerText = '';
+            document.getElementById('password-confirmation-error-client').innerText = '';
+
+            let isValid = true;
+
+
+            const hasUppercase = /[A-Z]/;
+            const hasLowercase = /[a-z]/;
+            const hasDigit = /[0-9]/;
+            const hasSpecial = /[@$!%*?&#]/;
+
+
+            if (!password) {
+                document.getElementById('password-error-client').innerText = 'The password field is required.';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('password-error-client').innerText = 'The password must be at least 6 characters.';
+                isValid = false;
+            } else if (!hasUppercase.test(password) || !hasLowercase.test(password) || !hasDigit.test(password) || !hasSpecial.test(password)) {
+                document.getElementById('password-error-client').innerText = 'The password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.';
+                isValid = false;
             }
 
-            // If email is not empty, show confirmation popup
+
+            if (password !== passwordConfirm) {
+                document.getElementById('password-confirmation-error-client').innerText = 'Passwords do not match.';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
             Swal.fire({
-                title: 'Are you sure?',
-                text: "Do you want to proceed with the submission?",
+                title: 'Confirm Password Reset',
+                text: "Are you sure you want to reset your password?",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, proceed',
+                confirmButtonText: 'Yes, reset it!',
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
+
                     button.disabled = true;
-                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    button.innerHTML = 'Resetting... <i class="fas fa-spinner fa-spin"></i>';
+
                     button.closest('form').submit();
                 }
             });
         }
-    </script>
-
-    <script>
-        function confirmSubmission(button) {
-            const password = document.getElementById('password').value.trim();
-            const confirmPassword = document.getElementById('password_confirmation').value.trim();
-
-            let valid = true;
-
-            const passwordError = document.getElementById('password-error-client');
-            const passwordError = document.getElementById('password-error-client');
-            const generated_id = document.getElementById('generated_id');
-
-            // Reset errors
-            passwordError.style.display = 'none';
-            confirmError.style.display = 'none';
-            passwordError.innerText = '';
-            confirmError.innerText = '';
-
-            const errors = [];
-
-            // Password rules
-            if (!password) {
-                errors.push("Password is required.");
-            } else {
-                if (password.length < 6) {
-                    errors.push("Password must be at least 6 characters.");
-                }
-                if (!/[A-Z]/.test(password)) {
-                    errors.push("Password must include at least one uppercase letter.");
-                }
-                if (!/[a-z]/.test(password)) {
-                    errors.push("Password must include at least one lowercase letter.");
-                }
-                if (!/[0-9]/.test(password)) {
-                    errors.push("Password must include at least one digit.");
-                }
-                if (!/[@$!%*?&#]/.test(password)) {
-                    errors.push("Password must include at least one special character.");
-                }
-            }
-
-            if (errors.length > 0) {
-                passwordError.innerText = errors.join(' ');
-                passwordError.style.display = 'block';
-                valid = false;
-            }
-
-            if (password !== confirmPassword) {
-                confirmError.innerText = 'Passwords do not match.';
-                confirmError.style.display = 'block';
-                valid = false;
-            }
-
-            if (valid) {
-                const proceed = confirm('Do you want to proceed with the submission?');
-                if (proceed) {
-                    button.closest('form').submit();
-                }
-            }
-        }
-    </script>
 
 
-
-    <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const eyeIcon = document.getElementById('eyeIcon');
@@ -335,9 +278,6 @@
             }
         }
     </script>
-
-
-
 
 
     <!-- / Content -->
