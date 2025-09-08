@@ -191,6 +191,10 @@ class AdminController extends Controller
     }
 
 
+    public function demoDashboard()
+    {
+        return view('demoDashboard');
+    }
     public function userLogout()
     {
         if (session()->has('LoggedAdmin')) {
@@ -345,7 +349,7 @@ class AdminController extends Controller
     }
 
     public function store_new_password(Request $request)
-    {        
+    {
         $request->validate(
             [
                 'password' => [

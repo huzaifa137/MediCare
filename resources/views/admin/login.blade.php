@@ -122,41 +122,46 @@
 
 
             <form action="{{ route('auth-user-check') }}" method="POST">
-              @csrf
+  @csrf
 
-              <!-- Email or Username -->
-              <div class="input-group mb-3">
-                <div class="input-wrapper w-100">
-                  <input type="text" id="email" name="email" class="form-control"
-                    placeholder="Enter your email or username" value="{{ old('email') }}">
-                  <span class="text-danger d-block" id="email-error"></span>
-                </div>
-              </div>
+  <!-- Email or Username -->
+  <div class="input-group mb-3">
+    <div class="input-wrapper w-100">
+      <input type="text" id="email" name="email" class="form-control"
+        placeholder="Enter your email or username" value="{{ old('email') }}">
+      <span class="text-danger d-block" id="email-error"></span>
+    </div>
+  </div>
 
-              <div class="input-group">
-                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+  <!-- Password -->
+  <div class="input-group mb-2">
+    <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+    <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+      <i class="fa fa-eye" id="eyeIcon"></i>
+    </span>
+  </div>
+  <span class="text-danger d-block mb-3" id="password-error"></span>
 
-                <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
-                  <i class="fa fa-eye" id="eyeIcon"></i>
-                </span>
-              </div>
-              <span class="text-danger d-block" id="password-error"></span>
+  <!-- Actions -->
+  <div class="row">
+    <div class="col-6">
+      <a href="{{ route('forgot-password') }}" class="btn btn-link px-0">
+        Forgot password?
+      </a>
+    </div>
+    <div class="col-6 text-end">
+      <a href="{{ url('/index') }}" class="btn btn-link px-0">
+        ← Back to Homepage
+      </a>
+    </div>
+    <div class="col-12 mt-2">
+      <button type="submit" class="btn btn-primary btn-block w-100" id="login_button">
+        <i class="fe fe-arrow-right"></i> Login
+      </button>
+    </div>
+  </div>
+</form>
 
-              <!-- Actions -->
-              <div class="row">
-                <div class="col-12">
-                  <a href="{{ route('forgot-password') }}" class="btn btn-link box-shadow-0 px-0">
-                    Forgot password?
-                  </a>
-                  <br>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary btn-block" id="login_button">
-                    <i class="fe fe-arrow-right"></i> Login
-                  </button>
-                </div>
-              </div>
-            </form>
 
           </div>
         </div>

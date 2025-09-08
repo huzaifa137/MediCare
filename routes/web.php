@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SiteController;
 
 Route::controller(AdminController::class)->group(function () {
 
@@ -20,7 +21,7 @@ Route::controller(AdminController::class)->group(function () {
             Route::get('all-admins', 'addAdmins')->name('all.admins');
 
         });
-        
+
         Route::get('/', 'userLogin')->name('user.login');
         Route::get('/user-logout', 'userLogout')->name('user.logout');
         Route::get('/admin/{admin}/edit', 'editAdmin')->name('admin.edit');
@@ -36,6 +37,7 @@ Route::controller(AdminController::class)->group(function () {
 
     });
 
+
     Route::get('/clear-session', 'flushSession');
     Route::get('/reset-password-access-link', 'userLogin')->name('reset-password-access-link');
     Route::post('user-store-new-password', 'store_new_password')->name('user-store-new-password');
@@ -43,4 +45,11 @@ Route::controller(AdminController::class)->group(function () {
     Route::post('user-generate-forgot-password-link', 'generateForgotPasswordLink')->name('user-generate-forgot-password-link');
 
 
+    Route::controller(SiteController::class)->group(function () {
+
+        Route::get('/{page}', [SiteController::class, 'loadPage'])
+            ->whereIn('page', ['index', 'about', 'pricing', 'contact', 'services','doctor','blog-details','blog'])
+            ->name('page');
+
+    });
 });
