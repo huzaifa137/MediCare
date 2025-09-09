@@ -47,9 +47,19 @@ Route::controller(AdminController::class)->group(function () {
 
     Route::controller(SiteController::class)->group(function () {
 
-        Route::get('/{page}', [SiteController::class, 'loadPage'])
-            ->whereIn('page', ['index', 'about', 'pricing', 'contact', 'services','doctor','blog-details','blog'])
-            ->name('page');
+        Route::get('/index', 'index')->name('index');
+        Route::get('/about', 'about')->name('about');
+        Route::get('/pricing', 'pricing')->name('pricing');
+        Route::get('/contact', 'contact')->name('contact');
+        Route::get('/services', 'services')->name('services');
+        Route::get('/doctors', 'doctors')->name('doctor');
+        Route::get('/doctor-details', 'doctorDetails')->name('blog-details');
+        Route::get('/blog', 'blog')->name('blog');
+
+
+        Route::get('/doctor-details-1', 'doctorDetails1')->name('blog-details-1');
+        Route::get('/doctor-details-2', 'doctorDetails2')->name('blog-details-2');
+        Route::get('/doctor-details-3', 'doctorDetails3')->name('blog-details-3');
 
     });
 });

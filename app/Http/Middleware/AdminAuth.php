@@ -31,7 +31,8 @@ class AdminAuth
         ) {
             Session::put('url.intended', $request->url());
 
-            return redirect('/users/login')->with('fail', 'You must be logged in');
+            // return redirect('/users/login')->with('fail', 'You must be logged in');
+            return redirect('/index')->with('fail', 'You must be logged in');
 
         }
 

@@ -11,7 +11,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/assets-site/css/bootstrap.min.css" type="text/css">
@@ -92,19 +92,20 @@
                                 <li class="active"><a href="{{ url('index') }}">Home</a></li>
                                 <li><a href="{{ url('about') }}">About</a></li>
                                 <li><a href="{{ url('services') }}">Services</a></li>
-                                <li><a href="javascript:void();">Resources</a>
+                                <li><a href="{{ url('doctors') }}">Doctors</a></li>
+                                {{-- <li><a href="javascript:void();">Resources</a>
                                     <ul class="dropdown">
                                         <li><a href="{{ url('pricing') }}">Pricing</a></li>
-                                        <li><a href="{{ url('doctor') }}">Doctors</a></li>
+                                        <li><a href="{{ url('doctors') }}">Doctors</a></li>
                                         <li><a href="{{ url('blog-details') }}">Our Blogs</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="{{ url('blog') }}">News</a></li>
-                                <li><a href="{{ url('contact') }}">Contact</a></li>
+                                </li> --}}
+                                {{-- <li><a href="{{ url('blog') }}">News</a></li> --}}
+                                <li><a href=" {{ url('contact') }}">Contact</a></li>
                             </ul>
                         </nav>
                         <div class="header__btn">
-                            <a href="{{ url('/') }}" class="primary-btn">Appointment</a>
+                            <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
                         </div>
                     </div>
                 </div>

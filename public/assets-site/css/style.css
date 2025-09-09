@@ -1388,6 +1388,11 @@ ol {
 	background: #f2f7f8;
 }
 
+.services__accordion .card-heading {
+	background: #f2f7f8;
+}
+
+
 .services__accordion .card-heading.active a {
 	color: #111111;
 	display: block;
@@ -2852,3 +2857,44 @@ ol {
 		padding: 14px 30px 12px;
 	}
 }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 80px;
+            padding-bottom: 100px;
+            text-align: center;
+        }
+
+        .hero__text h2 {
+            font-size: 24px;
+            line-height: 1.4;
+        }
+
+        .hero__text span {
+            font-size: 16px;
+        }
+
+        .hero__text .primary-btn {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .col-lg-6 {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero {
+            padding-top: 60px;
+            padding-bottom: 80px;
+        }
+
+        .hero__text h2 {
+            font-size: 20px;
+        }
+
+        .hero__text span {
+            font-size: 14px;
+        }
+    }

@@ -18,104 +18,56 @@
 </section>
 <!-- Breadcrumb Section End -->
 
+<style>
+            .services__title {
+                background-color: #f8f9fa;
+                border: 1px solid #e9ecef;
+                border-radius: 5px;
+                padding: 15px;
+                margin-bottom: 20px;
+                text-align: left;
+            }
+
+            .services__title h4 {
+                color: #333;
+                font-weight: 600;
+                font-size: 1.5rem;
+                margin: 0;
+            }
+
+            .services__sidebar {
+                background-color: #ffffff;
+                border: 1px solid #e9ecef;
+                border-radius: 5px;
+                padding: 20px;
+            }
+
+            .services__accordion .card {
+                border: 1px solid white;
+
+            }
+        </style>
+        
 <!-- Services Section Begin -->
 <section class="services-page spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 order-lg-2">
-                <div class="services__details">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="services__details__title">
-                                <span>Medical Services</span>
-                                <h3>General Consultation</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="services__details__widget">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <h3>$ 159.50</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="services__details__pic">
-                        <img src="/assets-site/img/services/services-details.jpg" alt="General consultation">
-                    </div>
-                    <div class="services__details__text">
-                        <p>Our general medical consultation service connects you with qualified, licensed doctors for
-                            expert medical advice, diagnosis, and treatment recommendations — all from the comfort of
-                            your home.</p>
-                        <p>Whether you’re experiencing symptoms, need a follow-up, or just want peace of mind, our
-                            consultations are designed to provide fast, confidential, and convenient access to
-                            healthcare professionals.</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="services__details__item__pic">
-                                <img src="/assets-site/img/services/sd-1.jpg" alt="Online consultation">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="services__details__item__pic">
-                                <img src="/assets-site/img/services/sd-2.jpg" alt="Doctor support">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="services__details__item__pic">
-                                <img src="/assets-site/img/services/sd-3.jpg" alt="Medical treatment">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="services__details__desc">
-                        <p>Every consultation is conducted securely via video or chat, depending on your preference. Our
-                            platform is built with privacy in mind, ensuring your health information stays protected.
-                            From common colds to ongoing conditions like hypertension or diabetes, we’re here to support
-                            your health journey.</p>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <ul class="services__details__feature">
-                                    <li><i class="fa fa-check-circle"></i> Consult with certified doctors online</li>
-                                    <li><i class="fa fa-check-circle"></i> Same-day appointments available</li>
-                                    <li><i class="fa fa-check-circle"></i> Prescriptions sent to your pharmacy</li>
-                                    <li><i class="fa fa-check-circle"></i> Follow-up and referral options</li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <ul class="services__details__feature">
-                                    <li><i class="fa fa-check-circle"></i> Confidential and secure sessions</li>
-                                    <li><i class="fa fa-check-circle"></i> Available 7 days a week</li>
-                                    <li><i class="fa fa-check-circle"></i> Mobile and desktop support</li>
-                                    <li><i class="fa fa-check-circle"></i> No long wait times</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <p>Book your consultation today and take the first step toward better health. Our dedicated team
-                            is ready to provide the guidance and care you need — whenever you need it.</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-4 order-lg-1">
+
+            <div class="col-lg-12 order-lg-1">
                 <div class="services__sidebar">
                     <div class="services__accordion">
                         <div class="services__title">
-                            <h4><img src="/assets-site/img/icons/services-icon.png" alt=""> All services</h4>
+                            <h4><img src="/assets-site/img/icons/services-icon.png" alt=""> Our services</h4>
                         </div>
                         <div class="accordion" id="accordionExample">
                             <!-- General Consultations -->
                             <div class="card">
-                                <div class="card-heading active">
-                                    <a data-toggle="collapse" data-target="#collapseOne">
-                                        General Consultations
-                                    </a>
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseOne" style="cursor: pointer;">
+                                    General Consultations
                                 </div>
-                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                <div id="collapseOne" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <ul>
                                             <li><a href="#">Adult General Consultation</a></li>
@@ -128,12 +80,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Mental Health -->
+
                             <div class="card">
-                                <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseTwo">
-                                        Mental Health
-                                    </a>
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseTwo" style="cursor: pointer;">
+                                    Mental Health
                                 </div>
                                 <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
@@ -147,12 +98,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Women's Health -->
+
                             <div class="card">
-                                <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseThree">
-                                        Women's Health
-                                    </a>
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseThree" style="cursor: pointer;">
+                                    Women's Health
                                 </div>
                                 <div id="collapseThree" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
@@ -166,12 +116,12 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Skin Care & Dermatology -->
                             <div class="card">
-                                <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseFour">
-                                        Dermatology
-                                    </a>
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseFour" style="cursor: pointer;">
+                                    Dermatology
                                 </div>
                                 <div id="collapseFour" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
@@ -187,10 +137,9 @@
                             </div>
                             <!-- Diagnostic Services -->
                             <div class="card">
-                                <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseFive">
-                                        Diagnostic Services
-                                    </a>
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseFive" style="cursor: pointer;">
+                                    Diagnostic Services
                                 </div>
                                 <div id="collapseFive" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
@@ -204,9 +153,199 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Cardiology -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseSix" style="cursor: pointer;">
+                                    Cardiology
+                                </div>
+                                <div id="collapseSix" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Heart Health Assessments</a></li>
+                                            <li><a href="#">Hypertension Management</a></li>
+                                            <li><a href="#">ECG/EKG Review</a></li>
+                                            <li><a href="#">Cholesterol Monitoring</a></li>
+                                            <li><a href="#">Post-Cardiac Event Follow-up</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pediatrics -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseSeven" style="cursor: pointer;">
+                                    Pediatrics
+                                </div>
+                                <div id="collapseSeven" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Newborn Checkups</a></li>
+                                            <li><a href="#">Vaccination Schedules</a></li>
+                                            <li><a href="#">Growth & Development Tracking</a></li>
+                                            <li><a href="#">Common Childhood Illnesses</a></li>
+                                            <li><a href="#">Nutritional Advice for Children</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Orthopedics -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseEight" style="cursor: pointer;">
+                                    Orthopedics
+                                </div>
+                                <div id="collapseEight" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Joint Pain Evaluation</a></li>
+                                            <li><a href="#">Back & Spine Consultations</a></li>
+                                            <li><a href="#">Fracture Management</a></li>
+                                            <li><a href="#">Arthritis Treatment</a></li>
+                                            <li><a href="#">Sports Injuries</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ENT (Ear, Nose, Throat) -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseNine" style="cursor: pointer;">
+                                    ENT (Ear, Nose & Throat)
+                                </div>
+                                <div id="collapseNine" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Sinusitis Treatment</a></li>
+                                            <li><a href="#">Ear Infections</a></li>
+                                            <li><a href="#">Throat Irritation</a></li>
+                                            <li><a href="#">Hearing Assessments</a></li>
+                                            <li><a href="#">Allergy-related ENT Issues</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gastroenterology -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseTen" style="cursor: pointer;">
+                                    Gastroenterology
+                                </div>
+                                <div id="collapseTen" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Acid Reflux & GERD</a></li>
+                                            <li><a href="#">IBS Management</a></li>
+                                            <li><a href="#">Liver Function Monitoring</a></li>
+                                            <li><a href="#">Constipation & Diarrhea</a></li>
+                                            <li><a href="#">Digestive Health Checkups</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Urology -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseEleven" style="cursor: pointer;">
+                                    Urology
+                                </div>
+                                <div id="collapseEleven" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Urinary Tract Infections</a></li>
+                                            <li><a href="#">Prostate Health</a></li>
+                                            <li><a href="#">Kidney Stone Management</a></li>
+                                            <li><a href="#">Bladder Issues</a></li>
+                                            <li><a href="#">Male Sexual Health</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Endocrinology -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseTwelve" style="cursor: pointer;">
+                                    Endocrinology
+                                </div>
+                                <div id="collapseTwelve" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Diabetes Management</a></li>
+                                            <li><a href="#">Thyroid Disorders</a></li>
+                                            <li><a href="#">Hormonal Imbalances</a></li>
+                                            <li><a href="#">Metabolic Syndrome</a></li>
+                                            <li><a href="#">Weight Management Support</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Neurology -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseThirteen" style="cursor: pointer;">
+                                    Neurology
+                                </div>
+                                <div id="collapseThirteen" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Migraine & Headache Treatment</a></li>
+                                            <li><a href="#">Seizure Disorders</a></li>
+                                            <li><a href="#">Neuropathy Evaluation</a></li>
+                                            <li><a href="#">Stroke Recovery Support</a></li>
+                                            <li><a href="#">Parkinson's Disease Care</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Immunizations -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseFourteen" style="cursor: pointer;">
+                                    Immunizations
+                                </div>
+                                <div id="collapseFourteen" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Routine Childhood Vaccinations</a></li>
+                                            <li><a href="#">Adult Booster Shots</a></li>
+                                            <li><a href="#">Travel Vaccines</a></li>
+                                            <li><a href="#">Flu Shots</a></li>
+                                            <li><a href="#">COVID-19 Vaccines</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Physical Therapy -->
+                            <div class="card">
+                                <div class="card-heading" style="color: gray" data-toggle="collapse"
+                                    data-target="#collapseFifteen" style="cursor: pointer;">
+                                    Physical Therapy
+                                </div>
+                                <div id="collapseFifteen" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Post-surgical Rehabilitation</a></li>
+                                            <li><a href="#">Chronic Pain Management</a></li>
+                                            <li><a href="#">Mobility & Strength Training</a></li>
+                                            <li><a href="#">Workplace Injury Recovery</a></li>
+                                            <li><a href="#">Balance & Fall Prevention</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                     <!-- Appointment Booking -->
                     <div class="services__appoinment">
                         <div class="services__title">
