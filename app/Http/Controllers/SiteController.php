@@ -62,4 +62,34 @@ class SiteController extends Controller
     {
         return view('Site.doctor-details-3');
     }
+
+    public function specificService1($serviceName)
+    {
+
+
+        $serviceImage = str_replace('-', ' ', $serviceName);
+        $serviceImage = ucwords($serviceImage);
+        $serviceImage = str_replace(' ', '', $serviceImage);
+        $serviceImage .= '.jpg';
+
+        $serviceName = str_replace('-', ' ', $serviceName);
+        $serviceName = ucwords($serviceName);
+
+        return view('Site.specific-service-1', compact('serviceName', 'serviceImage'));
+    }
+
+    public function specificServiceDoctors($serviceName)
+    {
+
+        $serviceImage = str_replace('-', ' ', $serviceName);
+        $serviceImage = ucwords($serviceImage);
+        $serviceImage = str_replace(' ', '', $serviceImage);
+        $serviceImage .= '.jpg';
+
+        $serviceName = str_replace('-', ' ', $serviceName);
+        $serviceName = ucwords($serviceName);
+
+        return view('Site.specific-service-doctors', compact('serviceName', 'serviceImage'));
+    }
+
 }

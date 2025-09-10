@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Highly Qualified Consultants</h2>
+                    <h2>{{$serviceName}}</h2>
                     <div class="breadcrumb__links">
                         <a href="{{ url('index') }}">Home</a>
-                        <span>Doctors</span>
+                        <span>Services</span>
                     </div>
                 </div>
             </div>
@@ -22,6 +22,12 @@
 <section class="pricing spad">
     <div class="container">
         <div class="row">
+
+            <div class="col-12 mb-5">
+                <h3 class="text-center" style="color:#007BFF;">Professional Doctors under {{ $serviceName }}
+                </h3>
+            </div>
+
             <!-- Doctor 1 -->
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="pricing__item">

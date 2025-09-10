@@ -61,5 +61,8 @@ Route::controller(AdminController::class)->group(function () {
         Route::get('/doctor-details-2', 'doctorDetails2')->name('blog-details-2');
         Route::get('/doctor-details-3', 'doctorDetails3')->name('blog-details-3');
 
+        Route::get('/specific-service/{serviceName}/', 'specificService1')->name('specific-service-1');
+        Route::get('/specific-service-doctors/{serviceName}/', 'specificServiceDoctors')->name('specific-service-doctors');
+
     });
 });

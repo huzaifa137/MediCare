@@ -39,7 +39,7 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__btn">
-            <a href="javascript:void();" class="primary-btn">Appointment</a>
+            <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
         </div>
         <ul class="offcanvas__widget">
             <li><i class="fa fa-phone"></i>{{Helper::app_info('phone')}}</li>
