@@ -65,8 +65,6 @@ class SiteController extends Controller
 
     public function specificService1($serviceName)
     {
-
-
         $serviceImage = str_replace('-', ' ', $serviceName);
         $serviceImage = ucwords($serviceImage);
         $serviceImage = str_replace(' ', '', $serviceImage);
