@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorsController;
+
 
 Route::controller(AdminController::class)->group(function () {
-
-
 
     Route::group(['middleware' => ['AdminAuth']], function () {
 
@@ -63,6 +63,33 @@ Route::controller(AdminController::class)->group(function () {
 
         Route::get('/specific-service/{serviceName}/', 'specificService1')->name('specific-service-1');
         Route::get('/specific-service-doctors/{serviceName}/', 'specificServiceDoctors')->name('specific-service-doctors');
+
+    });
+});
+
+
+Route::controller(DoctorsController::class)->group(function () {
+
+    Route::group(['middleware' => ['AdminAuth']], function () {
+
+    });
+
+
+    Route::group(['prefix' => '/doctors'], function () {
+
+        Route::get('register', 'registerDoctors')->name('doctors.register');
+        Route::get('manage-doctors', 'manageDoctors')->name('doctors.manage');
+
+        Route::post('store-new-doctor', 'storeNewDoctor')->name('doctors.store');
+
+    });
+
+    Route::group(['prefix' => '/patients'], function () {
+
+        Route::get('register', 'registerPatients')->name('patients.register');
+        Route::get('manage-patients', 'managePatients')->name('patients.manage');
+
+        Route::post('store-new-patient', 'storeNewPatient')->name('patients.store');
 
     });
 });

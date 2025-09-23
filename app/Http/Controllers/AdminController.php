@@ -37,7 +37,7 @@ class AdminController extends Controller
     }
 
     public function addAdmins()
-    {
+    {   
         $admins = User::where('user_role', 1)->get();
         return view('admin.all-admins', compact('admins'));
     }
@@ -93,7 +93,7 @@ class AdminController extends Controller
             'status' => 'required|in:0,8,9,10'
         ]);
 
-        $admin = User::where('user_role', 1)->findOrFail($id);
+        $admin = User::findOrFail($id);
         $admin->account_status = $validated['status'];
         $admin->save();
 
@@ -173,7 +173,15 @@ class AdminController extends Controller
                 'message' => 'Login successful',
                 'redirect_url' => $url1,
             ]);
+        } elseif ($userInfo->user_role == 2)  {
 
+            $request->session()->put('LoggedAdmin', $userInfo->id);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Login successful',
+                'redirect_url' => $url1,
+            ]);
         }
 
         // Fallback

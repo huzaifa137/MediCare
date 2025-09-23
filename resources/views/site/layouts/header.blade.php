@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="/assets-site/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/assets-site/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/assets-site/css/style.css" type="text/css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
 </head>
 
 <body>

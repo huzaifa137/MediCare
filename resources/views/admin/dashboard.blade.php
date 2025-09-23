@@ -27,7 +27,7 @@
                                 <div class="card h-100">
                                     <div class="card-header">
                                         <h3 class="card-title mb-2">Congratulations John!</h3>
-                                        <span class="d-block text-nowrap mb-4">Best seller of the month</span>
+                                        <span class="d-block text-nowrap mb-4">Best doctor of the month</span>
                                     </div>
                                     <div class="card-body">
                                         <div class="row align-items-end">
@@ -54,7 +54,7 @@
                             <div class="col-12 col-md-6 col-lg-4 mb-4">
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Visits of 2022</h5>
+                                        <h5 class="card-title mb-0">Visits of 2025</h5>
                                         <div class="dropdown">
                                             <button class="btn p-0" type="button" id="visitsOptions"
                                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,7 +86,7 @@
                                                     <span class="avatar-initial bg-label-success rounded-circle"><i
                                                             class="bx bx-purchase-tag fs-4"></i></span>
                                                 </div>
-                                                <span class="d-block text-nowrap">Purchase</span>
+                                                <span class="d-block text-nowrap">Doctors</span>
                                                 <h2 class="mb-0">65</h2>
                                             </div>
                                         </div>

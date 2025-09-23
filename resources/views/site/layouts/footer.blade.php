@@ -85,6 +85,7 @@
 <!-- Footer Section End -->
 
 <!-- Js Plugins -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script src="/assets-site/js/jquery-3.3.1.min.js"></script>
 <script src="/assets-site/js/bootstrap.min.js"></script>
 <script src="/assets-site/js/jquery.magnific-popup.min.js"></script>
@@ -94,6 +95,27 @@
 <script src="/assets-site/js/jquery.slicknav.js"></script>
 <script src="/assets-site/js/owl.carousel.min.js"></script>
 <script src="/assets-site/js/main.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2
+            },
+            992: {
+                slidesPerView: 3
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>
