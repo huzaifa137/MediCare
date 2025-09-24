@@ -31,24 +31,21 @@ class DoctorsController extends Controller
 
         $country = 'Uganda';
 
-        $mergedRequest = $request->merge([
+        $request->merge([
             'firstname' => $firstname,
             'lastname' => $lastname,
             'username' => $username,
             'phonenumber' => $request->input('phoneNumber'),
             'country' => $country,
-            'password_confirmation' => $request->input('confirmPassword'), // for Laravel's confirmed rule
         ]);
 
-        $validator = Validator::make($mergedRequest->all(), [
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'username' => 'required|string|unique:users,username|max:255',
+        // Validation rules
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|string|min:8|confirmed',
-            'phonenumber' => 'required|string|max:20',
             'country' => 'required|string|in:Kenya,Uganda,Tanzania,Rwanda,Burundi',
-            'gender' => 'nullable|in:male,female,other',
+            'gender' => 'required|in:male,female,other',
+            'phoneNumber' => 'required',
 
             'fullName' => 'required|string|max:255',
             'dob' => 'required|date',
@@ -65,6 +62,11 @@ class DoctorsController extends Controller
             'consultationFee' => 'required|numeric|min:0',
             'currency' => 'required|string|max:10',
             'maxPatients' => 'required|integer|min:1',
+
+            'govID' => 'required|mimes:pdf,jpg,jpeg,png|max:800',
+            'licenseDoc' => 'required|mimes:pdf,jpg,jpeg,png|max:800',
+            'degreeCerts' => 'required|mimes:pdf,jpg,jpeg,png|max:800',
+            'cvResume' => 'required|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -152,24 +154,42 @@ class DoctorsController extends Controller
     public function storeNewPatient(Request $request)
     {
 
+        $fullName = $request->input('fullName');
+
+        $username = strtolower($fullName);
+        $username = str_replace(' ', '.', $username);
+        $username = preg_replace('/[^a-z0-9._-]/', '', $username);
+        $username .= '.' . rand(1000, 9999);
+        if (User::where('username', $request->phonenumber)->exists()) {
+            $username .= rand(100, 999);
+        }
+
         $validator = Validator::make($request->all(), [
             'fullName' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phoneNumber' => 'required|string|max:25',
+            'phonenumber' => 'required|unique:users,phonenumber',
             'gender' => 'required|string',
             'dob' => 'required|date',
-            'password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
         ]);
+
+        if (Patient::where('phone_number', $request->phonenumber)->exists()) {
+            return response()->json([
+                'errors' => [
+                    'phonenumber' => ['Phone number already taken. Please choose another.']
+                ]
+            ], 422);
+        }
 
         if ($validator->fails()) {
             return response()->json([
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
 
         $user = User::create([
             'name' => $request->input('fullName'),
-            'username' => $request->input('fullName'),
+            'username' => $username,
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'user_role' => 3,
@@ -178,7 +198,7 @@ class DoctorsController extends Controller
         Patient::create([
             'user_id' => $user->id,
             'full_name' => $request->input('fullName'),
-            'phone_number' => $request->input('phoneNumber'),
+            'phone_number' => $request->input('phonenumber'),
             'email' => $request->input('email'),
             'gender' => $request->input('gender'),
             'dob' => $request->input('dob'),
@@ -202,7 +222,6 @@ class DoctorsController extends Controller
             'referred_by' => $request->input('referredBy'),
         ]);
 
-        // Prepare email data
         $emailData = [
             'fullName' => $request->input('fullName'),
             'email' => $request->input('email'),
@@ -215,8 +234,6 @@ class DoctorsController extends Controller
             'emergency_relationship' => $request->input('emergencyRelationship'),
             'title' => 'Welcome to ' . Helper::app_name(),
         ];
-
-        // Send the welcome email
 
         try {
             Mail::send('emails.patient-registered', ['data' => $emailData], function ($message) use ($emailData) {
@@ -241,13 +258,11 @@ class DoctorsController extends Controller
         $femaleCount = $patients->where('gender', 'female')->count();
         $otherCount = $totalPatients - ($maleCount + $femaleCount);
 
-        // Age calculation from DOB
         $averageAge = $patients->filter(fn($p) => $p->dob)
             ->map(function ($p) {
                 return \Carbon\Carbon::parse($p->dob)->age;
             })->average() ?? 0;
 
-        // Most common medical condition
         $commonCondition = collect($patients->pluck('medical_conditions')->filter())
             ->flatMap(function ($conditions) {
                 return explode(',', strtolower($conditions));
@@ -255,7 +270,6 @@ class DoctorsController extends Controller
 
         $withInsurance = $patients->whereNotNull('insurance_provider')->count();
 
-        // Consultation preference stats
         $consultationPrefs = [
             'online' => $patients->where('consultation_type', 'online')->count(),
             'offline' => $patients->where('consultation_type', 'offline')->count(),
@@ -284,20 +298,45 @@ class DoctorsController extends Controller
 
     public function storeNewPharmacy(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
+            // Basic info
             'pharmacyName' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phoneNumber' => 'required|string|max:50',
-            'licenseNumber' => 'required|string|max:100',
+            'email' => 'required|email|max:255|unique:pharmacies,email',
+            'phoneNumber' => 'required|string|max:50|unique:pharmacies,phone_number|unique:users,phonenumber',
+            'licenseNumber' => 'required|string|max:100|unique:pharmacies,license_number',
+            'regAuthority' => 'nullable|string|max:255',
+            'yearsInOp' => 'nullable|integer',
+            'dateRegistered' => 'nullable|date',
+
+            // Owner info
             'ownerName' => 'required|string|max:255',
+            'ownerGender' => 'nullable|string|max:50',
             'contactPersonPhone' => 'required|string|max:50',
+
+            // Address
             'physicalAddress' => 'required|string|max:255',
             'city' => 'required|string|max:100',
             'country' => 'required|string|max:100',
-            'loginUsername' => 'required|string|max:255|unique:users,username',
-            'loginEmail' => 'required|email|max:255|unique:users,email',
-            'password' => 'required',
+            'postalCode' => 'nullable|string|max:50',
+            'googleMapsLink' => 'nullable|string',
+            'latitude' => 'nullable|string|max:100',
+            'longitude' => 'nullable|string|max:100',
 
+            // Operating details
+            'openingDays' => 'nullable|string|max:255',
+            'openingHours' => 'nullable|string|max:255',
+            'emergencyHours' => 'nullable',
+            'onlineOrders' => 'nullable',
+            'deliveryAvailable' => 'nullable',
+            'serviceAreas' => 'nullable|string',
+
+            // Login info
+            'loginUsername' => 'required|string|max:255|unique:pharmacies,login_username|unique:users,username',
+            'loginEmail' => 'required|email|max:255|unique:pharmacies,login_email|unique:users,email',
+            'password' => 'required|string|min:6',
+
+            // Files
             'pharmacyLicense' => 'required|file|mimes:jpg,jpeg,png,pdf',
             'ownerId' => 'required|file|mimes:jpg,jpeg,png,pdf',
             'storeFrontPhoto' => 'nullable|file|mimes:jpg,jpeg,png',

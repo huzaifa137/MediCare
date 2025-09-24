@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->string('full_name');
-            $table->string('phone_number');
+            $table->string('phone_number')->unique();
             $table->string('email')->unique();
             $table->string('gender');
             $table->date('dob');
@@ -26,9 +26,9 @@ return new class extends Migration {
             $table->string('preferred_doctor_gender')->nullable();
             $table->string('preferred_language')->nullable();
             $table->string('best_time')->nullable();
-            $table->string('emergency_name');
-            $table->string('emergency_relationship');
-            $table->string('emergency_phone');
+            $table->string('emergency_name')->nullable();;
+            $table->string('emergency_relationship')->nullable();;
+            $table->string('emergency_phone')->nullable();
             $table->string('emergency_email')->nullable();
             $table->string('insurance_provider')->nullable();
             $table->string('insurance_id')->nullable();

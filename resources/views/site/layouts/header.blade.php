@@ -96,14 +96,7 @@
                                 <li><a href="{{ url('about') }}">About</a></li>
                                 <li><a href="{{ url('services') }}">Services</a></li>
                                 <li><a href="{{ url('doctors') }}">Doctors</a></li>
-                                {{-- <li><a href="javascript:void();">Resources</a>
-                                    <ul class="dropdown">
-                                        <li><a href="{{ url('pricing') }}">Pricing</a></li>
-                                        <li><a href="{{ url('doctors') }}">Doctors</a></li>
-                                        <li><a href="{{ url('blog-details') }}">Our Blogs</a></li>
-                                    </ul>
-                                </li> --}}
-                                {{-- <li><a href="{{ url('blog') }}">News</a></li> --}}
+                                <li><a href="{{ url('pharmacies') }}">Pharmacies</a></li>
                                 <li><a href=" {{ url('contact') }}">Contact</a></li>
                             </ul>
                         </nav>

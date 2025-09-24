@@ -286,25 +286,24 @@
                                         <label for="pharmacyName" class="form-label">Pharmacy Name <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="pharmacyName" name="pharmacyName"
-                                            placeholder="e.g., MediCare Pharmacy" required>
+                                            placeholder="e.g., MediCare Pharmacy">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="email" class="form-label">Email Address <span
+                                        <label for="email" class="form-label">Pharmacy Email Address <span
                                                 class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                            placeholder="pharmacy@example.com" required>
+                                            placeholder="pharmacy@example.com">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="phoneNumber" class="form-label">Phone Number <span
                                                 class="text-danger">*</span></label>
                                         <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                                            placeholder="(123) 456-7890" required>
+                                            placeholder="(123) 456-7890">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="licenseNumber" class="form-label">License Number <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="licenseNumber" name="licenseNumber"
-                                            required>
+                                        <input type="text" class="form-control" id="licenseNumber" name="licenseNumber">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="regAuthority" class="form-label">Registration Authority <span
@@ -325,8 +324,7 @@
                                     <div class="col-md-6">
                                         <label for="ownerName" class="form-label">Owner/Manager Full Name <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="ownerName" name="ownerName"
-                                            required>
+                                        <input type="text" class="form-control" id="ownerName" name="ownerName">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="ownerGender" class="form-label">Owner/Manager Gender</label>
@@ -341,7 +339,7 @@
                                         <label for="contactPersonPhone" class="form-label">Contact Person's Phone <span
                                                 class="text-danger">*</span></label>
                                         <input type="tel" class="form-control" id="contactPersonPhone"
-                                            name="contactPersonPhone" required>
+                                            name="contactPersonPhone">
                                     </div>
                                 </div>
 
@@ -354,17 +352,17 @@
                                         <label for="physicalAddress" class="form-label">Physical Address <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="physicalAddress"
-                                            name="physicalAddress" placeholder="e.g., 123 Main Street" required>
+                                            name="physicalAddress" placeholder="e.g., 123 Main Street">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="city" class="form-label">City / Town <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="city" name="city" required>
+                                        <input type="text" class="form-control" id="city" name="city">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="country" class="form-label">Country <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="country" name="country" required>
+                                        <input type="text" class="form-control" id="country" name="country">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="postalCode" class="form-label">Postal Code</label>
@@ -512,26 +510,23 @@
                                     <div class="col-md-6">
                                         <label for="loginUsername" class="form-label">Username <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="loginUsername" name="loginUsername"
-                                            required>
+                                        <input type="text" class="form-control" id="loginUsername" name="loginUsername">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="loginEmail" class="form-label">Email Address<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="loginEmail" name="loginEmail"
-                                            required>
+                                        <input type="text" class="form-control" id="loginEmail" name="loginEmail">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="password" class="form-label">Password <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                required>
-                                            <button class="btn btn-outline-secondary toggle-password" type="button"
+                                            <input type="password" class="form-control" id="password" name="password">
+                                            <button type="button" class="btn btn-outline-secondary toggle-password"
                                                 data-target="password">
-                                                <i class="bi bi-eye-slash" id="togglePasswordIcon-password"></i>
+                                                <i class="bi bi-eye"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -541,10 +536,10 @@
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input type="password" class="form-control" id="confirmPassword"
-                                                name="confirmPassword" required>
-                                            <button class="btn btn-outline-secondary toggle-password" type="button"
+                                                name="confirmPassword">
+                                            <button type="button" class="btn btn-outline-secondary toggle-password"
                                                 data-target="confirmPassword">
-                                                <i class="bi bi-eye-slash" id="togglePasswordIcon-confirmPassword"></i>
+                                                <i class="bi bi-eye"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -611,34 +606,6 @@
             });
         });
 
-        document.getElementById('pharmacyRegistrationForm').addEventListener('submit', function (e) {
-
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (password !== confirmPassword) {
-                alert("Passwords do not match. Please try again.");
-                e.preventDefault();
-            }
-        });
-
-        document.querySelectorAll('.toggle-password').forEach(button => {
-            button.addEventListener('click', () => {
-                const targetId = button.getAttribute('data-target');
-                const input = document.getElementById(targetId);
-                const icon = document.getElementById('togglePasswordIcon-' + targetId);
-
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.remove('bi-eye-slash');
-                    icon.classList.add('bi-eye');
-                } else {
-                    input.type = 'password';
-                    icon.classList.remove('bi-eye');
-                    icon.classList.add('bi-eye-slash');
-                }
-            });
-        });
     </script>
 
     <!-- SweetAlert2 -->
@@ -646,7 +613,7 @@
 
     <script>
         $(document).ready(function () {
-            // Set CSRF token for all AJAX requests
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -713,49 +680,52 @@
 
                         if (xhr.status === 422) {
                             let errors = xhr.responseJSON.errors;
-
-                            let fileFieldErrors = [];
+                            let allErrorsHtml = '';
 
                             Object.keys(errors).forEach(function (field) {
                                 let input = $(`[name="${field}"]`);
+                                let messages = errors[field];
 
-                                // Check if it's a file input
-                                const isFileInput = input.attr('type') === 'file';
+                                // Append to SweetAlert error list
+                                allErrorsHtml += `<p><strong>${field}:</strong> ${messages.join(', ')}</p>`;
 
-                                if (isFileInput) {
-                                    // Collect for SweetAlert
-                                    fileFieldErrors.push(`${errors[field][0]}`);
-
-                                    // Optional: Visual invalid marker (border or highlight)
-                                    input.closest('.custom-file-upload').addClass('border border-danger');
-                                } else {
-                                    // Traditional input error (text, email, etc.)
-                                    input.addClass('is-invalid');
-
-                                    let errorHtml = `<span class="invalid-feedback d-block" role="alert"><strong>${errors[field][0]}</strong></span>`;
-                                    input.after(errorHtml);
-                                }
+                                // Show inline errors too
+                                input.addClass('is-invalid');
+                                let errorHtml = `<span class="invalid-feedback d-block" role="alert"><strong>${messages[0]}</strong></span>`;
+                                input.after(errorHtml);
                             });
 
-                            if (fileFieldErrors.length > 0) {
-                                // Show SweetAlert for file input errors
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Document Upload Error',
-                                    html: fileFieldErrors.map(msg => `<p>${msg}</p>`).join(''),
-                                    confirmButtonText: 'Fix and Try Again'
-                                });
-                            }
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validation Errors',
+                                html: allErrorsHtml,
+                                confirmButtonText: 'Fix and Try Again'
+                            });
                         } else {
-                            // Fallback for 500 or CSRF issues
                             $('body').html(xhr.responseText);
                         }
                     }
-
                 });
             }
         });
     </script>
+
+    <script>
+        $(document).on('click', '.toggle-password', function () {
+            let targetId = $(this).data('target');
+            let input = $('#' + targetId);
+            let icon = $(this).find('i');
+
+            if (input.attr('type') === 'password') {
+                input.attr('type', 'text');
+                icon.removeClass('bi-eye').addClass('bi-eye-slash');
+            } else {
+                input.attr('type', 'password');
+                icon.removeClass('bi-eye-slash').addClass('bi-eye');
+            }
+        });
+    </script>
+
 
 </body>
 

@@ -222,7 +222,7 @@
                                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
 
-                                    <div class="photo-upload-section text-center mb-4">
+                                    {{-- <div class="photo-upload-section text-center mb-4">
                                         <img src="https://placehold.co/128x128/94a3b8/e2e8f0?text=Profile"
                                             alt="patient-avatar" class="d-block rounded-circle mx-auto mb-3"
                                             height="100" width="100" id="uploadedAvatar" />
@@ -233,7 +233,7 @@
                                                 accept="image/png, image/jpeg" />
                                         </label>
                                         <p class="form-text mt-2 mb-0">Allowed formats: JPG, PNG. Max size: 2MB</p>
-                                    </div>
+                                    </div> --}}
 
                                     <hr class="my-4" />
 
@@ -245,24 +245,24 @@
                                         <div class="col-md-6">
                                             <label for="fullName" class="form-label">Full Name</label>
                                             <input type="text" class="form-control" id="fullName" name="fullName"
-                                                placeholder="Jane Doe" required>
+                                                placeholder="Jane Doe">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="email" class="form-label">Email Address</label>
                                             <input type="email" class="form-control" id="email" name="email"
-                                                placeholder="patient@example.com" required>
+                                                placeholder="patient@example.com">
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                                                placeholder="(123) 456-7890" required>
+                                            <label for="phonenumber" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
+                                                placeholder="(123) 456-7890">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="gender" class="form-label">Gender</label>
-                                            <select class="form-select" id="gender" name="gender" required>
+                                            <select class="form-select" id="gender" name="gender">
                                                 <option value="">Select Gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
@@ -273,7 +273,7 @@
 
                                         <div class="col-md-6">
                                             <label for="dob" class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="dob" name="dob" required>
+                                            <input type="date" class="form-control" id="dob" name="dob">
                                         </div>
 
                                         <div class="col-md-6">
@@ -381,22 +381,21 @@
                                         <div class="col-md-6">
                                             <label for="emergencyName" class="form-label">Contact Person's Name</label>
                                             <input type="text" class="form-control" id="emergencyName"
-                                                name="emergencyName" required>
+                                                name="emergencyName">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="emergencyRelationship" class="form-label">Relationship to
                                                 Client</label>
                                             <input type="text" class="form-control" id="emergencyRelationship"
-                                                name="emergencyRelationship" placeholder="e.g., Mother, Spouse"
-                                                required>
+                                                name="emergencyRelationship" placeholder="e.g., Mother, Spouse">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="emergencyPhone" class="form-label">Contact Person's
                                                 Phone</label>
                                             <input type="tel" class="form-control" id="emergencyPhone"
-                                                name="emergencyPhone" required>
+                                                name="emergencyPhone">
                                         </div>
 
                                         <div class="col-md-6">
@@ -412,15 +411,48 @@
 
                                         <div class="col-md-6">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                required>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password">
+                                                <span class="input-group-text" id="togglePassword"
+                                                    style="cursor: pointer;">
+                                                    <i class="fas fa-eye" id="password-eye"></i>
+                                                </span>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirmPassword"
-                                                name="confirmPassword" required>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="confirmPassword"
+                                                    name="password_confirmation">
+                                                <span class="input-group-text" id="toggleConfirmPassword"
+                                                    style="cursor: pointer;">
+                                                    <i class="fas fa-eye" id="confirmPassword-eye"></i>
+                                                </span>
+                                            </div>
                                         </div>
+
+                                        <script>
+                                            // Toggle function
+                                            function setupPasswordToggle(toggleId, inputId, eyeId) {
+                                                const toggle = document.getElementById(toggleId);
+                                                const input = document.getElementById(inputId);
+                                                const eye = document.getElementById(eyeId);
+
+                                                toggle.addEventListener('click', () => {
+                                                    const isPassword = input.type === "password";
+                                                    input.type = isPassword ? "text" : "password";
+                                                    eye.classList.toggle("fa-eye");
+                                                    eye.classList.toggle("fa-eye-slash");
+                                                });
+                                            }
+
+                                            // Apply on both fields
+                                            setupPasswordToggle("togglePassword", "password", "password-eye");
+                                            setupPasswordToggle("toggleConfirmPassword", "confirmPassword", "confirmPassword-eye");
+                                        </script>
+
 
                                         <div class="col-12 mt-4">
                                             <h5 class="section-title">✨ Optional Information</h5>
@@ -490,12 +522,12 @@
     <script>
         $(document).ready(function () {
             $('#formPatientRegistration').on('submit', function (e) {
-                e.preventDefault(); // Prevent default form submission
+                e.preventDefault();
 
-                // Clear previous errors
+                // Clear previous error messages and invalid class
+                $('.is-invalid').removeClass('is-invalid');
                 $('.text-danger').text('');
 
-                // Show confirmation dialog before submitting
                 Swal.fire({
                     title: 'Confirm Submission',
                     text: 'Are you sure you want to submit this registration?',
@@ -505,7 +537,6 @@
                     cancelButtonText: 'Cancel',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Show loading spinner
                         Swal.fire({
                             title: 'Submitting...',
                             html: 'Please wait while we process the registration.',
@@ -516,14 +547,11 @@
                             }
                         });
 
-                        // Prepare form data
                         let formData = new FormData(this);
-
-                        // Add CSRF token manually
-                        formData.append('_token', '{{ csrf_token() }}');
+                        formData.append('_token', '{{ csrf_token() }}'); // Add CSRF token for security
 
                         $.ajax({
-                            url: "{{ route('patients.store') }}", // Replace with your actual route
+                            url: "{{ route('patients.store') }}", // Make sure the route is correct
                             method: "POST",
                             data: formData,
                             processData: false,
@@ -531,35 +559,55 @@
                             success: function (response) {
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'Registration Successful.',
+                                    text: response.success || 'Registration Successful.',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then(() => {
-                                    // Optional: redirect or reset form
-                                    window.location.href = response.redirect_url || "/dashboard";
+                                    window.location.href = response.redirect_url || "/dashboard"; // Redirect after success
                                 });
                             },
-                            // error: function (xhr) {
-                            //     if (xhr.status === 422) {
-                            //         Swal.close(); // Close the loading alert
-                            //         const errors = xhr.responseJSON.errors;
-                            //         // Loop through errors and show in span#fieldname-error
-                            //         $.each(errors, function (field, messages) {
-                            //             $(`#${field}-error`).text(messages[0]);
-                            //         });
-                            //     } else {
-                            //         // Show full error for debugging if needed
-                            //         $('body').html(xhr.responseText);
-                            //     }
-                            // }
-                            error: function (data) {
-                                $('body').html(data.responseText);
+                            error: function (xhr) {
+                                if (xhr.status === 422) {
+                                    Swal.close();
+
+                                    const errors = xhr.responseJSON.errors;
+                                    // Loop through errors and show in span#fieldname-error and highlight the fields
+                                    $.each(errors, function (field, messages) {
+                                        $(`#${field}`).addClass('is-invalid'); // Add Bootstrap's invalid class
+                                        $(`#${field}-error`).text(messages[0]); // Show the first error message (customize if you want all)
+                                    });
+
+                                    // Show SweetAlert with detailed error messages
+                                    let errorMessage = '';
+                                    $.each(errors, function (field, messages) {
+                                        errorMessage += `<strong>${field.charAt(0).toUpperCase() + field.slice(1)}</strong>: ${messages.join(', ')}<br>`;
+                                    });
+
+                                    Swal.fire({
+                                        title: 'Validation Errors',
+                                        html: errorMessage,
+                                        icon: 'error',
+                                        confirmButtonText: 'Close'
+                                    });
+                                } else {
+                                    // Handle unexpected error, e.g., server failure
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: 'An unexpected error occurred. Please try again later.',
+                                        icon: 'error',
+                                        confirmButtonText: 'Close'
+                                    });
+                                }
                             }
+                            // error: function (data) {
+                            //     $('body').html(data.responseText);
+                            // }
                         });
                     }
                 });
             });
         });
+
     </script>
 
 

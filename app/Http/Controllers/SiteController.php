@@ -63,6 +63,16 @@ class SiteController extends Controller
         return view('Site.doctor-details-3');
     }
 
+    public function pharmacies()
+    {
+        return view('Site.pharmacies');
+    }
+
+    public function pharmaciesProducts()
+    {
+        return view('Site.pharmacy-items');
+    }
+
     public function specificService1($serviceName)
     {
         $serviceImage = str_replace('-', ' ', $serviceName);

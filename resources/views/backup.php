@@ -52,6 +52,8 @@ error: function(data) {
 $('body').html(data.responseText);
 }
 
+$('body').html(xhr.responseText);
+
 document.addEventListener("DOMContentLoaded", function() {
 const form = document.getElementById("quizForm");
 form.addEventListener("submit", function(e) {
