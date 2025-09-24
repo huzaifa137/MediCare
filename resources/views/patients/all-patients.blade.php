@@ -20,140 +20,11 @@
                 <div class="content-wrapper">
                     <!-- Content -->
 
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row g-4 mb-4">
-                            <!-- Total Users -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Total Users</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['totalUsers'] }}</h4>
-                                                    <small class="text-success">(All roles)</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-primary rounded p-2">
-                                                <i class="bx bx-user bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Admins -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Admins</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['admins'] }}</h4>
-                                                    <small class="text-info">(System admins)</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-danger rounded p-2">
-                                                <i class="bx bx-shield-quarter bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Doctors -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Doctors</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['doctors'] }}</h4>
-                                                    <small class="text-success">Registered Doctors</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-success rounded p-2">
-                                                <i class="bx bx-user-circle bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pharmacies -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Pharmacies</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['pharmacies'] }}</h4>
-                                                    <small class="text-warning">Registered Pharmacies</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-warning rounded p-2">
-                                                <i class="bx bx-capsule bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Active Users -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Active Users</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['activeUsers'] }}</h4>
-                                                    <small class="text-success">Status: Active</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-success rounded p-2">
-                                                <i class="bx bx-check-circle bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pending Users -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Pending Users</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['pendingUsers'] }}</h4>
-                                                    <small class="text-danger">Awaiting Approval</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-secondary rounded p-2">
-                                                <i class="bx bx-timer bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    {{-- <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
                             <div class="col-12 mb-4">
                                 <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="mb-0">Manage Admins</h5>
-                                        <a href="{{ url('users/add-admin') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add Admin</a>
-                                    </div>
+                                    <h5 class="card-header">Manage Doctors</h5>
                                     <div class="table-responsive text-nowrap">
                                         <table class="table">
                                             <thead class="table-light">
@@ -168,63 +39,64 @@
                                             </thead>
                                             <tbody class="table-border-bottom-0">
                                                 @forelse ($admins as $key => $admin)
-                                                    <tr>
-                                                        <td style="width:1px;">{{ $key + 1}}</td>
-                                                        <td>{{ $admin->username }}</td>
-                                                        <td>{{ $admin->email }}</td>
-                                                        <td>{{ $admin->country }}</td>
+                                                <tr>
+                                                    <td style="width:1px;">{{ $key + 1}}</td>
+                                                    <td>{{ $admin->username }}</td>
+                                                    <td>{{ $admin->email }}</td>
+                                                    <td>{{ $admin->country }}</td>
 
-                                                        @php
-                                                            $statusMap = [
-                                                                0 => ['label' => 'Banned', 'class' => 'bg-label-danger'],
-                                                                8 => ['label' => 'Locked', 'class' => 'bg-label-dark'],
-                                                                9 => ['label' => 'Suspended', 'class' => 'bg-label-warning'],
-                                                                10 => ['label' => 'Active', 'class' => 'bg-label-success'],
-                                                            ];
+                                                    @php
+                                                    $statusMap = [
+                                                    0 => ['label' => 'Banned', 'class' => 'bg-label-danger'],
+                                                    8 => ['label' => 'Locked', 'class' => 'bg-label-dark'],
+                                                    9 => ['label' => 'Suspended', 'class' => 'bg-label-warning'],
+                                                    10 => ['label' => 'Active', 'class' => 'bg-label-success'],
+                                                    ];
 
-                                                            $status = $statusMap[$admin->account_status] ?? ['label' => 'Unknown', 'class' => 'bg-label-secondary'];
-                                                        @endphp
+                                                    $status = $statusMap[$admin->account_status] ?? ['label' =>
+                                                    'Unknown', 'class' => 'bg-label-secondary'];
+                                                    @endphp
 
-                                                        <td>
-                                                            <span
-                                                                class="badge {{ $status['class'] }}">{{ $status['label'] }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
+                                                    <td>
+                                                        <span class="badge {{ $status['class'] }}">{{ $status['label']
+                                                            }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button type="button"
+                                                                class="btn dropdown-toggle hide-arrow p-0"
+                                                                data-bs-toggle="dropdown">
+                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+
                                                                 <button type="button"
-                                                                    class="btn dropdown-toggle hide-arrow p-0"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                    class="dropdown-item change-status-btn"
+                                                                    data-id="{{ $admin->id }}"
+                                                                    data-status="{{ $admin->account_status }}">
+                                                                    <i class="bx bx-transfer me-1"></i> Change Status
                                                                 </button>
-                                                                <div class="dropdown-menu">
 
-                                                                    <button type="button"
-                                                                        class="dropdown-item change-status-btn"
-                                                                        data-id="{{ $admin->id }}"
-                                                                        data-status="{{ $admin->account_status }}">
-                                                                        <i class="bx bx-transfer me-1"></i> Change Status
-                                                                    </button>
+                                                                <button type="button"
+                                                                    class="dropdown-item edit-admin-btn"
+                                                                    data-id="{{ $admin->id }}">
+                                                                    <i class="bx bx-edit-alt me-1"></i> Edit
+                                                                </button>
 
-                                                                    <button type="button"
-                                                                        class="dropdown-item edit-admin-btn"
-                                                                        data-id="{{ $admin->id }}">
-                                                                        <i class="bx bx-edit-alt me-1"></i> Edit
-                                                                    </button>
+                                                                <button type="button"
+                                                                    class="dropdown-item delete-admin-btn"
+                                                                    data-id="{{ $admin->id }}">
+                                                                    <i class="bx bx-trash me-1"></i> Delete
+                                                                </button>
 
-                                                                    <button type="button"
-                                                                        class="dropdown-item delete-admin-btn"
-                                                                        data-id="{{ $admin->id }}">
-                                                                        <i class="bx bx-trash me-1"></i> Delete
-                                                                    </button>
-
-                                                                </div>
                                                             </div>
-                                                        </td>
-                                                    </tr>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                                 @empty
-                                                    <tr>
-                                                        <td colspan="7" class="text-center">No admins found.</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td colspan="7" class="text-center">No admins found.</td>
+                                                </tr>
                                                 @endforelse
                                             </tbody>
                                         </table>
@@ -363,7 +235,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                           <button type="button" class="btn btn-secondary"
+                                                            <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">
                                                                 <i class="bi bi-x-circle me-1"></i> Cancel
                                                             </button>
@@ -379,6 +251,180 @@
 
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4">Patient Management Dashboard</h4>
+
+                        <!-- Dashboard Metrics Cards -->
+                        <div class="row g-4 mb-4">
+
+                            <!-- Total Patients -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-user bx-lg mb-2 text-primary"></i>
+                                        <h5 class="card-title">{{ $metrics['totalPatients'] }}</h5>
+                                        <p class="card-text">Total Patients</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Male Patients -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-male bx-lg mb-2 text-info"></i>
+                                        <h5 class="card-title">{{ $metrics['maleCount'] }}</h5>
+                                        <p class="card-text">Male Patients</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Female Patients -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-female bx-lg mb-2 text-danger"></i>
+                                        <h5 class="card-title">{{ $metrics['femaleCount'] }}</h5>
+                                        <p class="card-text">Female Patients</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other/Unspecified Gender -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-question-mark bx-lg mb-2 text-secondary"></i>
+                                        <h5 class="card-title">{{ $metrics['otherCount'] }}</h5>
+                                        <p class="card-text">Other / Unspecified</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Average Age -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-cake bx-lg mb-2 text-warning"></i>
+                                        <h5 class="card-title">{{ $metrics['averageAge'] }} yrs</h5>
+                                        <p class="card-text">Average Age</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Most Common Condition -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-heart bx-lg mb-2 text-dark"></i>
+                                        <h5 class="card-title">{{ $metrics['commonCondition'] }}</h5>
+                                        <p class="card-text">Top Condition</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Patients with Insurance -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-shield-alt-2 bx-lg mb-2 text-success"></i>
+                                        <h5 class="card-title">{{ $metrics['withInsurance'] }}</h5>
+                                        <p class="card-text">With Insurance</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Online Consultations -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-laptop bx-lg mb-2 text-success"></i>
+                                        <h5 class="card-title">{{ $metrics['consultationPrefs']['online'] }}</h5>
+                                        <p class="card-text">Online Consultations</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Offline Consultations -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-clinic bx-lg mb-2 text-warning"></i>
+                                        <h5 class="card-title">{{ $metrics['consultationPrefs']['offline'] }}</h5>
+                                        <p class="card-text">Offline Consultations</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Both Consultations -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <i class="bx bx-transfer bx-lg mb-2 text-info"></i>
+                                        <h5 class="card-title">{{ $metrics['consultationPrefs']['both'] }}</h5>
+                                        <p class="card-text">Both Methods</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Patient Table -->
+                        <div class="card">
+                            <div class="card-body table-responsive">
+                                <h5 class="card-title mb-4">All Registered Patients</h5>
+
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email / Phone</th>
+                                            <th>Gender</th>
+                                            <th>DOB</th>
+                                            <th>Consultation</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($patients as $index => $patient)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $patient->full_name }}</td>
+                                                <td>
+                                                    {{ $patient->email }}<br>
+                                                    <small>{{ $patient->phone_number }}</small>
+                                                </td>
+                                                <td>{{ ucfirst($patient->gender) }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($patient->dob)->format('d M Y') }}</td>
+                                                <td>{{ ucfirst($patient->consultation_type) }}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-icon btn-info" title="View">
+                                                        <i class="bx bx-show"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-sm btn-icon btn-warning" title="Edit">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <form action="#" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-icon btn-danger"
+                                                            title="Delete">
+                                                            <i class="bx bx-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center">No patients registered yet.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -625,6 +671,9 @@
                                             });
                                         }
                                     }
+                                    // error: function (data) {
+                                    //     $('body').html(data.responseText);
+                                    // }
                                 });
                             });
                         });
@@ -666,7 +715,7 @@
                                             Swal.fire({
                                                 icon: 'success',
                                                 title: 'Deleted!',
-                                                text: 'Admin has been removed.',
+                                                text: 'Patient has been removed.',
                                                 customClass: {
                                                     popup: 'swal-zindex-fix'
                                                 }
@@ -738,15 +787,18 @@
                                     // Optionally reload the page or update the badge directly
                                     setTimeout(() => location.reload(), 1000);
                                 },
-                                error: function () {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error',
-                                        text: 'Could not update status',
-                                        customClass: {
-                                            popup: 'swal-zindex-fix'
-                                        }
-                                    });
+                                // error: function () {
+                                //     Swal.fire({
+                                //         icon: 'error',
+                                //         title: 'Error',
+                                //         text: 'Could not update status',
+                                //         customClass: {
+                                //             popup: 'swal-zindex-fix'
+                                //         }
+                                //     });
+                                // }
+                                error: function (data) {
+                                    $('body').html(data.responseText);
                                 }
                             });
                         });

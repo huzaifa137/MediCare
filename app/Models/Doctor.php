@@ -32,4 +32,9 @@ class Doctor extends Model
         'password',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }
+
 }

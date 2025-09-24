@@ -21,80 +21,23 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4">Pharmacy Management Dashboard</h4>
+
                         <div class="row g-4 mb-4">
-                            <!-- Total Users -->
+
+                            <!-- Total Pharmacies -->
                             <div class="col-sm-6 col-xl-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="content-left">
-                                                <span>Total Users</span>
+                                                <span>Total Pharmacies</span>
                                                 <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['totalUsers'] }}</h4>
-                                                    <small class="text-success">(All roles)</small>
+                                                    <h4 class="me-2 mb-0">{{ $metrics['totalPharmacies'] }}</h4>
+                                                    <small class="text-success">Registered</small>
                                                 </div>
                                             </div>
                                             <span class="badge bg-label-primary rounded p-2">
-                                                <i class="bx bx-user bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Admins -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Admins</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['admins'] }}</h4>
-                                                    <small class="text-info">(System admins)</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-danger rounded p-2">
-                                                <i class="bx bx-shield-quarter bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Doctors -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Doctors</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['doctors'] }}</h4>
-                                                    <small class="text-success">Registered Doctors</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-success rounded p-2">
-                                                <i class="bx bx-user-circle bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pharmacies -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Pharmacies</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['pharmacies'] }}</h4>
-                                                    <small class="text-warning">Registered Pharmacies</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-warning rounded p-2">
                                                 <i class="bx bx-capsule bx-sm"></i>
                                             </span>
                                         </div>
@@ -102,40 +45,140 @@
                                 </div>
                             </div>
 
-                            <!-- Active Users -->
+                            <!-- With Delivery -->
                             <div class="col-sm-6 col-xl-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="content-left">
-                                                <span>Active Users</span>
+                                                <span>Delivery Available</span>
                                                 <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['activeUsers'] }}</h4>
-                                                    <small class="text-success">Status: Active</small>
+                                                    <h4 class="me-2 mb-0">{{ $metrics['withDelivery'] }}</h4>
+                                                    <small class="text-info">Can deliver</small>
                                                 </div>
                                             </div>
                                             <span class="badge bg-label-success rounded p-2">
-                                                <i class="bx bx-check-circle bx-sm"></i>
+                                                <i class="bx bx-car bx-sm"></i>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Pending Users -->
+                            <!-- Online Orders -->
                             <div class="col-sm-6 col-xl-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="content-left">
-                                                <span>Pending Users</span>
+                                                <span>Online Orders</span>
                                                 <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['pendingUsers'] }}</h4>
-                                                    <small class="text-danger">Awaiting Approval</small>
+                                                    <h4 class="me-2 mb-0">{{ $metrics['onlineOrders'] }}</h4>
+                                                    <small class="text-primary">Enabled</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-primary rounded p-2">
+                                                <i class="bx bx-shopping-bag bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Emergency Hours -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Emergency Services</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['emergencyHours'] }}</h4>
+                                                    <small class="text-danger">24/7 Available</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-danger rounded p-2">
+                                                <i class="bx bx-first-aid bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cities -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Locations (Cities)</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['uniqueCities'] }}</h4>
+                                                    <small class="text-secondary">City spread</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-warning rounded p-2">
+                                                <i class="bx bx-map bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Countries -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Countries</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['uniqueCountries'] }}</h4>
+                                                    <small class="text-info">Country spread</small>
                                                 </div>
                                             </div>
                                             <span class="badge bg-label-secondary rounded p-2">
-                                                <i class="bx bx-timer bx-sm"></i>
+                                                <i class="bx bx-flag bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Avg Years in Operation -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Avg. Years in Operation</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['avgYearsInOperation'] }}</h4>
+                                                    <small class="text-success">Experience</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-info rounded p-2">
+                                                <i class="bx bx-time bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Most Recent Pharmacy -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Newest Pharmacy</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['latestRegistered'] }}</h4>
+                                                    <small class="text-primary">Recently added</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-dark rounded p-2">
+                                                <i class="bx bx-plus bx-sm"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -143,242 +186,59 @@
                             </div>
 
                         </div>
-                    </div>
 
+                        <!-- Pharmacy Table -->
+                        <div class="card">
+                            <div class="card-body table-responsive">
+                                <h5 class="card-title mb-4">All Registered Pharmacies</h5>
 
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="mb-0">Manage Admins</h5>
-                                        <a href="{{ url('users/add-admin') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add Admin</a>
-                                    </div>
-                                    <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Username</th>
-                                                    <th>Email</th>
-                                                    <th>Country</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-border-bottom-0">
-                                                @forelse ($admins as $key => $admin)
-                                                    <tr>
-                                                        <td style="width:1px;">{{ $key + 1}}</td>
-                                                        <td>{{ $admin->username }}</td>
-                                                        <td>{{ $admin->email }}</td>
-                                                        <td>{{ $admin->country }}</td>
-
-                                                        @php
-                                                            $statusMap = [
-                                                                0 => ['label' => 'Banned', 'class' => 'bg-label-danger'],
-                                                                8 => ['label' => 'Locked', 'class' => 'bg-label-dark'],
-                                                                9 => ['label' => 'Suspended', 'class' => 'bg-label-warning'],
-                                                                10 => ['label' => 'Active', 'class' => 'bg-label-success'],
-                                                            ];
-
-                                                            $status = $statusMap[$admin->account_status] ?? ['label' => 'Unknown', 'class' => 'bg-label-secondary'];
-                                                        @endphp
-
-                                                        <td>
-                                                            <span
-                                                                class="badge {{ $status['class'] }}">{{ $status['label'] }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button type="button"
-                                                                    class="btn dropdown-toggle hide-arrow p-0"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-
-                                                                    <button type="button"
-                                                                        class="dropdown-item change-status-btn"
-                                                                        data-id="{{ $admin->id }}"
-                                                                        data-status="{{ $admin->account_status }}">
-                                                                        <i class="bx bx-transfer me-1"></i> Change Status
-                                                                    </button>
-
-                                                                    <button type="button"
-                                                                        class="dropdown-item edit-admin-btn"
-                                                                        data-id="{{ $admin->id }}">
-                                                                        <i class="bx bx-edit-alt me-1"></i> Edit
-                                                                    </button>
-
-                                                                    <button type="button"
-                                                                        class="dropdown-item delete-admin-btn"
-                                                                        data-id="{{ $admin->id }}">
-                                                                        <i class="bx bx-trash me-1"></i> Delete
-                                                                    </button>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="7" class="text-center">No admins found.</td>
-                                                    </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table>
-
-
-                                        <div class="modal fade" id="editAdminModal" tabindex="-1"
-                                            aria-labelledby="editAdminModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <form id="editAdminForm">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Pharmacy Name</th>
+                                            <th>Owner</th>
+                                            <th>Contact</th>
+                                            <th>City</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($pharmacies as $index => $pharmacy)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $pharmacy->pharmacy_name }}</td>
+                                                <td>{{ $pharmacy->owner_name }} ({{ ucfirst($pharmacy->owner_gender) }})
+                                                </td>
+                                                <td>
+                                                    {{ $pharmacy->email }}<br>
+                                                    <small>{{ $pharmacy->phone_number }}</small>
+                                                </td>
+                                                <td>{{ $pharmacy->city }}, {{ $pharmacy->country }}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-icon btn-info" title="View">
+                                                        <i class="bx bx-show"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-sm btn-icon btn-warning" title="Edit">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <form action="#" method="POST" class="d-inline">
                                                         @csrf
-                                                        @method('PUT')
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="editAdminModalLabel">Edit Admin
-                                                            </h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <!-- Two-column layout replicated -->
-                                                            <div class="row">
-                                                                <!-- Column 1 -->
-                                                                <div class="col-md-6">
-                                                                    <input type="hidden" id="edit_admin_id">
-                                                                    <div class="mb-3">
-                                                                        <label>First Name *</label>
-                                                                        <input type="text" name="firstname"
-                                                                            id="edit_firstname" class="form-control"
-                                                                            required>
-                                                                        <small class="text-danger"
-                                                                            id="edit_firstname_error"></small>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label>Last Name *</label>
-                                                                        <input type="text" name="lastname"
-                                                                            id="edit_lastname" class="form-control"
-                                                                            required>
-                                                                        <small class="text-danger"
-                                                                            id="edit_lastname_error"></small>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label>Username *</label>
-                                                                        <input type="text" name="username"
-                                                                            id="edit_username" class="form-control"
-                                                                            required>
-                                                                        <small class="text-danger"
-                                                                            id="edit_username_error"></small>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label>Email *</label>
-                                                                        <input type="email" name="email" id="edit_email"
-                                                                            class="form-control" required>
-                                                                        <small class="text-danger"
-                                                                            id="edit_email_error"></small>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Column 2 -->
-                                                                <div class="col-md-6">
-                                                                    <div class="mb-3">
-                                                                        <label>Phone Number *</label>
-                                                                        <input type="tel" name="phonenumber"
-                                                                            id="edit_phonenumber" class="form-control"
-                                                                            required>
-                                                                        <small class="text-danger"
-                                                                            id="edit_phonenumber_error"></small>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label>Country *</label>
-                                                                        <select name="country" id="edit_country"
-                                                                            class="form-control" required>
-                                                                            <option value="">-- Select Country --
-                                                                            </option>
-                                                                            <option>Kenya</option>
-                                                                            <option>Uganda</option>
-                                                                            <option>Tanzania</option>
-                                                                            <option>Rwanda</option>
-                                                                            <option>Burundi</option>
-                                                                        </select>
-                                                                        <small class="text-danger"
-                                                                            id="edit_country_error"></small>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label>Gender</label>
-                                                                        <select name="gender" id="edit_gender"
-                                                                            class="form-control">
-                                                                            <option value="">-- Select Gender --
-                                                                            </option>
-                                                                            <option value="male">Male</option>
-                                                                            <option value="female">Female</option>
-                                                                            <option value="other">Other</option>
-                                                                        </select>
-                                                                        <small class="text-danger"
-                                                                            id="edit_gender_error"></small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bi bi-x-circle me-1"></i> Cancel
-                                                            </button>
-
-                                                            <button type="submit" class="btn btn-primary">
-                                                                <i class="bi bi-save me-1"></i> Save Changes
-                                                            </button>
-
-                                                        </div>
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-icon btn-danger"
+                                                            title="Delete">
+                                                            <i class="bx bx-trash"></i>
+                                                        </button>
                                                     </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Change Status Modal -->
-                                        <div class="modal fade" id="changeStatusModal" tabindex="-1"
-                                            aria-labelledby="changeStatusModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <form id="change_status_form">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Change Admin Status</h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <input type="hidden" id="status_admin_id">
-                                                            <div class="mb-3">
-                                                                <label for="new_status" class="form-label">Select New
-                                                                    Status</label>
-                                                                <select id="new_status" class="form-select" required>
-                                                                    <option value="10">Active</option>
-                                                                    <option value="0">Banned</option>
-                                                                    <option value="8">Locked</option>
-                                                                    <option value="9">Suspended</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                           <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="bi bi-x-circle me-1"></i> Cancel
-                                                            </button>
-
-                                                            <button type="submit" class="btn btn-primary">
-                                                                <i class="bi bi-check2-circle me-1"></i> Update Status
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center">No pharmacies registered yet.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -589,7 +449,7 @@
                                         Swal.fire({
                                             icon: 'success',
                                             title: 'Updated!',
-                                            text: 'Admin has been updated successfully.',
+                                            text: 'Pharmacy has been updated successfully.',
                                             timer: 2000,
                                             showConfirmButton: false
                                         });
@@ -625,6 +485,9 @@
                                             });
                                         }
                                     }
+                                    // error: function (data) {
+                                    //     $('body').html(data.responseText);
+                                    // }
                                 });
                             });
                         });
@@ -738,15 +601,18 @@
                                     // Optionally reload the page or update the badge directly
                                     setTimeout(() => location.reload(), 1000);
                                 },
-                                error: function () {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error',
-                                        text: 'Could not update status',
-                                        customClass: {
-                                            popup: 'swal-zindex-fix'
-                                        }
-                                    });
+                                // error: function () {
+                                //     Swal.fire({
+                                //         icon: 'error',
+                                //         title: 'Error',
+                                //         text: 'Could not update status',
+                                //         customClass: {
+                                //             popup: 'swal-zindex-fix'
+                                //         }
+                                //     });
+                                // }
+                                error: function (data) {
+                                    $('body').html(data.responseText);
                                 }
                             });
                         });

@@ -1102,10 +1102,16 @@
                 Swal.fire({
                   icon: 'success',
                   title: 'Doctor Registered!',
-                  text: 'The doctor has been registered successfully.',
+                  text: response.message || 'The doctor has been registered successfully.',
                   confirmButtonText: 'OK'
+                }).then(() => {
+                  // Redirect if URL provided
+                  if (response.redirect_url) {
+                    window.location.href = response.redirect_url;
+                  } else {
+                    $('#formDoctorRegistration')[0].reset(); // fallback: just reset
+                  }
                 });
-                $('#formDoctorRegistration')[0].reset();
               },
               error: function (data) {
                 Swal.fire({

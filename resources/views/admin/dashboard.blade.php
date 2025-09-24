@@ -21,566 +21,462 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row">
-                            <!-- Gamification Card -->
-                            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h3 class="card-title mb-2">Congratulations John!</h3>
-                                        <span class="d-block text-nowrap mb-4">Best doctor of the month</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row align-items-end">
-                                            <div class="col-6">
-                                                <h1 class="display-6 text-primary pt-4 pb-1 mb-2">$89k</h1>
-                                                <small class="d-block mb-3">You have done 57.6% <br />more sales
-                                                    today.</small>
+                        <h4 class="fw-bold py-3 mb-4">Admin Dashboard</h4>
 
-                                                <a href="javascript:;" class="btn btn-sm btn-primary">View sales</a>
-                                            </div>
-                                            <div class="col-6">
-                                                <img src="../../assets/img/illustrations/prize-light.png" width="140"
-                                                    height="150" class="rounded-start" alt="View Sales"
-                                                    data-app-light-img="illustrations/prize-light.png"
-                                                    data-app-dark-img="illustrations/prize-dark.png" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ Gamification Card -->
+                        <div class="row g-4 mb-4">
 
-                            <!-- Multi Radial Chart -->
-                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <!-- Overall User Stats -->
+                            <div class="col-sm-6 col-xl-3">
                                 <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Visits of 2025</h5>
-                                        <div class="dropdown">
-                                            <button class="btn p-0" type="button" id="visitsOptions"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="visitsOptions">
-                                                <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="card-body">
-                                        <div id="visitsRadialChart"></div>
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Total Users</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['totalUsers'] }}</h4>
+                                                    <small class="text-success">(All roles)</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-primary rounded p-2">
+                                                <i class="bx bx-user bx-sm"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--/ Multi Radial Chart -->
 
-                            <!-- Statistics cards & Revenue Growth Chart -->
-                            <div class="col-12 col-lg-4">
-                                <div class="row">
-                                    <!-- Statistics Cards -->
-                                    <div class="col-6 col-md-3 col-lg-6 mb-4">
-                                        <div class="card h-100">
-                                            <div class="card-body text-center">
-                                                <div class="avatar mx-auto mb-2">
-                                                    <span class="avatar-initial bg-label-success rounded-circle"><i
-                                                            class="bx bx-purchase-tag fs-4"></i></span>
-                                                </div>
-                                                <span class="d-block text-nowrap">Doctors</span>
-                                                <h2 class="mb-0">65</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-3 col-lg-6 mb-4">
-                                        <div class="card h-100">
-                                            <div class="card-body text-center">
-                                                <div class="avatar mx-auto mb-2">
-                                                    <span class="avatar-initial bg-label-danger rounded-circle"><i
-                                                            class="bx bx-cart fs-4"></i></span>
-                                                </div>
-                                                <span class="d-block text-nowrap">Order</span>
-                                                <h2 class="mb-0">40</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/ Statistics Cards -->
-                                    <!-- Revenue Growth Chart -->
-                                    <div class="col-12 col-md-6 col-lg-12 mb-4">
-                                        <div class="card">
-                                            <div
-                                                class="card-header d-flex justify-content-between align-items-center pb-0">
-                                                <h5 class="card-title mb-0">Revenue Growth</h5>
-                                                <span>$25,980</span>
-                                            </div>
-                                            <div class="card-body pb-0">
-                                                <div id="revenueGrowthChart"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/ Revenue Growth Chart -->
-                                </div>
-                            </div>
-                            <!--/ Statistics cards & Revenue Growth Chart -->
-
-                            <!-- Weekly Order Summary -->
-                            <div class="col-12 col-xl-8 mb-4">
+                            <div class="col-sm-6 col-xl-3">
                                 <div class="card">
-                                    <div class="row row-bordered m-0">
-                                        <!-- Order Summary -->
-                                        <div class="col-12 col-md-8 px-0">
-                                            <div class="card-header d-flex justify-content-between align-items-center">
-                                                <h5 class="card-title mb-0">Weekly Order Summary</h5>
-                                                <div class="dropdown">
-                                                    <button class="btn p-0" type="button" id="orderSummaryOptions"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end"
-                                                        aria-labelledby="orderSummaryOptions">
-                                                        <a class="dropdown-item" href="javascript:void(0);">Select
-                                                            All</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Admins</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['adminsCount'] }}</h4>
+                                                    <small class="text-info">System Admins</small>
                                                 </div>
                                             </div>
-                                            <div class="card-body p-0">
-                                                <div id="orderSummaryChart"></div>
-                                            </div>
-                                        </div>
-                                        <!-- Sales History -->
-                                        <div class="col-12 col-md-4 px-0">
-                                            <div class="card-header d-flex justify-content-between align-items-center">
-                                                <h5 class="card-title mb-0">Sales Overview</h5>
-                                                <div class="dropdown">
-                                                    <button class="btn p-0" type="button" id="salesOverviewOptions"
-                                                        data-bs-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end"
-                                                        aria-labelledby="salesOverviewOptions">
-                                                        <a class="dropdown-item" href="javascript:void(0);">Select
-                                                            All</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h6 class="mt-1">Last Week</h6>
-                                                <p class="mb-4">Performance 45% 🤩 better compare to last month</p>
-                                                <ul class="list-unstyled pt-0 m-0">
-                                                    <li class="mb-4">
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="avatar avatar-sm flex-shrink-0 me-2">
-                                                                <span class="avatar-initial bg-label-primary rounded"><i
-                                                                        class="bx bx-trending-up"></i></span>
-                                                            </div>
-                                                            <div>
-                                                                <p class="lh-1 text-muted text-nowrap mb-0">Earnings
-                                                                    This Month</p>
-                                                                <small class="fw-semibold text-nowrap">$84,789</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-primary" style="width: 75%"
-                                                                role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="avatar avatar-sm flex-shrink-0 me-2">
-                                                                <span class="avatar-initial bg-label-success rounded"><i
-                                                                        class="bx bx-dollar"></i></span>
-                                                            </div>
-                                                            <div>
-                                                                <p class="lh-1 text-muted text-nowrap mb-0">Average
-                                                                    Daily Sales</p>
-                                                                <small class="fw-semibold text-nowrap">$12,398</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 75%"
-                                                                role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            <span class="badge bg-label-secondary rounded p-2">
+                                                <i class="bx bx-shield-quarter bx-sm"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--/ Weekly Order Summary -->
 
-                            <!-- Latest Update -->
-                            <div class="col-md-6 col-lg-6 col-xl-4 col-xl-4 mb-4">
+                            <div class="col-sm-6 col-xl-3">
                                 <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-items-center mb-3">
-                                        <h5 class="card-title mb-0">Latest Update</h5>
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                                                type="button" id="orederStatistics" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                2021
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="orederStatistics">
-                                                <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">2022</a>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Doctors</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['doctorsCount'] }}</h4>
+                                                    <small class="text-success">Registered Doctors</small>
+                                                </div>
                                             </div>
+                                            <span class="badge bg-label-success rounded p-2">
+                                                <i class="bx bx-user-circle bx-sm"></i>
+                                            </span>
                                         </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="p-0 m-0">
-                                            <li class="d-flex mb-4">
-                                                <div class="avatar avatar-sm flex-shrink-0 me-3">
-                                                    <span class="avatar-initial bg-label-primary rounded-circle"><i
-                                                            class="bx bx-cube"></i></span>
-                                                </div>
-                                                <div
-                                                    class="gap-2 d-flex flex-wrap justify-content-between align-items-center w-100">
-                                                    <div class="me-2">
-                                                        <p class="lh-1 mb-0">Total Products</p>
-                                                        <small class="text-muted">2k New Products</small>
-                                                    </div>
-                                                    <div class="item-progress">10k</div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex mb-4">
-                                                <div class="avatar avatar-sm flex-shrink-0 me-3">
-                                                    <span class="avatar-initial bg-label-info rounded-circle"><i
-                                                            class="bx bx-pie-chart-alt"></i></span>
-                                                </div>
-                                                <div
-                                                    class="gap-2 d-flex flex-wrap justify-content-between align-items-center w-100">
-                                                    <div class="me-2">
-                                                        <p class="lh-1 mb-0">Total Sales</p>
-                                                        <small class="text-muted">39k New Sales</small>
-                                                    </div>
-                                                    <div class="item-progress">26M</div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex mb-4">
-                                                <div class="avatar avatar-sm flex-shrink-0 me-3">
-                                                    <span class="avatar-initial bg-label-danger rounded-circle"><i
-                                                            class="bx bx-credit-card"></i></span>
-                                                </div>
-                                                <div
-                                                    class="gap-2 d-flex flex-wrap justify-content-between align-items-center w-100">
-                                                    <div class="me-2">
-                                                        <p class="lh-1 mb-0">Total Revenue</p>
-                                                        <small class="text-muted">43k New Revenue</small>
-                                                    </div>
-                                                    <div class="item-progress">15M</div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex">
-                                                <div class="avatar avatar-sm flex-shrink-0 me-3">
-                                                    <span class="avatar-initial bg-label-success rounded-circle"><i
-                                                            class="bx bx-dollar"></i></span>
-                                                </div>
-                                                <div
-                                                    class="gap-2 d-flex flex-wrap justify-content-between align-items-center w-100">
-                                                    <div class="me-2">
-                                                        <p class="lh-1 mb-0">Total Cost</p>
-                                                        <small class="text-muted">Total Expenses</small>
-                                                    </div>
-                                                    <div class="item-progress">2B</div>
-                                                </div>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!--/ Latest Update -->
 
-                            <!-- All Users -->
-                            <div class="col-md-6 col-lg-6 col-xl-4 mb-4 mb-xl-0">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-2">All Users</h5>
-                                        <h1 class="display-6 fw-normal mb-0">8,634,820</h1>
-                                    </div>
-                                    <div class="card-body">
-                                        <span class="d-block mb-2">Current Activity</span>
-                                        <div class="progress progress-stacked mb-3 mb-xl-5" style="height: 8px">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 30%"
-                                                aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 15%"
-                                                aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 10%"
-                                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 40%"
-                                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 15%"
-                                                aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <ul class="p-0 m-0">
-                                            <li class="d-flex justify-content-between mb-3">
-                                                <div class="lh-1 d-flex align-items-center me-3">
-                                                    <span class="badge badge-dot bg-success me-2"></span> USA
-                                                </div>
-                                                <div class="gap-3 d-flex">
-                                                    <span>29.5k</span>
-                                                    <span class="fw-semibold">56%</span>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex justify-content-between mb-3">
-                                                <div class="lh-1 d-flex align-items-center me-3">
-                                                    <span class="badge badge-dot bg-danger me-2"></span> France
-                                                </div>
-                                                <div class="gap-3 d-flex">
-                                                    <span>25.7k</span>
-                                                    <span class="fw-semibold">26%</span>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex justify-content-between mb-3">
-                                                <div class="lh-1 d-flex align-items-center me-3">
-                                                    <span class="badge badge-dot bg-info me-2"></span> Italy
-                                                </div>
-                                                <div class="gap-3 d-flex">
-                                                    <span>11.5k</span>
-                                                    <span class="fw-semibold">34%</span>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex justify-content-between mb-3">
-                                                <div class="lh-1 d-flex align-items-center me-3">
-                                                    <span class="badge badge-dot bg-primary me-2"></span> China
-                                                </div>
-                                                <div class="gap-3 d-flex">
-                                                    <span>48.5k</span>
-                                                    <span class="fw-semibold">45%</span>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex justify-content-between mb-1">
-                                                <div class="lh-1 d-flex align-items-center me-3">
-                                                    <span class="badge badge-dot bg-warning me-2"></span> India
-                                                </div>
-                                                <div class="gap-3 d-flex">
-                                                    <span>22.1k</span>
-                                                    <span class="fw-semibold">7%</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ All Users -->
-
-                            <!-- Marketing Campaigns -->
-                            <div class="col-xl-8">
+                            <div class="col-sm-6 col-xl-3">
                                 <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Marketing Campaigns</h5>
-                                        <div class="dropdown">
-                                            <button class="btn p-0" type="button" id="marketingOptions"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="marketingOptions">
-                                                <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="card-body">
-                                        <div class="gap-3 d-flex flex-wrap justify-content-between align-items-center">
-                                            <div
-                                                class="align-content-center gap-4 d-flex flex-wrap justify-content-between">
-                                                <div class="gap-2 d-flex align-items-center">
-                                                    <div id="marketingCampaignChart1"></div>
-                                                    <div>
-                                                        <div class="d-flex align-items-center">
-                                                            <h6 class="me-2 mb-0">25,768</h6>
-                                                            <span class="text-success">(+16.2%)</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="badge badge-dot bg-success me-2"></span> Jan
-                                                            12,2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="gap-2 d-flex align-items-center">
-                                                    <div id="marketingCampaignChart2"></div>
-                                                    <div>
-                                                        <div class="d-flex align-items-center">
-                                                            <h6 class="me-2 mb-0">5,352</h6>
-                                                            <span class="text-danger">(-4.9%)</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="badge badge-dot bg-danger me-2"></span> Jan
-                                                            12,2022
-                                                        </div>
-                                                    </div>
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Patients</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['patientsCount'] }}</h4>
+                                                    <small class="text-warning">Registered Patients</small>
                                                 </div>
                                             </div>
-                                            <a href="javascript:;" class="btn btn-sm btn-primary" type="button">View
-                                                Report</a>
+                                            <span class="badge bg-label-warning rounded p-2">
+                                                <i class="bx bx-user bx-sm"></i>
+                                            </span>
                                         </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table border-top">
-                                            <thead>
-                                                <tr>
-                                                    <th>Campaign</th>
-                                                    <th>Growth</th>
-                                                    <th>Charges</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-border-bottom-0">
-                                                <tr>
-                                                    <td class="text-nowrap">
-                                                        <img src="../../assets/img/icons/brands/fastrack.png"
-                                                            class="me-3" width="22" alt="Fastrack" />Fastrack Watches
-                                                    </td>
-                                                    <td class="text-nowrap"><i
-                                                            class="bx bx-trending-up text-success me-2"></i>28.5%</td>
-                                                    <td>$1,324</td>
-                                                    <td><span class="text-success">Active</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn p-0" type="button" id="action1"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="action1">
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Details</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Write a Review</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Download Invoice</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../../assets/img/icons/brands/puma.png" class="me-3"
-                                                            width="22" alt="Puma" />Puma Shoes
-                                                    </td>
-                                                    <td><i class="bx bx-trending-down text-danger me-2"></i>56.6%</td>
-                                                    <td>$3,573</td>
-                                                    <td><span class="text-success">Active</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn p-0" type="button" id="action2"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="action2">
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Details</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Write a Review</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Download Invoice</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../../assets/img/icons/brands/nike.png" class="me-3"
-                                                            width="22" alt="Nike" />Nike Air Jordan
-                                                    </td>
-                                                    <td><i class="bx bx-trending-up text-success me-2"></i>23.8%</td>
-                                                    <td>$12,347</td>
-                                                    <td><span class="text-danger">Closed</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn p-0" type="button" id="action3"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="action3">
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Details</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Write a Review</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Download Invoice</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../../assets/img/icons/brands/oneplus.png"
-                                                            class="me-3" width="22" alt="OnePlus" />Oneplus 7 Pro
-                                                    </td>
-                                                    <td><i class="bx bx-trending-up text-success me-2"></i>81.4%</td>
-                                                    <td>$5,347</td>
-                                                    <td><span class="text-success">Active</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn p-0" type="button" id="action4"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="action4">
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Details</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Write a Review</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Download Invoice</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../../assets/img/icons/brands/google.png" class="me-3"
-                                                            width="22" alt="Google" />Google Pixal 6
-                                                    </td>
-                                                    <td><i class="bx bx-trending-down text-danger me-2"></i>12.8%</td>
-                                                    <td>$45,678</td>
-                                                    <td><span class="text-danger">Closed</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn p-0" type="button" id="action5"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="action5">
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Details</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Write a Review</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:void(0);">Download Invoice</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <!--/ Marketing Campaigns -->
+
+                            <!-- More role stats -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Pharmacies</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['pharmaciesCount'] }}</h4>
+                                                    <small class="text-info">Registered Pharmacies</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-info rounded p-2">
+                                                <i class="bx bx-building bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Account status -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Active Accounts</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['activeAccounts'] }}</h4>
+                                                    <small class="text-success">Status: Active</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-success rounded p-2">
+                                                <i class="bx bx-check-circle bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Pending Accounts</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['pendingAccounts'] }}</h4>
+                                                    <small class="text-danger">Awaiting Approval</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-secondary rounded p-2">
+                                                <i class="bx bx-timer bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Doctor activity stats -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Doctors (Online)</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['onlineDoctors'] }}</h4>
+                                                    <small class="text-success">Consultation: Online</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-success rounded p-2">
+                                                <i class="bx bx-laptop bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Charts Section -->
+                            <div class="row mt-5">
+                                <!-- Users Growth Chart -->
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">User Registration Growth</h5>
+                                            <small class="text-muted">Monthly Registrations (All Roles)</small>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="user-growth-chart" style="min-height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Role Comparison Chart -->
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Users by Role</h5>
+                                            <small class="text-muted">Current Distribution</small>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="role-distribution-chart" style="min-height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Doctors (Offline)</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['offlineDoctors'] }}</h4>
+                                                    <small class="text-warning">Consultation: Offline</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-warning rounded p-2">
+                                                <i class="bx bx-clinic bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Doctors (Both)</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['bothDoctors'] }}</h4>
+                                                    <small class="text-info">Online & Offline</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-info rounded p-2">
+                                                <i class="bx bx-transfer bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Doctor average fee -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Avg. Doctor Fee</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">
+                                                        {{ number_format($metrics['avgDoctorFee'], 2) }}
+                                                        {{ $metrics['docCurrency'] }}
+                                                    </h4>
+                                                    <small class="text-primary">Consultation Fee</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-primary rounded p-2">
+                                                <i class="bx bx-money bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Patient stats -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Avg. Patient Age</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['avgPatientAge'] }} yrs</h4>
+                                                    <small class="text-info">Across all patients</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-info rounded p-2">
+                                                <i class="bx bx-cake bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Patients with Insurance</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['patientsWithInsurance'] }}</h4>
+                                                    <small class="text-success">Insured</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-success rounded p-2">
+                                                <i class="bx bx-shield plus bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy stats -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Pharmacies w/ Delivery</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['pharmaciesWithDelivery'] }}</h4>
+                                                    <small class="text-info">Delivery Available</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-success rounded p-2">
+                                                <i class="bx bx-package bx-sm"></i>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div content-left>
+                                                <span>Pharmacies w/ Online Orders</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['pharmaciesWithOnlineOrders'] }}
+                                                    </h4>
+                                                    <small class="text-primary">Online Orders Enabled</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-primary rounded p-2">
+                                                <i class="bx bx-shopping-bag bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent registrations -->
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>Latest User</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['latestUser'] }}</h4>
+                                                    <small class="text-success">Recently registered</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-info rounded p-2">
+                                                <i class="bx bx-user-plus bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>New Doctor</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['latestDoctor'] }}</h4>
+                                                    <small class="text-success">Recently onboarded</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-success rounded p-2">
+                                                <i class="bx bx-first-aid bx-sm"></i>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>New Patient</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['latestPatient'] }}</h4>
+                                                    <small class="text-warning">Recent registration</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-warning rounded p-2">
+                                                <i class="bx bx-heart bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="content-left">
+                                                <span>New Pharmacy</span>
+                                                <div class="d-flex align-items-end mt-2">
+                                                    <h4 class="me-2 mb-0">{{ $metrics['latestPharmacy'] }}</h4>
+                                                    <small class="text-danger">Recently added</small>
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-label-danger rounded p-2">
+                                                <i class="bx bx-capsule bx-sm"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- / Content -->
+                </div>
 
-                    @include('layouts.footer')
+                <!-- Include ApexCharts -->
+                <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+                <script>
+                    // Users Growth - Monthly Registration Example Data
+                    const userGrowthOptions = {
+                        chart: {
+                            type: 'line',
+                            height: 300,
+                            toolbar: { show: false }
+                        },
+                        series: [{
+                            name: 'Users',
+                            data: [12, 25, 30, 45, 55, 70, 90, 110, 125, 140, 150, 165] // Replace with actual data
+                        }],
+                        xaxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
+                        colors: ['#696CFF'],
+                        stroke: { curve: 'smooth' },
+                        dataLabels: { enabled: false }
+                    };
+                    new ApexCharts(document.querySelector("#user-growth-chart"), userGrowthOptions).render();
+
+                    // Role Distribution Chart
+                    const roleDistributionOptions = {
+                        chart: {
+                            type: 'donut',
+                            height: 300
+                        },
+                        labels: ['Admins', 'Doctors', 'Patients', 'Pharmacies'],
+                        series: [
+            {{ $metrics['adminsCount'] }},
+            {{ $metrics['doctorsCount'] }},
+            {{ $metrics['patientsCount'] }},
+                            {{ $metrics['pharmaciesCount'] }}
+                        ],
+                        colors: ['#FF6384', '#36A2EB', '#FFCE56', '#2ECC71'],
+                        legend: {
+                            position: 'bottom'
+                        }
+                    };
+                    new ApexCharts(document.querySelector("#role-distribution-chart"), roleDistributionOptions).render();
+                </script>
+
+                <!-- / Content -->
+
+                @include('layouts.footer')

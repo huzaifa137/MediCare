@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\Pharmacy;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\password_reset_table;
@@ -16,8 +19,70 @@ class AdminController extends Controller
 {
     public function adminDashboard()
     {
-        return view('admin.dashboard');
+        $totalUsers = User::count();
+        $adminsCount = User::where('user_role', 1)->count();
+        $doctorsCount = User::where('user_role', 2)->count();
+        $patientsCount = User::where('user_role', 3)->count();
+        $pharmaciesCount = User::where('user_role', 4)->count();
+
+        $pendingAccounts = User::where('account_status', 0)->count();
+        $activeAccounts = User::where('account_status', 10)->count();
+
+        $doctors = Doctor::all();
+        $onlineDoctors = $doctors->where('consultationMethod', 'online')->count();
+        $offlineDoctors = $doctors->where('consultationMethod', 'offline')->count();
+        $bothDoctors = $doctors->where('consultationMethod', 'both')->count();
+        $avgDoctorFee = round($doctors->avg('consultationFee') ?? 0, 2);
+        $docCurrency = $doctors->first()?->currency ?? 'UGX';
+
+        $patients = Patient::all();
+        $avgPatientAge = round(
+            $patients
+                ->filter(fn($p) => $p->dob)
+                ->map(fn($p) => \Carbon\Carbon::parse($p->dob)->age)
+                ->average() ?? 0
+        );
+        $patientsWithInsurance = $patients->whereNotNull('insurance_provider')->count();
+
+        $pharmacies = Pharmacy::all();
+        $pharmaciesWithDelivery = $pharmacies->where('delivery_available', true)->count();
+        $pharmaciesWithOnlineOrders = $pharmacies->where('online_orders', true)->count();
+
+        $latestUser = User::latest()->first();
+        $latestDoctor = $doctors->sortByDesc('created_at')->first()?->fullName ?? 'N/A';
+        $latestPatient = $patients->sortByDesc('created_at')->first()?->full_name ?? 'N/A';
+        $latestPharmacy = $pharmacies->sortByDesc('created_at')->first()?->pharmacy_name ?? 'N/A';
+
+        $metrics = [
+            'totalUsers' => $totalUsers,
+            'adminsCount' => $adminsCount,
+            'doctorsCount' => $doctorsCount,
+            'patientsCount' => $patientsCount,
+            'pharmaciesCount' => $pharmaciesCount,
+            'pendingAccounts' => $pendingAccounts,
+            'activeAccounts' => $activeAccounts,
+
+            'onlineDoctors' => $onlineDoctors,
+            'offlineDoctors' => $offlineDoctors,
+            'bothDoctors' => $bothDoctors,
+            'avgDoctorFee' => $avgDoctorFee,
+            'docCurrency' => $docCurrency,
+
+            'avgPatientAge' => $avgPatientAge,
+            'patientsWithInsurance' => $patientsWithInsurance,
+
+            'pharmaciesWithDelivery' => $pharmaciesWithDelivery,
+            'pharmaciesWithOnlineOrders' => $pharmaciesWithOnlineOrders,
+
+            'latestUser' => $latestUser?->name ?? 'N/A',
+            'latestDoctor' => $latestDoctor,
+            'latestPatient' => $latestPatient,
+            'latestPharmacy' => $latestPharmacy,
+        ];
+
+        return view('admin.dashboard', compact('metrics'));
     }
+
 
     public function userProfile()
     {
@@ -36,10 +101,20 @@ class AdminController extends Controller
         return view('admin.add-admin');
     }
 
-    public function addAdmins()
-    {   
+    public function allAdmins()
+    {
         $admins = User::where('user_role', 1)->get();
-        return view('admin.all-admins', compact('admins'));
+
+        $metrics = [
+            'totalUsers' => User::count(),
+            'admins' => User::where('user_role', 1)->count(),
+            'doctors' => User::where('user_role', 2)->count(),
+            'pharmacies' => User::where('user_role', 4)->count(),
+            'pendingUsers' => User::where('account_status', 0)->count(),
+            'activeUsers' => User::where('account_status', 10)->count(),
+        ];
+
+        return view('admin.all-admins', compact('admins', 'metrics'));
     }
 
     public function forgotPassword()
@@ -81,7 +156,7 @@ class AdminController extends Controller
 
     public function destroy($id)
     {
-        $admin = User::where('user_role', 1)->findOrFail($id);
+        $admin = User::findOrFail($id);
         $admin->delete();
 
         return response()->json(['success' => true]);
@@ -173,8 +248,29 @@ class AdminController extends Controller
                 'message' => 'Login successful',
                 'redirect_url' => $url1,
             ]);
-        } elseif ($userInfo->user_role == 2)  {
+        } elseif ($userInfo->user_role == 2) {
 
+            // Doctors login basing on role
+            $request->session()->put('LoggedAdmin', $userInfo->id);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Login successful',
+                'redirect_url' => $url1,
+            ]);
+        } elseif ($userInfo->user_role == 3) {
+
+            // Patients login basing on role
+            $request->session()->put('LoggedAdmin', $userInfo->id);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Login successful',
+                'redirect_url' => $url1,
+            ]);
+        } elseif ($userInfo->user_role == 4) {
+
+            // Patients login basing on role
             $request->session()->put('LoggedAdmin', $userInfo->id);
 
             return response()->json([

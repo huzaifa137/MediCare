@@ -531,7 +531,7 @@
                             success: function (response) {
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'Patient registered successfully.',
+                                    text: 'Registration Successful.',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then(() => {

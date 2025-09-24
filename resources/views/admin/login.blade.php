@@ -110,9 +110,9 @@
             <h4 class="mb-2">Welcome to {{Helper::app_name()}}! 👋</h4>
             <p class="mb-2">Log in to proceed</p>
 
-            @if (session('success'))
+            @if (request()->get('msg') == 'success')
               <div class="alert alert-success">
-                {{ session('success') }}
+                Please login using the credentials you just created.
               </div>
             @endif
 
@@ -122,11 +122,9 @@
               </div>
             @endif
 
-
             <form action="{{ route('auth-user-check') }}" method="POST">
               @csrf
 
-              <!-- Email or Username -->
               <div class="input-group mb-3">
                 <div class="input-wrapper w-100">
                   <input type="text" id="email" name="email" class="form-control"
@@ -135,7 +133,6 @@
                 </div>
               </div>
 
-              <!-- Password -->
               <div class="input-group mb-2">
                 <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                 <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
@@ -144,7 +141,6 @@
               </div>
               <span class="text-danger d-block mb-3" id="password-error"></span>
 
-              <!-- Actions -->
               <div class="row">
                 <div class="col-6">
                   <a href="{{ route('forgot-password') }}" class="btn btn-link px-0">
@@ -157,22 +153,35 @@
                   </a>
                 </div>
                 <div class="col-12 mt-2">
-                  <!-- Updated Login Button -->
                   <button type="submit" class="btn btn-primary btn-block w-100" id="login_button">
                     <i class="fas fa-sign-in-alt me-1"></i> Login
                   </button>
                 </div>
               </div>
-
-
-              <div class="row">
-                <div class="col-6">
-                  <a href="{{ route('doctors.register') }}" class="btn btn-success mt-3"><i
-                      class="fas fa-user-md me-1"></i> Register as Doctor</a>
+              <div class="row mt-3">
+                <div class="col-12 text-center">
+                  <p class="text-dark mb-2">Don't have an account? Register as:</p>
                 </div>
-                <div class="col-6 text-end">
-                  <a href="{{ route('patients.register') }}" class="btn btn-info mt-3 text-white"><i
-                      class="fas fa-user-md me-1"></i> Register as Patient</a>
+
+                <!-- Doctor Registration -->
+                <div class="col-12 mt-2">
+                  <a href="{{ route('doctors.register') }}" class="btn btn-success btn-block w-100" id="login_button">
+                    <i class="fas fa-user-md me-1"></i> Register as Doctor
+                  </a>
+                </div>
+
+                <!-- Patient Registration -->
+                <div class="col-12 mt-2">
+                  <a href="{{ route('patients.register') }}" class="btn btn-info btn-block w-100" id="login_button">
+                    <i class="fas fa-user-injured me-1"></i> Register as Patient
+                  </a>
+                </div>
+
+                <!-- Pharmacy Registration -->
+                <div class="col-12 mt-2">
+                  <a href="{{ route('add.pharmacy') }}" class="btn btn-secondary btn-block w-100" id="login_button">
+                    <i class="fas fa-prescription-bottle-alt me-1"></i> Register Pharmacy
+                  </a>
                 </div>
               </div>
 

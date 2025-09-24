@@ -26,6 +26,9 @@
                                 <div class="card mb-4">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <h5 class="mb-0">Add Admin</h5>
+                                        <a href="{{ url('users/all-admins') }}" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-person-gear me-1"></i> Manage Admins
+                                        </a>
                                     </div>
                                     <div class="card-body">
                                         <formid="add_admin_form">

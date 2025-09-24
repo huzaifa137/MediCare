@@ -156,16 +156,13 @@
                                     </button>
                                     <br>
                                     <div class="d-flex justify-content-end">
-                                        <a href="{{ url('/') }}" class="btn btn-link box-shadow-0 px-0">
+                                        <a href="{{ url('/users/login') }}" class="btn btn-link box-shadow-0 px-0">
                                             Return to Login
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </form>
-
-
-
                     </div>
                 </div>
                 <!-- /Register -->

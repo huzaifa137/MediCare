@@ -18,7 +18,7 @@ Route::controller(AdminController::class)->group(function () {
             Route::get('/forgot-password', 'forgotPassword')->name('forgot-password');
 
             Route::get('add-admin', 'addAdmin')->name('add.admin');
-            Route::get('all-admins', 'addAdmins')->name('all.admins');
+            Route::get('all-admins', 'allAdmins')->name('all.admins');
 
         });
 
@@ -90,6 +90,28 @@ Route::controller(DoctorsController::class)->group(function () {
         Route::get('manage-patients', 'managePatients')->name('patients.manage');
 
         Route::post('store-new-patient', 'storeNewPatient')->name('patients.store');
+    });
+
+
+    Route::group(['prefix' => '/pharmacy'], function () {
+
+        Route::get('add-pharmacy', 'addPharmacy')->name('add.pharmacy');
+        Route::get('manage-pharmacies', 'managePharmacies')->name('pharmacies.manage');
+
+        Route::post('store-new-pharmacy', 'storeNewPharmacy')->name('pharmacy.store');
+    });
+
+    Route::group(['prefix' => '/web-ui'], function () {
+
+        Route::get('services', 'webUIServices')->name('webui.services');
+
+        Route::delete('/service/{id}', 'deleteServices')->name('service.delete');
+
+
+        Route::post('store-services', 'storeServices')->name('services.store');
+        Route::post('/service/{id}/subcategory', 'addSubCategory')->name('service.addSubCategory');
 
     });
+
+
 });
