@@ -41,9 +41,15 @@
             <a href="{{ url('index') }}"><img src="/assets-site/img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__btn">
-            <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
-        </div>
+        @if (Session('LoggedAdmin'))
+            <div class="offcanvas__btn">
+                <a href=" {{ url('/users/login') }}" class="primary-btn">Dashboard</a>
+            </div>
+        @else
+            <div class="offcanvas__btn">
+                <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
+            </div>
+        @endif
         <ul class="offcanvas__widget">
             <li><i class="fa fa-phone"></i>{{Helper::app_info('phone')}}</li>
             <li><i class="fa fa-map-marker"></i>{{Helper::app_info('location')}}</li>
@@ -100,9 +106,16 @@
                                 <li><a href=" {{ url('contact') }}">Contact</a></li>
                             </ul>
                         </nav>
-                        <div class="header__btn">
-                            <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
-                        </div>
+                        @if (Session('LoggedAdmin'))
+                            <div class="header__btn">
+                                <a href=" {{ url('/users/login') }}" class="primary-btn">Dashboard</a>
+                            </div>
+                        @else
+                            <div class="header__btn">
+                                <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>

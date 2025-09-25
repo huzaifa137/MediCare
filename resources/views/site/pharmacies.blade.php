@@ -98,8 +98,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -128,8 +129,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -158,8 +160,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -188,8 +191,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -218,8 +222,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -248,8 +253,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -278,8 +284,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>
@@ -308,8 +315,9 @@
                             <span class="fa fa-star checked text-warning"></span>
                         </div>
 
-                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">Shop Now</a>
-
+                        <a href="{{ url('pharmacies-products') }}" class="btn btn-primary w-100 mt-2">
+                            <i class="fa fa-shopping-bag me-2"></i> Shop Now
+                        </a>
                         <div class="social-links mt-3">
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="text-secondary mx-2"><i class="fa fa-twitter"></i></a>

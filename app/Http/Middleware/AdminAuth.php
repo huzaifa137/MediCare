@@ -23,16 +23,16 @@ class AdminAuth
         if (
             !session()->has('LoggedAdmin') &&
             ($request->path() != 'users/login' &&
-                ! $request->routeIs('forgot-password') &&
-                ! $request->routeIs('password/reset')
+                !$request->routeIs('forgot-password') &&
+                !$request->routeIs('password/reset') &&
+                $request->path() != 'index'
                 // ! $request->routeIs('password/reset') &&
                 // $request->path() != 'users/forgot-password'
             )
         ) {
             Session::put('url.intended', $request->url());
 
-            // return redirect('/users/login')->with('fail', 'You must be logged in');
-            return redirect('/index')->with('fail', 'You must be logged in');
+            return redirect('/users/login')->with('fail', 'You must be logged in');
 
         }
 

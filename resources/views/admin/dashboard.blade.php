@@ -371,7 +371,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-xl-3">
+                            <div class="col-sm-6 col-xl-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start">
@@ -391,7 +391,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-xl-3">
+                            <div class="col-sm-6 col-xl-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start">
@@ -410,7 +410,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-xl-3">
+                            <div class="col-sm-6 col-xl-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start">
@@ -430,13 +430,583 @@
                             </div>
                         </div>
                     </div>
+
+                    <style>
+                        @media (min-width: 1200px) {
+                            .col-lg-1-5 {
+                                flex: 0 0 20%;
+                                max-width: 20%;
+                            }
+                        }
+
+                        .shop-card {
+                            border-radius: 10px;
+                            box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+                            padding: 1rem;
+                            background-color: #fff;
+                            transition: transform 0.2s ease-in-out;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                        }
+
+                        .shop-card:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+                        }
+
+                        .shop-logo {
+                            width: 100%;
+                            height: 150px;
+                            object-fit: cover;
+                            border-radius: 8px;
+                            margin-bottom: 1rem;
+                        }
+
+                        .shop-name {
+                            font-weight: 600;
+                            font-size: 1.1rem;
+                            margin-bottom: 0.3rem;
+                            color: #2c3e50;
+                            text-align: center;
+                        }
+
+                        .shop-location {
+                            font-size: 0.9rem;
+                            color: #7f8c8d;
+                            margin-bottom: 0.6rem;
+                            text-align: center;
+                        }
+
+                        .rating-stars {
+                            color: #f39c12;
+                            font-size: 1rem;
+                            text-align: center;
+                            margin-bottom: 1rem;
+                        }
+
+                        .btn-visit {
+                            align-self: center;
+                            width: 100%;
+                        }
+                    </style>
+
+                    <div class="container-xxl flex-grow-1">
+                        <h5 class="card-titl">All Registered Pharmacies</h5>
+                        <div class="row mt-4 g-3">
+
+                            <!-- Pharmacy 1 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy1.jpg" alt="Pharmacy 1" class="shop-logo" />
+                                    <div class="shop-name">HealthPlus Pharmacy</div>
+                                    <div class="shop-location">123 Main St, Kampala</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 2 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy2.jpg" alt="Pharmacy 2" class="shop-logo" />
+                                    <div class="shop-name">MediCare Pharmacy</div>
+                                    <div class="shop-location">456 Health Ave, Nairobi</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 3 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy3.jpg" alt="Pharmacy 3" class="shop-logo" />
+                                    <div class="shop-name">Wellness Pharmacy</div>
+                                    <div class="shop-location">789 Wellness Rd, Kigali</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 4 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy4.jpg" alt="Pharmacy 4" class="shop-logo" />
+                                    <div class="shop-name">CareWell Pharmacy</div>
+                                    <div class="shop-location">321 Cure Blvd, Dar es Salaam</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 5 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy9.jpg" alt="Pharmacy 5" class="shop-logo" />
+                                    <div class="shop-name">PharmaPlus</div>
+                                    <div class="shop-location">654 Wellness St, Accra</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-4 g-3">
+
+                            <!-- Pharmacy 1 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy6.jpg" alt="Pharmacy 1" class="shop-logo" />
+                                    <div class="shop-name">HealthPlus Pharmacy</div>
+                                    <div class="shop-location">123 Main St, Kampala</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 2 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy7.jpg" alt="Pharmacy 2" class="shop-logo" />
+                                    <div class="shop-name">MediCare Pharmacy</div>
+                                    <div class="shop-location">456 Health Ave, Nairobi</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 3 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy8.jpg" alt="Pharmacy 3" class="shop-logo" />
+                                    <div class="shop-name">Wellness Pharmacy</div>
+                                    <div class="shop-location">789 Wellness Rd, Kigali</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 4 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy1.jpg" alt="Pharmacy 4" class="shop-logo" />
+                                    <div class="shop-name">CareWell Pharmacy</div>
+                                    <div class="shop-location">321 Cure Blvd, Dar es Salaam</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                            <!-- Pharmacy 5 -->
+                            <div class="col-6 col-md-4 col-lg-1-5">
+                                <div class="shop-card">
+                                    <img src="/assets-site/img/team/pharmacy4.jpg" alt="Pharmacy 5" class="shop-logo" />
+                                    <div class="shop-name">PharmaPlus</div>
+                                    <div class="shop-location">654 Wellness St, Accra</div>
+                                    <div class="rating-stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-alt"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <a href="{{ url('/pharmacy/products-list') }}"
+                                        class="btn btn-outline-primary btn-visit">Visit Shop</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <style>
+                        .doctor-section {
+                            background-color: #fff;
+                            padding: 2rem;
+                            border-radius: 12px;
+                            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+                            margin-bottom: 3rem;
+                        }
+
+                        .doctor-section h4 {
+                            font-weight: 600;
+                            margin-bottom: 1.5rem;
+                            color: #2c3e50;
+                        }
+
+                        .doctor-card {
+                            background-color: #fdfdfd;
+                            border-radius: 10px;
+                            padding: 1.5rem 1rem;
+                            text-align: center;
+                            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease-in-out;
+                            height: 100%;
+                            position: relative;
+                        }
+
+                        .doctor-card:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+                        }
+
+                        .doctor-photo {
+                            width: 90px;
+                            height: 90px;
+                            object-fit: cover;
+                            border-radius: 50%;
+                            border: 3px solid #e0e0e0;
+                            margin-bottom: 1rem;
+                        }
+
+                        .doctor-name {
+                            font-weight: 600;
+                            font-size: 1.1rem;
+                            margin-bottom: 0.3rem;
+                            color: #2f3542;
+                        }
+
+                        .doctor-specialty {
+                            font-size: 0.9rem;
+                            color: #3498db;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .doctor-location {
+                            font-size: 0.85rem;
+                            color: #6c757d;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .doctor-rating i {
+                            color: #f1c40f;
+                            font-size: 0.9rem;
+                        }
+
+                        .btn-book {
+                            margin-top: 0.75rem;
+                            font-size: 0.85rem;
+                            padding: 0.4rem 1rem;
+                            border-radius: 20px;
+                        }
+
+                        /* Responsive for custom column (1-5 layout) */
+                        @media (min-width: 992px) {
+                            .col-lg-1-5 {
+                                flex: 0 0 auto;
+                                width: 20%;
+                            }
+                        }
+                    </style>
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="doctor-section">
+                            <h4>Our Professional Doctors</h4>
+
+                            <div class="row mt-3 g-3">
+                                <!-- Doctor 1 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-1.jpg" alt="Dr. Jane"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Jane Doe</div>
+                                        <div class="doctor-specialty">Cardiologist</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Kampala,
+                                            Uganda</div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 2 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-2.jpg" alt="Dr. John"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. John Smith</div>
+                                        <div class="doctor-specialty">Dermatologist</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Nairobi,
+                                            Kenya
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 3 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-3.jpg" alt="Dr. Grace"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Grace Lee</div>
+                                        <div class="doctor-specialty">Pediatrician</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Dar es
+                                            Salaam
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 4 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-4.jpg" alt="Dr. Kelvin"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Kelvin Otieno</div>
+                                        <div class="doctor-specialty">Orthopedic Surgeon</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Accra,
+                                            Ghana
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 5 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-1.jpg" alt="Dr. Amina"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Amina Yusuf</div>
+                                        <div class="doctor-specialty">Gynecologist</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Kigali,
+                                            Rwanda
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3 g-3">
+                                <!-- Doctor 1 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-1.jpg" alt="Dr. Jane"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Jane Doe</div>
+                                        <div class="doctor-specialty">Cardiologist</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Kampala,
+                                            Uganda</div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 2 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-2.jpg" alt="Dr. John"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. John Smith</div>
+                                        <div class="doctor-specialty">Dermatologist</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Nairobi,
+                                            Kenya
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 3 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-3.jpg" alt="Dr. Grace"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Grace Lee</div>
+                                        <div class="doctor-specialty">Pediatrician</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Dar es
+                                            Salaam
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 4 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-4.jpg" alt="Dr. Kelvin"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Kelvin Otieno</div>
+                                        <div class="doctor-specialty">Orthopedic Surgeon</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Accra,
+                                            Ghana
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor 5 -->
+                                <div class="col-6 col-md-4 col-lg-1-5">
+                                    <div class="doctor-card">
+                                        <img src="/assets-site/img/team/team-1.jpg" alt="Dr. Amina"
+                                            class="doctor-photo" />
+                                        <div class="doctor-name">Dr. Amina Yusuf</div>
+                                        <div class="doctor-specialty">Gynecologist</div>
+                                        <div class="doctor-location"><i class="fa fa-map-marker-alt me-1"></i>Kigali,
+                                            Rwanda
+                                        </div>
+                                        <div class="doctor-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <button class="btn btn-outline-success btn-book mt-2">
+                                            <i class="fa fa-calendar-check me-1"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Include ApexCharts -->
                 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
                 <script>
-                    // Users Growth - Monthly Registration Example Data
+
                     const userGrowthOptions = {
                         chart: {
                             type: 'line',
@@ -445,7 +1015,7 @@
                         },
                         series: [{
                             name: 'Users',
-                            data: [12, 25, 30, 45, 55, 70, 90, 110, 125, 140, 150, 165] // Replace with actual data
+                            data: [12, 25, 30, 45, 55, 70, 90, 110, 125, 140, 150, 165] 
                         }],
                         xaxis: {
                             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -456,7 +1026,6 @@
                     };
                     new ApexCharts(document.querySelector("#user-growth-chart"), userGrowthOptions).render();
 
-                    // Role Distribution Chart
                     const roleDistributionOptions = {
                         chart: {
                             type: 'donut',

@@ -74,13 +74,18 @@ Route::controller(DoctorsController::class)->group(function () {
 
     Route::group(['middleware' => ['AdminAuth']], function () {
 
+        Route::group(['prefix' => '/pharmacy'], function () {
+            Route::get('checkout-list', 'pharmachyCheckoutList')->name('pharmacy.checkout-list');
+            Route::get('products-list', 'productsList')->name('pharmacy.products-list');
+            Route::get('pharmacy-list', 'pharmacyLists')->name('pharmacy.pharmacy-list');
+        });
     });
-
 
     Route::group(['prefix' => '/doctors'], function () {
 
         Route::get('register', 'registerDoctors')->name('doctors.register');
         Route::get('manage-doctors', 'manageDoctors')->name('doctors.manage');
+        Route::get('all-registered-doctors', 'allRegisteredDoctors')->name('all.registered.doctors');
 
         Route::post('store-new-doctor', 'storeNewDoctor')->name('doctors.store');
 

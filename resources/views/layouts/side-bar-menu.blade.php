@@ -49,32 +49,37 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboards -->
+
         <li class="menu-item open active">
-            <a href="{{url('/')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home"></i>
+            <a href="{{ url('/') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-grid-alt"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
 
-        <!-- Layouts -->
+
+        <li class="menu-item">
+            <a href="{{ url('/index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-globe"></i>
+                <div data-i18n="Home Site">Home Site</div>
+            </a>
+        </li>
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                <div data-i18n="Users">Users</div>
+                <i class="menu-icon tf-icons bx bx-capsule"></i>
+                <div data-i18n=" Pharmacies">Pharmacies</div>
             </a>
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="{{ route('add.admin')}} " class="menu-link">
-                        <i class="bx bx-user-plus me-2"></i>
-                        <div data-i18n="Add Admin">Add Admin</div>
+                    <a href="{{ route('pharmacies.manage') }}" class="menu-link">
+                        <i class="bx bx-clinic me-2"></i>
+                        <div data-i18n="Manage Pharmacies">Manage Pharmacies</div>
                     </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('all.admins') }}" class="menu-link">
-                        <i class="bx bx-cog me-2"></i>
-                        <div data-i18n="Manage Admins">Manage Admins</div>
+                    <a href="{{ route('pharmacy.pharmacy-list') }}" class="menu-link">
+                        <i class="bx bx-store me-2"></i>
+                        <div data-i18n="All Pharmacies">All Pharmacies</div>
                     </a>
                 </li>
             </ul>
@@ -92,6 +97,10 @@
                         <i class="bx bx-group me-2"></i>
                         <div data-i18n="Manage Doctors">Manage Doctors</div>
                     </a>
+                    <a href="{{ route('all.registered.doctors') }}" class="menu-link">
+                        <i class="bx bx-user me-2"></i>
+                        <div data-i18n="All Doctors">All Doctors</div>
+                    </a>
                 </li>
             </ul>
         </li>
@@ -99,7 +108,7 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-body"></i>
-                <div data-i18n="Patients">Patients</div>
+                <div data-i18n=" Patients">Patients</div>
             </a>
 
             <ul class="menu-sub">
@@ -114,15 +123,21 @@
 
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-capsule"></i>
-                <div data-i18n="Pharmacies">Pharmacies</div>
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                <div data-i18n="Users">Users</div>
             </a>
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="{{ route('pharmacies.manage') }}" class="menu-link">
-                        <i class="bx bx-clinic me-2"></i>
-                        <div data-i18n="Manage Pharmacies">Manage Pharmacies</div>
+                    <a href="{{ route('add.admin')}} " class=" menu-link">
+                        <i class="bx bx-user-plus me-2"></i>
+                        <div data-i18n="Add Admin">Add Admin</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('all.admins') }}" class="menu-link">
+                        <i class="bx bx-cog me-2"></i>
+                        <div data-i18n="Manage Admins">Manage Admins</div>
                     </a>
                 </li>
             </ul>
@@ -131,7 +146,7 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-globe"></i>
-                <div data-i18n="Website UI Setup">Website UI Setup</div>
+                <div data-i18n=" Website UI Setup">Website UI Setup</div>
             </a>
 
             <ul class="menu-sub">

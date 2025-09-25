@@ -146,6 +146,12 @@ class DoctorsController extends Controller
         return view('doctors.all-doctors', compact('doctors', 'metrics'));
     }
 
+    public function allRegisteredDoctors()
+    {
+
+        return view('doctors.all-registered-doctors');
+    }
+
     public function registerPatients()
     {
         return view('patients.register-patients');
@@ -296,9 +302,24 @@ class DoctorsController extends Controller
         return view('pharmacy.add-pharmacy');
     }
 
+    public function pharmachyCheckoutList()
+    {
+        return view('pharmacy.checkout-list');
+    }
+
+    public function productsList()
+    {
+        return view('pharmacy.products-list');
+    }
+
+    public function pharmacyLists()
+    {
+        return view('pharmacy.pharmacy-list');
+    }
+
     public function storeNewPharmacy(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             // Basic info
             'pharmacyName' => 'required|string|max:255',

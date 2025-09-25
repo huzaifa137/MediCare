@@ -156,7 +156,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -181,7 +183,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -206,7 +210,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -231,7 +237,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -255,7 +263,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                        <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -279,7 +289,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -304,7 +316,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>
@@ -329,7 +343,9 @@
                             <span class="fa fa-star text-warning"></span>
                             <span class="fa fa-star-half-alt text-warning"></span>
                         </div>
-                        <a href="#" class="btn btn-primary btn-elegant w-100 mt-2">Add to Cart</a>
+                         <a href="{{ url('pharmacy/checkout-list') }}" class="btn btn-primary btn-elegant w-100 mt-2">
+                            <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>

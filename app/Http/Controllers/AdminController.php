@@ -196,7 +196,6 @@ class AdminController extends Controller
             ],
         ];
 
-        // If it's an email, apply email format validation
         if ($isEmail) {
             $rules['email'][] = 'email';
             $rules['email'][] = 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
@@ -235,52 +234,21 @@ class AdminController extends Controller
             ]);
         }
 
-        // Role-based redirection
-        $url1 = '/users/dashboard';
+        $allowedRoles = [1, 2, 3, 4];
 
-        if ($userInfo->user_role == 1) {
-
-            // Admin login basing on role
+        if (in_array($userInfo->user_role, $allowedRoles)) {
             $request->session()->put('LoggedAdmin', $userInfo->id);
+
+            $defaultRedirect = '/users/dashboard';
+            $intended = session()->pull('url.intended', $defaultRedirect);
 
             return response()->json([
                 'status' => true,
                 'message' => 'Login successful',
-                'redirect_url' => $url1,
-            ]);
-        } elseif ($userInfo->user_role == 2) {
-
-            // Doctors login basing on role
-            $request->session()->put('LoggedAdmin', $userInfo->id);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Login successful',
-                'redirect_url' => $url1,
-            ]);
-        } elseif ($userInfo->user_role == 3) {
-
-            // Patients login basing on role
-            $request->session()->put('LoggedAdmin', $userInfo->id);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Login successful',
-                'redirect_url' => $url1,
-            ]);
-        } elseif ($userInfo->user_role == 4) {
-
-            // Patients login basing on role
-            $request->session()->put('LoggedAdmin', $userInfo->id);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Login successful',
-                'redirect_url' => $url1,
+                'redirect_url' => $intended,
             ]);
         }
 
-        // Fallback
         return response()->json([
             'status' => false,
             'message' => 'User role not recognized.',
