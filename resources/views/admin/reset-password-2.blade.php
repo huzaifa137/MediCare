@@ -210,17 +210,21 @@
             const hasSpecial = /[@$!%*?&#]/;
 
 
+            // if (!password) {
+            //     document.getElementById('password-error-client').innerText = 'The password field is required.';
+            //     isValid = false;
+            // } else if (password.length < 6) {
+            //     document.getElementById('password-error-client').innerText = 'The password must be at least 6 characters.';
+            //     isValid = false;
+            // } else if (!hasUppercase.test(password) || !hasLowercase.test(password) || !hasDigit.test(password) || !hasSpecial.test(password)) {
+            //     document.getElementById('password-error-client').innerText = 'The password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.';
+            //     isValid = false;
+            // }
+
             if (!password) {
                 document.getElementById('password-error-client').innerText = 'The password field is required.';
                 isValid = false;
-            } else if (password.length < 6) {
-                document.getElementById('password-error-client').innerText = 'The password must be at least 6 characters.';
-                isValid = false;
-            } else if (!hasUppercase.test(password) || !hasLowercase.test(password) || !hasDigit.test(password) || !hasSpecial.test(password)) {
-                document.getElementById('password-error-client').innerText = 'The password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.';
-                isValid = false;
             }
-
 
             if (password !== passwordConfirm) {
                 document.getElementById('password-confirmation-error-client').innerText = 'Passwords do not match.';

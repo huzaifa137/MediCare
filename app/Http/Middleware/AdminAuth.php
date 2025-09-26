@@ -2,6 +2,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class AdminAuth
             ($request->path() != 'users/login' &&
                 !$request->routeIs('forgot-password') &&
                 !$request->routeIs('password/reset') &&
-                $request->path() != 'index'
+                $request->path() != '/'
                 // ! $request->routeIs('password/reset') &&
                 // $request->path() != 'users/forgot-password'
             )
@@ -36,9 +37,29 @@ class AdminAuth
 
         }
 
-        if (session()->has('LoggedAdmin') && ($request->path() == 'users/login' || $request->path() == '/')) {
+        if (session()->has('LoggedAdmin')) {
 
-            return redirect('/users/dashboard');
+            // Redirecting away from login page if already logged in
+            if ($request->path() === 'users/login' || $request->path() === '/') {
+
+                $userId = session('LoggedAdmin');
+                $user = User::find($userId);
+
+                if ($user) {
+                    switch ($user->user_role) {
+                        case 1:
+                            return redirect()->route('user.dashboard');
+                        case 2:
+                            return redirect()->route('doctors.dashboard');
+                        case 3:
+                            return redirect()->route('patients.dashboard');
+                        case 4:
+                            return redirect()->route('pharmacies.dashboard');
+                        default:
+                            return redirect()->route('user.dashboard');
+                    }
+                }
+            }
         }
 
         $response = $next($request);

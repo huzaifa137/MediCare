@@ -10,6 +10,10 @@ Route::controller(AdminController::class)->group(function () {
 
     Route::group(['middleware' => ['AdminAuth']], function () {
 
+        Route::get('patients-dashboard', 'patientsDashboard')->name('patients.dashboard');
+        Route::get('doctors-dashboard', 'doctorsDashboard')->name('doctors.dashboard');
+        Route::get('pharmacies-dashboard', 'pharmaciesDashboard')->name('pharmacies.dashboard');
+
         Route::group(['prefix' => '/users'], function () {
 
             Route::get('dashboard', 'adminDashboard')->name('user.dashboard');
@@ -22,7 +26,8 @@ Route::controller(AdminController::class)->group(function () {
 
         });
 
-        Route::get('/', 'userLogin')->name('user.login');
+        // Route::get('/', 'userLogin')->name('user.login');
+        Route::get('/', 'index')->name('index');
         Route::get('/user-logout', 'userLogout')->name('user.logout');
         Route::get('/admin/{admin}/edit', 'editAdmin')->name('admin.edit');
         Route::get('/password/reset/{id}', 'createNewPassword')->name('password/reset');

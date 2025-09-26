@@ -406,9 +406,8 @@
             <label for="currency" class="form-label">Currency</label>
             <select class="form-select" id="currency" name="currency">
               <option value="">Select Currency</option>
+              <option value="ugx">UGX</option>
               <option value="usd">USD</option>
-              <option value="euro">Euro</option>
-              <option value="pound">Pound</option>
             </select>
             <span class="text-danger d-block mt-1" id="currency-error"></span>
           </div>

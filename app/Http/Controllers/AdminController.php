@@ -83,6 +83,20 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('metrics'));
     }
 
+    public function patientsDashboard()
+    {
+        return view('patients.dashboard');
+    }
+
+    public function pharmaciesDashboard()
+    {
+        return view('pharmacy.dashboard');
+    }
+
+    public function doctorsDashboard()
+    {
+        return view('doctors.dashboard');
+    }
 
     public function userProfile()
     {
@@ -99,6 +113,11 @@ class AdminController extends Controller
     public function addAdmin()
     {
         return view('admin.add-admin');
+    }
+
+    public function index()
+    {
+        return view('Site.index');
     }
 
     public function allAdmins()
@@ -187,12 +206,12 @@ class AdminController extends Controller
             'email' => ['required'],
             'password' => [
                 'required',
-                'string',
-                'min:8',
-                'regex:/[a-z]/',
-                'regex:/[A-Z]/',
-                'regex:/\d/',
-                'regex:/[\W_]/',
+                // 'string',
+                // 'min:8',
+                // 'regex:/[a-z]/',
+                // 'regex:/[A-Z]/',
+                // 'regex:/\d/',
+                // 'regex:/[\W_]/',
             ],
         ];
 
@@ -234,25 +253,43 @@ class AdminController extends Controller
             ]);
         }
 
+        // User roles
+// ----------------------------------------------
+// Admin    === 1 → /users/dashboard
+// Doctor   === 2 → /doctors-dashboard
+// Patient  === 3 → /patients-dashboard
+// Pharmacy === 4 → /pharmacies-dashboard
+
         $allowedRoles = [1, 2, 3, 4];
 
         if (in_array($userInfo->user_role, $allowedRoles)) {
             $request->session()->put('LoggedAdmin', $userInfo->id);
 
-            $defaultRedirect = '/users/dashboard';
-            $intended = session()->pull('url.intended', $defaultRedirect);
+            // Determine redirect based on role
+            switch ($userInfo->user_role) {
+                case 1:
+                    $redirectUrl = route('user.dashboard');
+                    break;
+                case 2:
+                    $redirectUrl = route('doctors.dashboard');
+                    break;
+                case 3:
+                    $redirectUrl = route('patients.dashboard');
+                    break;
+                case 4:
+                    $redirectUrl = route('pharmacies.dashboard');
+                    break;
+                default:
+                    $redirectUrl = route('user.dashboard');
+            }
 
             return response()->json([
                 'status' => true,
                 'message' => 'Login successful',
-                'redirect_url' => $intended,
+                'redirect_url' => $redirectUrl,
             ]);
         }
 
-        return response()->json([
-            'status' => false,
-            'message' => 'User role not recognized.',
-        ]);
     }
 
 
@@ -422,28 +459,37 @@ class AdminController extends Controller
 
     public function store_new_password(Request $request)
     {
+        // $request->validate(
+        //     [
+        //         'password' => [
+        //             'required',
+        //             'string',
+        //             'min:6',
+        //             'regex:/[A-Z]/',
+        //             'regex:/[a-z]/',
+        //             'regex:/[0-9]/',
+        //             'regex:/[@$!%*?&#]/',
+        //             'confirmed'
+        //         ],
+        //     ],
+        //     [
+        //         'password.required' => 'The password field is required.',
+        //         'password.string' => 'The password must be a string.',
+        //         'password.min' => 'The password must be at least 6 characters.',
+        //         'password.regex' => 'The password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.',
+        //         'password.confirmed' => 'Passwords do not match.'
+        //     ],
+        // );
+
         $request->validate(
             [
-                'password' => [
-                    'required',
-                    'string',
-                    'min:6',
-                    'regex:/[A-Z]/',
-                    'regex:/[a-z]/',
-                    'regex:/[0-9]/',
-                    'regex:/[@$!%*?&#]/',
-                    'confirmed'
-                ],
+                'password' => ['required', 'confirmed'],
             ],
             [
                 'password.required' => 'The password field is required.',
-                'password.string' => 'The password must be a string.',
-                'password.min' => 'The password must be at least 6 characters.',
-                'password.regex' => 'The password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.',
-                'password.confirmed' => 'Passwords do not match.'
+                'password.confirmed' => 'Passwords do not match.',
             ],
         );
-
 
         $password = $request->password;
         $confirm = $request->password_confirmation;
