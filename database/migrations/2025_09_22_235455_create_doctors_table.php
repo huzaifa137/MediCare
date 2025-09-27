@@ -44,7 +44,6 @@ public function up()
         $table->string('website')->nullable();
         $table->text('articles')->nullable();
 
-        // Auth
         $table->string('password');
 
         $table->timestamps();

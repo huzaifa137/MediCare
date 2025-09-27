@@ -210,6 +210,13 @@
                 <div data-i18n="Home Site">Home Site</div>
             </a>
         </li>
+
+        <li class="menu-item">
+            <a href="{{ route('chat.chatroom') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-chat"></i>
+                <div data-i18n="Chat">Chat</div>
+            </a>
+        </li>
         
     </ul>
 

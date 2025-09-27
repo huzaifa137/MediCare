@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorsController;
@@ -116,14 +117,19 @@ Route::controller(DoctorsController::class)->group(function () {
     Route::group(['prefix' => '/web-ui'], function () {
 
         Route::get('services', 'webUIServices')->name('webui.services');
-
         Route::delete('/service/{id}', 'deleteServices')->name('service.delete');
-
-
         Route::post('store-services', 'storeServices')->name('services.store');
         Route::post('/service/{id}/subcategory', 'addSubCategory')->name('service.addSubCategory');
-
     });
+});
 
 
+Route::controller(ChatController::class)->group(function () {
+
+    Route::group(['middleware' => ['AdminAuth']], function () {
+
+        Route::get('chatroom', 'chatroom')->name('chat.chatroom');
+        Route::get('/chat/{conversation}',  'show')->name('chat.show');
+        Route::post('/chat/{conversation}/send',  'store')->name('chat.send');
+    });
 });
