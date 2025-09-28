@@ -10,12 +10,12 @@ class Conversation extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(\App\Models\Doctor::class, 'doctor_id');
     }
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(\App\Models\Patient::class, 'patient_id');
     }
 
     public function messages()
@@ -28,3 +28,5 @@ class Conversation extends Model
         return $this->hasOne(Message::class)->latestOfMany();
     }
 }
+
+

@@ -11,12 +11,6 @@
 
                 @include('layouts.nav-bar')
 
-                {{-- <div class="content-wrapper">
-                    <div class="container-xxl flex-grow-1 container-p-y">
-
-                    </div>
-                </div> --}}
-
                 <style>
                     .chat-container {
                         display: flex;
@@ -477,8 +471,6 @@
                         max-height: calc(100vh - 140px);
                         box-sizing: border-box;
                     }
-
-                    
                 </style>
 
                 <div class="content-wrapper">
@@ -490,108 +482,81 @@
                                 <div class="sidebar-header">
                                     <input type="text" placeholder="Search Doctors or Patients..." class="chat-search">
                                 </div>
-                                <div class="conversations-list">
-                                    <div class="conversation-item active" data-id="jane"
-                                        onclick="openChat('jane', this)">
-                                        <div class="avatar online">
-                                            <img src="{{ asset('assets-site/img/team/team-1.jpg')}}" alt="Dr. Smith"
-                                                class="profile-img">
-                                        </div>
-                                        <div class="chat-info">
-                                            <span class="user-name">Dr. Jane Smith</span>
-                                            <p class="last-message">Ok, let's schedule for next Tuesday.</p>
-                                        </div>
-                                        <div class="chat-status">
-                                            <span class="timestamp">9:45 AM</span>
-                                            <span class="unread-count">3</span>
-                                        </div>
-                                    </div>
 
-                                    <div class="conversation-item" data-id="john" onclick="openChat('john', this)">
-                                        <div class="avatar online">
-                                            <img src="{{ asset('assets-site/img/team/team-2.jpg')}}" alt="Dr. John"
-                                                class="profile-img">
-                                        </div>
-                                        <div class="chat-info">
-                                            <span class="user-name">Dr. John Smith</span>
-                                            <p class="last-message">Don’t forget our meeting this afternoon.</p>
-                                        </div>
-                                        <div class="chat-status">
-                                            <span class="timestamp">10:15 AM</span>
-                                            <span class="unread-count">1</span>
-                                        </div>
+                                @if(isset($conversations) && $conversations->count() > 0)
+                                    <div class="conversations-list">
+                                        @foreach($conversations as $conversation)
+                                            @php
+                                                $otherUser = $user->user_role == 3 ? $conversation->doctor : $conversation->patient;
+                                                $lastMessage = $conversation->lastMessage;
+                                            @endphp
+                                            <div class="conversation-item" data-id="{{ $conversation->id }}"
+                                                onclick="openChat('{{ $conversation->id }}', this)">
+                                                <div class="avatar {{ $otherUser->status ?? 'offline' }}">
+                                                    <img src="{{ asset($otherUser->avatar ?? 'assets-site/img/default-avatar.png') }}"
+                                                        class="profile-img"
+                                                        alt="{{ $otherUser->full_name ?? $otherUser->name }}">
+                                                </div>
+                                                <div class="chat-info">
+                                                    <span
+                                                        class="user-name">{{ $otherUser->full_name ?? $otherUser->name }}</span>
+                                                    <p class="last-message">{{ $lastMessage->message ?? 'No messages yet' }}</p>
+                                                </div>
+                                                <div class="chat-status">
+                                                    <span
+                                                        class="timestamp">{{ $lastMessage?->created_at?->format('h:i A') ?? '' }}</span>
+                                                    <span class="unread-count">{{ $conversation->unread_count ?? 0 }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
+                                @endif
 
-                                    <div class="conversation-item" data-id="huzaiphar"
-                                        onclick="openChat('huzaiphar', this)">
-                                        <div class="avatar online">
-                                            <img src="{{ asset('assets-site/img/team/team-3.jpg')}}" alt="Dr. Huzaiphar"
-                                                class="profile-img">
-                                        </div>
-                                        <div class="chat-info">
-                                            <span class="user-name">Dr. Bukenya Huzaiphar</span>
-                                            <p class="last-message">Please review the new lab results.</p>
-                                        </div>
-                                        <div class="chat-status">
-                                            <span class="timestamp">11:00 AM</span>
-                                            <span class="unread-count">5</span>
-                                        </div>
+                                @if($user->user_role != 2 && isset($doctors) && $doctors->count() > 0)
+                                    <div class="conversations-list">
+                                        @foreach($doctors as $doctor)
+                                            <div class="conversation-item start-doctor" data-id="{{ $doctor->id }}">
+                                                <div class="avatar online">
+                                                    <img src="{{ asset('assets-site/img/default-avatar.png') }}"
+                                                        class="profile-img" alt="{{ $doctor->fullName }}">
+                                                </div>
+                                                <div class="chat-info">
+                                                    <span class="user-name">{{ $doctor->fullName }}</span>
+                                                    <p class="last-message">Start a new conversation</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                </div>
+                                @endif
 
+                                @if((!isset($conversations) || $conversations->count() == 0) && (!isset($doctors) || $doctors->count() == 0))
+                                    <div class="empty-chat">
+                                        <p>No conversations yet. Start a chat!</p>
+                                    </div>
+                                @endif
                             </div>
+
 
                             <!-- Main Chat -->
                             <div class="chat-main">
                                 <div class="chat-header">
-                                    <!-- Back button (only mobile) -->
-                                    {{-- <i class="icon-back" onclick="goBack()">⬅</i> --}}
-                                    <i class="icon-back" onclick="goBack()" style="
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-  user-select: none;
-">⬅</i>
-
+                                    <i class="icon-back" onclick="goBack()">⬅</i>
                                     <div class="header-info">
-                                        <span class="header-name">Dr. Jane Smith</span>
-                                        <span class="header-status">Online now</span>
+                                        <span class="header-name"></span>
+                                        <span class="header-status"></span>
                                     </div>
-                                    {{-- <div class="header-actions">
-                                        <i class="icon-call">📞</i>
-                                        <i class="icon-video">📹</i>
-                                        <i class="icon-menu">⋮</i>
-                                    </div> --}}
                                 </div>
 
                                 <div class="messages-area">
-                                    <div class="message received">
-                                        <p>Hello Dr. Smith, I have a question about my medication dosage.</p>
-                                        <span class="message-time">9:01 AM</span>
-                                    </div>
-
-                                    <!-- Typing indicator (hidden by default) -->
-                                    <div class="typing-indicator" style="display: none;">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </div>
+                                    <!-- Messages will load dynamically via AJAX -->
                                 </div>
 
                                 <div class="chat-input-area">
                                     <i class="icon-attach">📎</i>
-                                    <textarea id="chatInput" placeholder="Type your message..." rows="1"></textarea>
-                                    <i class="icon-send"
-                                        onclick="sendMessage(document.getElementById('chatInput').value); document.getElementById('chatInput').value=''">🚀</i>
+                                    <textarea id="chatInput" placeholder="Select a conversation to start typing..."
+                                        rows="1"></textarea>
+                                    <i class="icon-send" onclick="sendMessage()">🚀</i>
                                 </div>
-
                             </div>
 
                         </div>
@@ -599,267 +564,134 @@
                 </div>
 
                 <script>
+                    // Global
+                    let activeConversationId = null;
 
-                    const chats = {
-                        jane: {
-                            name: "Dr. Jane Smith",
-                            status: "online",   // can be "online" or "offline"
-                            lastSeen: "Today at 9:40 AM",
-                            avatar: "{{ asset('assets-site/img/team/team-1.jpg') }}",
-                            messages: [
-                                { type: "received", text: "Hello Dr. Smith, I have a question about my medication dosage.", time: "9:01 AM" },
-                                { type: "sent", text: "Sure, can you send me the prescription details?", time: "9:05 AM" }
-                            ]
-                        },
-                        john: {
-                            name: "Dr. John Smith",
-                            status: "offline",
-                            lastSeen: "Yesterday at 8:15 PM",
-                            avatar: "{{ asset('assets-site/img/team/team-2.jpg') }}",
-                            messages: [
-                                { type: "received", text: "Hi John, don’t forget our meeting this afternoon.", time: "10:15 AM" },
-                                { type: "sent", text: "Noted, thanks!", time: "10:20 AM" }
-                            ]
-                        },
-                        huzaiphar: {
-                            name: "Dr. Bukenya Huzaiphar",
-                            status: "Online now",
-                            lastSeen: "Yesterday at 8:15 PM",
-                            avatar: "{{ asset('assets-site/img/team/team-3.jpg') }}",
-                            messages: [
-                                { type: "received", text: "Please review the new lab results.", time: "11:00 AM" },
-                                { type: "sent", text: "Okay, I’ll check them shortly.", time: "11:05 AM" }
-                            ]
-                        }
-                    };
+                    // Delegated click: handles both existing conversations and "start new" doctor items.
+                    $(document).on('click', '.conversation-item', function () {
+                        const id = $(this).attr('data-id');
 
-                    // Function to load chat
-
-                    let activeChatId = null; // track which chat is currently open
-
-                    function openChat(userId, element) {
-                        const chat = chats[userId];
-                        activeChatId = userId; // mark active chat
-
-                        // Update header
-                        document.querySelector(".header-name").textContent = chat.name;
-                        document.querySelector(".header-status").textContent = chat.status;
-
-                        if (chat.status === "online") {
-                            document.querySelector(".header-status").textContent = "Online now";
-                            document.querySelector(".header-status").style.color = "#28a745";
+                        if ($(this).hasClass('start-doctor')) {
+                            // doctor item → start new conversation
+                            startConversation(id, this);
                         } else {
-                            document.querySelector(".header-status").textContent = `Last seen ${chat.lastSeen}`;
-                            document.querySelector(".header-status").style.color = "#999";
+                            // existing conversation
+                            openChat(id, this);
                         }
+                    });
 
-                        // Update messages
-                        const messagesArea = document.querySelector(".messages-area");
-                        messagesArea.innerHTML = ""; // clear old messages
+                    function openChat(conversationId, el) {
+                        activeConversationId = conversationId;
 
-                        chat.messages.forEach(msg => {
-                            const div = document.createElement("div");
-                            div.className = `message ${msg.type}`;
-                            div.innerHTML = `<p>${msg.text}</p><span class="message-time">${msg.time}</span>`;
-                            messagesArea.appendChild(div);
+                        // Highlight active conversation
+                        $('.conversation-item').removeClass('active');
+                        $(el).addClass('active');
+
+                        // Enable input
+                        $('#chatInput')
+                            .prop('disabled', false)
+                            .attr('placeholder', 'Type a message...');
+
+                        // Update header info
+                        const name = $(el).find('.user-name').text() || $(el).data('name') || '';
+                        $('.header-name').text(name);
+
+                        const statusText = $(el).find('.avatar').hasClass('online') ? 'Online' : 'Offline';
+                        $('.header-status').text(statusText);
+
+                        // Load messages into .messages-area
+                        $.ajax({
+                            url: `/chat/${conversationId}`,
+                            method: 'GET',
+                            success: function (html) {
+                                $('.messages-area').html(html);
+
+                                // scroll to bottom
+                                $('.messages-area').scrollTop($('.messages-area').prop("scrollHeight"));
+                            },
+                            error: function (xhr) {
+                                console.error('openChat error:', xhr.responseText || xhr.statusText);
+                            }
                         });
-
-                        // 👉 Update active conversation highlight
-                        document.querySelectorAll(".conversation-item").forEach(item => {
-                            item.classList.remove("active");
-                        });
-                        element.classList.add("active");
-
-                        // 👉 Mark chat as read (hide unread bubble)
-                        const unreadBubble = element.querySelector(".unread-count");
-                        if (unreadBubble) {
-                            unreadBubble.style.display = "none";
-                            unreadBubble.textContent = "0";
-                        }
-
-                        // 👉 Handle mobile toggle
-                        if (window.innerWidth <= 768) {
-                            const sidebar = document.querySelector('.chat-sidebar');
-                            const chatMain = document.querySelector('.chat-main');
-                            sidebar.classList.add('hidden');
-                            chatMain.classList.add('active');
-                        }
                     }
 
-                    // ✅ Move conversation to top
-                    function moveConversationToTop(userId) {
-                        const conversationsList = document.querySelector(".conversations-list");
-                        const conversation = document.querySelector(`.conversation-item[data-id="${userId}"]`);
+                    function startConversation(doctorId, el) {
+                        $.ajax({
+                            url: `/chat/start/${doctorId}`,
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (data) {
+                                if (data.conversation_id) {
+                                    // Update the clicked doctor item → conversation item
+                                    $(el).removeClass('start-doctor');
+                                    $(el).attr('data-id', data.conversation_id);
 
-                        if (conversation && conversationsList.firstChild !== conversation) {
-                            conversationsList.removeChild(conversation);
-                            conversationsList.insertBefore(conversation, conversationsList.firstChild);
-                        }
-                    }
-
-                    // ✅ Update last message preview in sidebar
-                    function updateLastMessage(userId, text, time) {
-                        const conversation = document.querySelector(`.conversation-item[data-id="${userId}"]`);
-                        if (conversation) {
-                            const lastMessageEl = conversation.querySelector(".last-message");
-                            const timestampEl = conversation.querySelector(".timestamp");
-
-                            // Shorten if too long
-                            let preview = text.length > 40 ? text.substring(0, 40) + "..." : text;
-
-                            if (lastMessageEl) lastMessageEl.textContent = preview;
-                            if (timestampEl) timestampEl.textContent = time;
-                        }
-                    }
-
-                    // ✅ Simulate receiving a new message
-                    function receiveMessage(userId, text, time = "Now") {
-                        const chat = chats[userId];
-
-                        chat.messages.push({ type: "received", text, time });
-
-                        if (activeChatId === userId) {
-                            // Show directly in open chat
-                            const messagesArea = document.querySelector(".messages-area");
-                            const div = document.createElement("div");
-                            div.className = "message received";
-                            div.innerHTML = `<p>${text}</p><span class="message-time">${time}</span>`;
-                            messagesArea.appendChild(div);
-
-                            // ✅ Auto-scroll to bottom
-                            messagesArea.scrollTop = messagesArea.scrollHeight;
-                        } else {
-                            // Increment unread count
-                            const conversation = document.querySelector(`.conversation-item[data-id="${userId}"]`);
-                            if (conversation) {
-                                let unreadBubble = conversation.querySelector(".unread-count");
-                                if (!unreadBubble) {
-                                    unreadBubble = document.createElement("span");
-                                    unreadBubble.className = "unread-count";
-                                    unreadBubble.textContent = "1";
-                                    conversation.querySelector(".chat-status").appendChild(unreadBubble);
+                                    // Immediately open the new conversation
+                                    openChat(data.conversation_id, el);
                                 } else {
-                                    let current = parseInt(unreadBubble.textContent) || 0;
-                                    unreadBubble.textContent = current + 1;
-                                    unreadBubble.style.display = "inline-block";
+                                    console.error('startConversation: no conversation_id in response', data);
+                                    alert('Could not start conversation. Try again.');
                                 }
+                            },
+                            error: function (xhr) {
+                                console.error('startConversation error:', xhr.responseText || xhr.statusText);
                             }
+                        });
+                    }
+
+                    function sendMessage() {
+                        const text = $('#chatInput').val().trim();
+                        if (!text) return;
+
+                        if (!activeConversationId) {
+                            alert("Please select a conversation first.");
+                            return;
                         }
 
-                        // 👉 Update sidebar preview + reorder
-                        updateLastMessage(userId, text, time);
-                        moveConversationToTop(userId);
-                    }
+                        $.ajax({
+                            url: `/chat/${activeConversationId}/send`,
+                            method: 'POST',
+                            data: { message: text },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (data) {
+                                const $messagesArea = $('.messages-area');
 
+                                // Escape user text to prevent XSS
+                                const safeText = $('<div>').text(data.message).html();
 
-                    // ✅ Sending a message (outgoing)
-                    function sendMessage(text) {
-                        if (!activeChatId || !text.trim()) return;
+                                const $div = $('<div>')
+                                    .addClass('message sent')
+                                    .html(`
+                        <p>${safeText}</p>
+                        <span class="message-time">${data.time}</span>
+                    `);
 
-                        const chat = chats[activeChatId];
-                        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                $messagesArea.append($div);
+                                $('#chatInput').val('');
 
-                        chat.messages.push({ type: "sent", text, time });
-
-                        // Show in chat area
-                        const messagesArea = document.querySelector(".messages-area");
-                        const div = document.createElement("div");
-                        div.className = "message sent";
-                        div.innerHTML = `<p>${text}</p><span class="message-time">${time}</span>`;
-                        messagesArea.appendChild(div);
-
-                        // 👉 Update sidebar preview + reorder
-                        updateLastMessage(activeChatId, text, time);
-                        moveConversationToTop(activeChatId);
-                    }
-
-                    // Show typing indicator
-                    function showTyping(userId) {
-                        if (activeChatId === userId) {
-                            document.querySelector(".typing-indicator").style.display = "flex";
-                        } else {
-                            // If chat not open, mark sidebar with "typing..."
-                            const conversation = document.querySelector(`.conversation-item[data-id="${userId}"] .last-message`);
-                            if (conversation) {
-                                conversation.textContent = "typing...";
-                                conversation.style.fontStyle = "italic";
-                                conversation.style.color = "#28a745";
+                                // Scroll to bottom after new message
+                                $messagesArea.scrollTop($messagesArea.prop("scrollHeight"));
+                            },
+                            error: function (xhr) {
+                                console.error('sendMessage error:', xhr.responseText || xhr.statusText);
                             }
-                        }
+                        });
                     }
 
-                    function hideTyping(userId) {
-                        if (activeChatId === userId) {
-                            document.querySelector(".typing-indicator").style.display = "none";
-                        } else {
-                            // Reset last message preview
-                            const lastMsg = chats[userId].messages.slice(-1)[0]; // get last msg
-                            const conversation = document.querySelector(`.conversation-item[data-id="${userId}"] .last-message`);
-                            if (conversation && lastMsg) {
-                                conversation.textContent = lastMsg.text;
-                                conversation.style.fontStyle = "normal";
-                                conversation.style.color = "#666";
-                            }
+                    // Press Enter to send (Shift+Enter for newline)
+                    $(document).on('keypress', '#chatInput', function (e) {
+                        if (e.which === 13 && !e.shiftKey) {
+                            e.preventDefault();
+                            sendMessage();
                         }
-                    }
+                    });
 
-                    setTimeout(() => {
-                        showTyping("jane");
-                        setTimeout(() => {
-                            hideTyping("jane");
-                            receiveMessage("jane", "I’ll update your prescription shortly.", "Now");
-                        }, 3000);
-                    }, 5000);
-
-                    function setOnline(userId) {
-                        chats[userId].status = "online";
-                        chats[userId].lastSeen = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                        // Header update
-                        if (activeChatId === userId) {
-                            document.querySelector(".header-status").textContent = "Online now";
-                            document.querySelector(".header-status").style.color = "#28a745";
-                        }
-
-                        // Sidebar avatar update
-                        const avatar = document.getElementById(`avatar-${userId}`);
-                        if (avatar) {
-                            avatar.classList.add("online");
-                        }
-                    }
-
-                    function setOffline(userId) {
-                        chats[userId].status = "offline";
-                        chats[userId].lastSeen = "Today at " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                        // Header update
-                        if (activeChatId === userId) {
-                            document.querySelector(".header-status").textContent = `Last seen ${chats[userId].lastSeen}`;
-                            document.querySelector(".header-status").style.color = "#999";
-                        }
-
-                        // Sidebar avatar update
-                        const avatar = document.getElementById(`avatar-${userId}`);
-                        if (avatar) {
-                            avatar.classList.remove("online");
-                        }
-                    }
-
-
-                    // Example simulation:
-                    setTimeout(() => setOffline("jane"), 8000); // Dr. Jane goes offline after 8s
-                    setTimeout(() => setOnline("jane"), 15000); // Dr. Jane comes back online after 15s
-
-
-                    function goBack() {
-                        const sidebar = document.querySelector('.chat-sidebar');
-                        const chatMain = document.querySelector('.chat-main');
-                        if (window.innerWidth <= 768) {
-                            chatMain.classList.remove('active');
-                            sidebar.classList.remove('hidden');
-                        }
-                    }
-
+                    // Disable input until a conversation is selected
+                    $('#chatInput').prop('disabled', true);
                 </script>
 
 

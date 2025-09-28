@@ -129,7 +129,8 @@ Route::controller(ChatController::class)->group(function () {
     Route::group(['middleware' => ['AdminAuth']], function () {
 
         Route::get('chatroom', 'chatroom')->name('chat.chatroom');
-        Route::get('/chat/{conversation}',  'show')->name('chat.show');
-        Route::post('/chat/{conversation}/send',  'store')->name('chat.send');
+        Route::get('/chat/{conversation}', 'show')->name('chat.show');
+        Route::post('/chat/{conversation}/send', 'store')->name('chat.send');
+        Route::post('/chat/start/{doctorId}', 'startConversation')->name('chat.start');
     });
 });
