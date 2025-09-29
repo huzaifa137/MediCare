@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\SiteController;
@@ -128,9 +129,16 @@ Route::controller(ChatController::class)->group(function () {
 
     Route::group(['middleware' => ['AdminAuth']], function () {
 
+        Route::get('/chat/{conversation}/messages', 'getMessages');
         Route::get('chatroom', 'chatroom')->name('chat.chatroom');
         Route::get('/chat/{conversation}', 'show')->name('chat.show');
         Route::post('/chat/{conversation}/send', 'store')->name('chat.send');
         Route::post('/chat/start/{doctorId}', 'startConversation')->name('chat.start');
+        Route::post('/chat/send-first-message', 'sendFirstMessage');
+        Route::post('/chat/{conversation}/mark-read', 'markRead')->name('chat.markRead');
+        Route::get('/user/{user}/status', function (User $user) {
+            return response()->json(['online' => $user->isOnline()]);
+        });
+
     });
 });

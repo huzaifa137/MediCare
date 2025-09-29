@@ -33,6 +33,8 @@ return new class extends Migration {
             $table->timestamp('last_login_at')->nullable();
             $table->string('profile_photo')->nullable();
 
+            $table->timestamp('last_activity')->nullable();
+
             // Laravel Defaults
             $table->rememberToken();
             $table->timestamps();
