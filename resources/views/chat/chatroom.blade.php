@@ -531,149 +531,149 @@
                     font-weight: bold;
                     font-size: 16px;
                     text-transform: uppercase;
-}
+                }
 
-@media (max-width: 768px) {
-    .chat-container {
-        flex-direction: column;
-        height: 100vh;
-    }
+                @media (max-width: 768px) {
+                    .chat-container {
+                        flex-direction: column;
+                        height: 100vh;
+                    }
 
-    .chat-sidebar {
-        width: 100%;
-        display: block;
-    }
+                    .chat-sidebar {
+                        width: 100%;
+                        display: block;
+                    }
 
-    .chat-main {
-        width: 100%;
-        display: none; /* hidden initially */
-        flex: 1;
-    }
+                    .chat-main {
+                        width: 100%;
+                        display: none; /* hidden initially */
+                        flex: 1;
+                    }
 
-    .chat-main.active {
-        display: flex;
-    }
+                    .chat-main.active {
+                        display: flex;
+                    }
 
-    .chat-sidebar.hidden {
-        display: none;
-    }
+                    .chat-sidebar.hidden {
+                        display: none;
+                    }
 
-    .chat-header .icon-back {
-        display: inline-block;
-    }
-}
+                    .chat-header .icon-back {
+                        display: inline-block;
+                    }
+                }
 
 
                 </style>
 
-                <div class="content-wrapper">
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="chat-container">
+        <div class="content-wrapper">
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="chat-container">
 
-            <!-- Sidebar -->
-            <div class="chat-sidebar">
-                <div class="sidebar-header">
-                    <input type="text" placeholder="Search Doctors or Patients..." class="chat-search">
-                </div>
+                    <!-- Sidebar -->
+                    <div class="chat-sidebar">
+                        <div class="sidebar-header">
+                            <input type="text" placeholder="Search Doctors or Patients..." class="chat-search">
+                        </div>
 
-                <div class="conversations-list">
-                    {{-- Existing conversations --}}
-                    @if(isset($conversations) && $conversations->count() > 0)
-                        @php
-                            // Sort conversations by last message timestamp descending
-                            $sortedConversations = $conversations->sortByDesc(function ($conversation) {
-                                return optional($conversation->lastMessage)->created_at;
-                            });
-                        @endphp
+                        <div class="conversations-list">
+                            {{-- Existing conversations --}}
+                            @if(isset($conversations) && $conversations->count() > 0)
+                                @php
+                                    // Sort conversations by last message timestamp descending
+                                    $sortedConversations = $conversations->sortByDesc(function ($conversation) {
+                                        return optional($conversation->lastMessage)->created_at;
+                                    });
+                                @endphp
 
-                        @foreach($sortedConversations as $conversation)
-                            @php
-                                $otherUser = $user->user_role == 3 ? $conversation->doctor : $conversation->patient;
-                                $otherName = $otherUser->fullName ?? $otherUser->full_name ?? 'Unknown';
-                                $lastMessage = $conversation->lastMessage;
+                                @foreach($sortedConversations as $conversation)
+                                    @php
+                                        $otherUser = $user->user_role == 3 ? $conversation->doctor : $conversation->patient;
+                                        $otherName = $otherUser->fullName ?? $otherUser->full_name ?? 'Unknown';
+                                        $lastMessage = $conversation->lastMessage;
 
-                                // Generate initials
-                                $nameParts = explode(' ', $otherName);
-                                $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
-                            @endphp
+                                        // Generate initials
+                                        $nameParts = explode(' ', $otherName);
+                                        $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+                                    @endphp
 
-                            <div class="conversation-item" data-id="{{ $conversation->id }}">
-                                <div class="avatar" 
-                                    style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
-                                    {{ $initials }}
-                                </div>
-                                <div class="chat-info">
-                                    <span class="user-name">{{ $otherName }}</span>
-                                    <p class="last-message">{{ $lastMessage->message ?? 'No messages yet' }}</p>
-                                </div>
-                                <div class="chat-status">
-                                    <span class="timestamp">{{ $lastMessage?->created_at?->format('h:i A') ?? '' }}</span>
-                                    <span class="unread-count"
-                                        @if(!($conversation->messages()->where('status', '!=', 'read')->count()))
-                                        style="display:none;" @endif>
-                                        {{ $conversation->messages()->where('status', '!=', 'read')->count() }}
-                                    </span>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-
-                    {{-- Doctors to start conversation (patients only) --}}
-                    @if($user->user_role != 2 && isset($doctors) && $doctors->count() > 0)
-                        @foreach($doctors as $doctor)
-                            @php
-                                $existing = $conversations->firstWhere('doctor_id', $doctor->id);
-                                $doctorName = $doctor->fullName ?? 'Unknown';
-                                $doctorInitials = strtoupper(substr(explode(' ', $doctorName)[0], 0, 1) . (isset(explode(' ', $doctorName)[1]) ? substr(explode(' ', $doctorName)[1], 0, 1) : ''));
-                            @endphp
-                            @if(!$existing)
-                                <div class="conversation-item start-doctor" data-doctor-id="{{ $doctor->id }}">
-                                    <div class="avatar" 
-                                        style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
-                                        {{ $doctorInitials }}
+                                    <div class="conversation-item" data-id="{{ $conversation->id }}">
+                                        <div class="avatar" 
+                                            style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
+                                            {{ $initials }}
+                                        </div>
+                                        <div class="chat-info">
+                                            <span class="user-name">{{ $otherName }}</span>
+                                            <p class="last-message">{{ $lastMessage->message ?? 'No messages yet' }}</p>
+                                        </div>
+                                        <div class="chat-status">
+                                            <span class="timestamp">{{ $lastMessage?->created_at?->format('h:i A') ?? '' }}</span>
+                                            <span class="unread-count"
+                                                @if(!($conversation->messages()->where('status', '!=', 'read')->count()))
+                                                style="display:none;" @endif>
+                                                {{ $conversation->messages()->where('status', '!=', 'read')->count() }}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="chat-info">
-                                        <span class="user-name">{{ $doctorName }}</span>
-                                        <p class="last-message">Start a new conversation</p>
-                                    </div>
+                                @endforeach
+                            @endif
+
+                            {{-- Doctors to start conversation (patients only) --}}
+                            @if($user->user_role != 2 && isset($doctors) && $doctors->count() > 0)
+                                @foreach($doctors as $doctor)
+                                    @php
+                                        $existing = $conversations->firstWhere('doctor_id', $doctor->id);
+                                        $doctorName = $doctor->fullName ?? 'Unknown';
+                                        $doctorInitials = strtoupper(substr(explode(' ', $doctorName)[0], 0, 1) . (isset(explode(' ', $doctorName)[1]) ? substr(explode(' ', $doctorName)[1], 0, 1) : ''));
+                                    @endphp
+                                    @if(!$existing)
+                                        <div class="conversation-item start-doctor" data-doctor-id="{{ $doctor->id }}">
+                                            <div class="avatar" 
+                                                style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
+                                                {{ $doctorInitials }}
+                                            </div>
+                                            <div class="chat-info">
+                                                <span class="user-name">{{ $doctorName }}</span>
+                                                <p class="last-message">Start a new conversation</p>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endif
+
+                            {{-- Empty state --}}
+                            @if((!isset($conversations) || $conversations->count() == 0) && (!isset($doctors) || $doctors->count() == 0))
+                                <div class="empty-chat">
+                                    <p>No conversations yet. Start a chat!</p>
                                 </div>
                             @endif
-                        @endforeach
-                    @endif
-
-                    {{-- Empty state --}}
-                    @if((!isset($conversations) || $conversations->count() == 0) && (!isset($doctors) || $doctors->count() == 0))
-                        <div class="empty-chat">
-                            <p>No conversations yet. Start a chat!</p>
                         </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Main Chat -->
-            <div class="chat-main">
-                <div class="chat-header">
-                    <i class="icon-back" onclick="goBack()">⬅</i>
-                    <div class="header-info">
-                        <span class="header-name"></span>
-                        <span class="header-status"></span>
                     </div>
-                </div>
 
-                <div class="messages-area">
-                    <!-- Messages load dynamically -->
-                </div>
+                    <!-- Main Chat -->
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <i class="icon-back" onclick="goBack()">⬅</i>
+                            <div class="header-info">
+                                <span class="header-name"></span>
+                                <span class="header-status"></span>
+                            </div>
+                        </div>
 
-                <div class="chat-input-area">
-                    <i class="icon-attach">📎</i>
-                    <textarea id="chatInput" placeholder="Select a conversation to start typing..." rows="1"></textarea>
-                    <i class="icon-send" onclick="sendMessage()">🚀</i>
+                        <div class="messages-area">
+                            <!-- Messages load dynamically -->
+                        </div>
+
+                        <div class="chat-input-area">
+                            <i class="icon-attach">📎</i>
+                            <textarea id="chatInput" placeholder="Select a conversation to start typing..." rows="1"></textarea>
+                            <i class="icon-send" onclick="sendMessage()">🚀</i>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
 <script>
 const currentUserId = {{ $user->id }};
 let activeConversationId = null;
