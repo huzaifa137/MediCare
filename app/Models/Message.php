@@ -17,4 +17,10 @@ class Message extends Model
     {
         return $this->morphTo(null, 'sender_type', 'sender_id');
     }
+
+    public function attachments()
+    {
+        return $this->hasMany(MessageAttachment::class);
+    }
+
 }

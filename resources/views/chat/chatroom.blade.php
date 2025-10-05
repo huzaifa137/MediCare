@@ -520,359 +520,591 @@
                     }
 
                     .profile-initials {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    background-color: #cce5ff; /* light blue */
-                    color: #004085; /* dark text for contrast */
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: bold;
-                    font-size: 16px;
-                    text-transform: uppercase;
-                }
-
-                @media (max-width: 768px) {
-                    .chat-container {
-                        flex-direction: column;
-                        height: 100vh;
-                    }
-
-                    .chat-sidebar {
-                        width: 100%;
-                        display: block;
-                    }
-
-                    .chat-main {
-                        width: 100%;
-                        display: none; /* hidden initially */
-                        flex: 1;
-                    }
-
-                    .chat-main.active {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        background-color: #cce5ff;
+                        /* light blue */
+                        color: #004085;
+                        /* dark text for contrast */
                         display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        font-size: 16px;
+                        text-transform: uppercase;
                     }
 
-                    .chat-sidebar.hidden {
-                        display: none;
+                    @media (max-width: 768px) {
+                        .chat-container {
+                            flex-direction: column;
+                            height: 100vh;
+                        }
+
+                        .chat-sidebar {
+                            width: 100%;
+                            display: block;
+                        }
+
+                        .chat-main {
+                            width: 100%;
+                            display: none;
+                            /* hidden initially */
+                            flex: 1;
+                        }
+
+                        .chat-main.active {
+                            display: flex;
+                        }
+
+                        .chat-sidebar.hidden {
+                            display: none;
+                        }
+
+                        .chat-header .icon-back {
+                            display: inline-block;
+                        }
                     }
 
-                    .chat-header .icon-back {
+                    .last-message-tick {
+                        margin-right: 6px;
                         display: inline-block;
                     }
-                }
 
+                    .empty-chat-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 80%;
+                        text-align: center;
+                        padding: 2rem;
+                    }
 
+                    .empty-chat-card {
+                        background-color: #f0f4f8;
+                        padding: 3rem 2rem;
+                        border-radius: 12px;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+                        max-width: 400px;
+                        width: 100%;
+                    }
+
+                    .empty-chat-card img.empty-chat-image {
+                        width: 120px;
+                        margin-bottom: 1.5rem;
+                        opacity: 0.85;
+                    }
+
+                    .empty-chat-card h3 {
+                        font-size: 1.5rem;
+                        color: #1a202c;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .empty-chat-card p {
+                        font-size: 1rem;
+                        color: #4a5568;
+                    }
                 </style>
 
-        <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
-                <div class="chat-container">
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="chat-container">
 
-                    <!-- Sidebar -->
-                    <div class="chat-sidebar">
-                        <div class="sidebar-header">
-                            <input type="text" placeholder="Search Doctors or Patients..." class="chat-search">
-                        </div>
+                            <!-- Sidebar -->
+                            <div class="chat-sidebar">
+                                <div class="sidebar-header">
+                                    <input type="text" placeholder="Search Doctors or Patients..." class="chat-search">
+                                </div>
 
-                        <div class="conversations-list">
-                            {{-- Existing conversations --}}
-                            @if(isset($conversations) && $conversations->count() > 0)
-                                @php
-                                    // Sort conversations by last message timestamp descending
-                                    $sortedConversations = $conversations->sortByDesc(function ($conversation) {
-                                        return optional($conversation->lastMessage)->created_at;
-                                    });
-                                @endphp
+                                <div class="conversations-list">
+                                    {{-- Existing conversations --}}
+                                    @if(isset($conversations) && $conversations->count() > 0)
+                                        @php
+                                            // Sort conversations by last message timestamp descending
+                                            $sortedConversations = $conversations->sortByDesc(function ($conversation) {
+                                                return optional($conversation->lastMessage)->created_at;
+                                            });
+                                        @endphp
 
-                                @foreach($sortedConversations as $conversation)
-                                    @php
-                                        $otherUser = $user->user_role == 3 ? $conversation->doctor : $conversation->patient;
-                                        $otherName = $otherUser->fullName ?? $otherUser->full_name ?? 'Unknown';
-                                        $lastMessage = $conversation->lastMessage;
+                                        @foreach($sortedConversations as $conversation)
+                                            @php
+                                                $otherUser = $user->user_role == 3 ? $conversation->doctor : $conversation->patient;
+                                                $otherName = $otherUser->fullName ?? $otherUser->full_name ?? 'Unknown';
+                                                $lastMessage = $conversation->lastMessage;
 
-                                        // Generate initials
-                                        $nameParts = explode(' ', $otherName);
-                                        $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
-                                    @endphp
+                                                // Generate initials
+                                                $nameParts = explode(' ', $otherName);
+                                                $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
 
-                                    <div class="conversation-item" data-id="{{ $conversation->id }}">
-                                        <div class="avatar" 
-                                            style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
-                                            {{ $initials }}
-                                        </div>
-                                        <div class="chat-info">
-                                            <span class="user-name">{{ $otherName }}</span>
-                                            <p class="last-message">{{ $lastMessage->message ?? 'No messages yet' }}</p>
-                                        </div>
-                                        <div class="chat-status">
-                                            <span class="timestamp">{{ $lastMessage?->created_at?->format('h:i A') ?? '' }}</span>
-                                            <span class="unread-count"
-                                                @if(!($conversation->messages()->where('status', '!=', 'read')->count()))
-                                                style="display:none;" @endif>
-                                                {{ $conversation->messages()->where('status', '!=', 'read')->count() }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
+                                                // Tick logic
+                                                $status = $conversation->lastMessageStatus;
+                                                $tick = '';
+                                                if ($lastMessage && $lastMessage->sender_id == $user->id) {
+                                                    if ($status == 'sent')
+                                                        $tick = '✔';
+                                                    elseif ($status == 'delivered')
+                                                        $tick = '✔✔';
+                                                    elseif ($status == 'read')
+                                                        $tick = '✔✔';
+                                                }
+                                            @endphp
 
-                            {{-- Doctors to start conversation (patients only) --}}
-                            @if($user->user_role != 2 && isset($doctors) && $doctors->count() > 0)
-                                @foreach($doctors as $doctor)
-                                    @php
-                                        $existing = $conversations->firstWhere('doctor_id', $doctor->id);
-                                        $doctorName = $doctor->fullName ?? 'Unknown';
-                                        $doctorInitials = strtoupper(substr(explode(' ', $doctorName)[0], 0, 1) . (isset(explode(' ', $doctorName)[1]) ? substr(explode(' ', $doctorName)[1], 0, 1) : ''));
-                                    @endphp
-                                    @if(!$existing)
-                                        <div class="conversation-item start-doctor" data-doctor-id="{{ $doctor->id }}">
-                                            <div class="avatar" 
-                                                style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
-                                                {{ $doctorInitials }}
+                                            <div class="conversation-item" data-id="{{ $conversation->id }}">
+                                                <div class="avatar"
+                                                    style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
+                                                    {{ $initials }}
+                                                </div>
+                                                <div class="chat-info">
+                                                    <span class="user-name">{{ $otherName }}</span>
+                                                    <p class="last-message">
+                                                        @if($tick)
+                                                            <span
+                                                                class="last-message-tick
+                                                                                                                                                                                                                @if($status === 'sent') single-gray
+                                                                                                                                                                                                                @elseif($status === 'delivered') double-gray
+                                                                                                                                                                                                                @elseif($status === 'read') double-blue
+                                                                                                                                                                                                                @endif
+                                                                                                                                                                                                            ">
+                                                                {{ $tick }}
+                                                            </span>
+                                                        @endif
+                                                        {{ $lastMessage->message ?? 'No messages yet' }}
+                                                    </p>
+                                                </div>
+                                                <div class="chat-status">
+                                                    <span
+                                                        class="timestamp">{{ $lastMessage?->created_at?->format('h:i A') ?? '' }}</span>
+                                                    <span class="unread-count" @if(!$conversation->unread_count)
+                                                    style="display:none;" @endif>
+                                                        {{ $conversation->unread_count }}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="chat-info">
-                                                <span class="user-name">{{ $doctorName }}</span>
-                                                <p class="last-message">Start a new conversation</p>
+                                        @endforeach
+                                    @endif
+
+                                    {{-- Doctors to start new conversation (patients only) --}}
+                                    @if($user->user_role != 2 && isset($doctors) && $doctors->count() > 0)
+                                        @foreach($doctors as $doctor)
+                                            @php
+                                                $existing = $conversations->firstWhere('doctor_id', $doctor->id);
+                                                $doctorName = $doctor->fullName ?? 'Unknown';
+                                                $doctorInitials = strtoupper(substr(explode(' ', $doctorName)[0], 0, 1) . (isset(explode(' ', $doctorName)[1]) ? substr(explode(' ', $doctorName)[1], 0, 1) : ''));
+                                            @endphp
+                                            @if(!$existing)
+                                                <div class="conversation-item start-doctor" data-doctor-id="{{ $doctor->id }}">
+                                                    <div class="avatar"
+                                                        style="background-color: #cce5ff; color: #007bff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; border-radius:50%; width:40px; height:40px;">
+                                                        {{ $doctorInitials }}
+                                                    </div>
+                                                    <div class="chat-info">
+                                                        <span class="user-name">{{ $doctorName }}</span>
+                                                        <p class="last-message">Start a new conversation</p>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @endif
+
+                                    {{-- Empty state --}}
+                                    @if((!isset($conversations) || $conversations->count() == 0) && (!isset($doctors) || $doctors->count() == 0))
+                                        {{-- <div class="empty-chat">
+                                            <p>No conversations yet. Start a chat!</p>
+                                        </div> --}}
+                                        <div class="empty-chat-container">
+                                            <div class="empty-chat-card">
+                                                <img src="/assets-site/img/ChatPlaceholder.jpg" alt="No messages"
+                                                    class="empty-chat-image" style="border-radius: 50%;">
+
+                                                <h5>No Conversations Yet</h5>
+                                                <p>Once a patient sends you a message, it will appear here. Encourage
+                                                    patients to reach out!</p>
                                             </div>
                                         </div>
                                     @endif
-                                @endforeach
-                            @endif
-
-                            {{-- Empty state --}}
-                            @if((!isset($conversations) || $conversations->count() == 0) && (!isset($doctors) || $doctors->count() == 0))
-                                <div class="empty-chat">
-                                    <p>No conversations yet. Start a chat!</p>
                                 </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Main Chat -->
-                    <div class="chat-main">
-                        <div class="chat-header">
-                            <i class="icon-back" onclick="goBack()">⬅</i>
-                            <div class="header-info">
-                                <span class="header-name"></span>
-                                <span class="header-status"></span>
                             </div>
-                        </div>
 
-                        <div class="messages-area">
-                            <!-- Messages load dynamically -->
-                        </div>
+                            <!-- Main Chat -->
+                            <div class="chat-main">
+                                <div class="chat-header">
+                                    <i class="icon-back" onclick="goBack()">⬅</i>
+                                    <div class="header-info">
+                                        <span class="header-name"></span>
+                                        <span class="header-status"></span>
+                                    </div>
+                                </div>
 
-                        <div class="chat-input-area">
-                            <i class="icon-attach">📎</i>
-                            <textarea id="chatInput" placeholder="Select a conversation to start typing..." rows="1"></textarea>
-                            <i class="icon-send" onclick="sendMessage()">🚀</i>
+                                <div class="messages-area">
+                                    <!-- Messages load dynamically -->
+                                </div>
+
+                                <div class="chat-input-area">
+                                    <i class="icon-attach">📎</i>
+                                    <textarea id="chatInput" placeholder="Select a conversation to start typing..."
+                                        rows="1"></textarea>
+                                    <i class="icon-send" onclick="sendMessage()">🚀</i>
+                                </div>
+
+                                <!-- Hidden file input for attachments -->
+                                <input type="file" id="chatAttachment" style="display: none;" multiple>
+
+                                <!-- Optional preview container -->
+                                <div id="attachmentPreview" class="attachment-preview"
+                                    style="display:none; margin:5px 0;"></div>
+
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
-<script>
-const currentUserId = {{ $user->id }};
-let activeConversationId = null;
-let currentDoctorIdForNew = null; // For new conversations
-const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-// =========================
-// Handle conversation click
-// =========================
-$(document).on('click', '.conversation-item', function () {
-    const doctorId = $(this).data('doctor-id');
-    const conversationId = $(this).data('id');
+                <script>
+                    const currentUserId = {{ $user->id }};
+                    let activeConversationId = null;
+                    let currentDoctorIdForNew = null;
+                    const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-    $('.conversation-item').removeClass('active');
-    $(this).addClass('active');
+                    // =========================
+                    // Handle conversation click
+                    // =========================
+                    $(document).on('click', '.conversation-item', function () {
+                        const doctorId = $(this).data('doctor-id');
+                        const conversationId = $(this).data('id');
 
-    if ($(this).hasClass('start-doctor')) {
-        currentDoctorIdForNew = doctorId;
-        openChatPlaceholder(doctorId);
-    } else if (conversationId) {
-        currentDoctorIdForNew = null;
-        openChat(conversationId, this);
-    }
-});
+                        $('.conversation-item').removeClass('active');
+                        $(this).addClass('active');
 
-// =========================
-// Open existing conversation
-// =========================
-function openChat(conversationId, el) {
-    activeConversationId = conversationId;
-    $('#chatInput').prop('disabled', false).attr('placeholder', 'Type a message...');
-    $('.header-name').text($(el).find('.user-name').text() || '');
-    $('.header-status').text('Online');
+                        if ($(this).hasClass('start-doctor')) {
+                            currentDoctorIdForNew = doctorId;
+                            openChatPlaceholder(doctorId);
+                        } else if (conversationId) {
+                            currentDoctorIdForNew = null;
+                            openChat(conversationId, this);
+                        }
+                    });
 
-    $.get(`/chat/${conversationId}/messages`, function (messages) {
-        $('.messages-area').html('');
-        messages.forEach(msg => appendMessage(msg));
+                    // =========================
+                    // Open existing conversation
+                    // =========================
+                    function openChat(conversationId, el) {
+                        activeConversationId = conversationId;
+                        $('#chatInput').prop('disabled', false).attr('placeholder', 'Type a message...');
+                        $('.header-name').text($(el).find('.user-name').text() || '');
+                        $('.header-status').text('Online');
 
-        // Mark all incoming messages as read on server
-        $.post(`/chat/${conversationId}/mark-read`, { _token: csrfToken }, function () {
-            $(el).find('.unread-count').hide();
-        });
-    });
+                        $.get(`/chat/${conversationId}/messages`, function (messages) {
+                            $('.messages-area').html('');
+                            messages.forEach(msg => appendMessage(msg));
 
-    if (window.innerWidth <= 768) {
-        $('.chat-sidebar').addClass('hidden');
-        $('.chat-main').addClass('active');
-    }
-}
+                            // Mark all incoming messages as read
+                            $.post(`/chat/${conversationId}/mark-read`, { _token: csrfToken }, function () {
+                                $(el).find('.unread-count').text('0').hide();
+                                // Update tick in sidebar to "read" if last message was sent by current user
+                                const lastMsg = messages[messages.length - 1];
+                                if (lastMsg?.sender_id == currentUserId) {
+                                    updateConversationPreview(conversationId, lastMsg.message, lastMsg.time, lastMsg.status);
+                                }
+                            });
+                        });
 
-// =========================
-// Open placeholder for new conversation
-// =========================
-function openChatPlaceholder(doctorId) {
-    activeConversationId = null;
-    $('#chatInput').prop('disabled', false).attr('placeholder', 'Type a message...');
-    $('.header-name').text($('.conversation-item.active').find('.user-name').text() || '');
-    $('.header-status').text('Online');
-    $('.messages-area').html('<p class="no-messages">No messages yet. Start typing below...</p>');
+                        if (window.innerWidth <= 768) {
+                            $('.chat-sidebar').addClass('hidden');
+                            $('.chat-main').addClass('active');
+                        }
+                    }
 
-    if (window.innerWidth <= 768) {
-        $('.chat-sidebar').addClass('hidden');
-        $('.chat-main').addClass('active');
-    }
-}
+                    // =========================
+                    // Open placeholder for new conversation
+                    // =========================
+                    function openChatPlaceholder(doctorId) {
+                        activeConversationId = null;
+                        $('#chatInput').prop('disabled', false).attr('placeholder', 'Type a message...');
+                        $('.header-name').text($('.conversation-item.active').find('.user-name').text() || '');
+                        $('.header-status').text('Online');
+                        $('.messages-area').html('<p class="no-messages text-center">No messages yet. Start typing below...</p>');
 
-// =========================
-// Send message handler
-// =========================
-function handleSend() {
-    const text = $('#chatInput').val().trim();
-    if (!text) return;
+                        if (window.innerWidth <= 768) {
+                            $('.chat-sidebar').addClass('hidden');
+                            $('.chat-main').addClass('active');
+                        }
+                    }
 
-    const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                    // =========================
+                    // Updated send message to include attachments
+                    // =========================
+                    function handleSend() {
+                        const text = $('#chatInput').val().trim();
+                        const files = $('#chatAttachment')[0].files;
 
-    if (activeConversationId) {
-        // Normal message
-        $.post(`/chat/${activeConversationId}/send`, { message: text, _token: csrfToken }, function (data) {
-            appendMessage({ ...data, sender_id: currentUserId, conversation_id: activeConversationId, time });
-            $('#chatInput').val('');
+                        if (!text && files.length === 0) return; // Nothing to send
 
-            moveConversationToTop(activeConversationId);
-            updateConversationPreview(activeConversationId, text, time);
-        });
+                        const now = new Date();
+                        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const tempId = 'temp-' + Date.now();
 
-    } else if (currentDoctorIdForNew) {
-        // First message
-        const el = $('.conversation-item.start-doctor.active')[0];
+                        // Optimistically append message (with attachments preview)
+                        appendMessage({
+                            id: tempId,
+                            sender_id: currentUserId,
+                            conversation_id: activeConversationId,
+                            message: text,
+                            attachments: Array.from(files).map(f => ({ name: f.name, type: f.type, url: URL.createObjectURL(f) })),
+                            time: time,
+                            status: 'sent'
+                        });
 
-        $.post(`/chat/send-first-message`, { 
-            message: text, 
-            doctor_id: currentDoctorIdForNew, 
-            _token: csrfToken 
-        }, function (data) {
-            if (data.conversation_id) {
-                $(el).removeClass('start-doctor').attr('data-id', data.conversation_id);
-                activeConversationId = data.conversation_id;
-                currentDoctorIdForNew = null;
-                $('.messages-area').html('');
+                        $('#chatInput').val('');
+                        $('#chatAttachment').val('');
+                        $('#attachmentPreview').hide().html('');
 
-                appendMessage({
-                    ...data,
-                    sender_id: currentUserId,
-                    conversation_id: data.conversation_id,
-                    time
-                });
+                        // Prepare FormData to send files
+                        const formData = new FormData();
+                        formData.append('message', text);
+                        Array.from(files).forEach(file => formData.append('attachments[]', file));
+                        formData.append('_token', csrfToken);
 
-                $('#chatInput').val('');
+                        // === Existing conversation ===
+                        if (activeConversationId) {
+                            $.ajax({
+                                url: `/chat/${activeConversationId}/send`,
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    updateMessageStatus(tempId, data.id, data.status || 'sent');
+                                    moveConversationToTop(activeConversationId);
+                                    updateConversationPreview(activeConversationId, text, time, data.status || 'sent');
+                                },
+                                // error: function () {
+                                //     const $msg = $(`.message[data-id="${tempId}"]`);
+                                //     $msg.find('.tick').removeClass().addClass('tick error').text('❌');
+                                // }
+                                error: function (xhr) {
+                                    $('body').html(xhr.responseText);
+                                }
 
-                moveConversationToTop(data.conversation_id);
-                updateConversationPreview(data.conversation_id, text, time);
+                            });
 
-                $(el).find('.unread-count').hide();
-            }
-        });
-    }
-}
+                            // === First message in a new conversation ===
+                        } else if (currentDoctorIdForNew) {
+                            const el = $('.conversation-item.start-doctor.active')[0];
+                            $.ajax({
+                                url: `/chat/send-first-message`,
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    if (data.conversation_id) {
+                                        $(el).removeClass('start-doctor').attr('data-id', data.conversation_id);
+                                        activeConversationId = data.conversation_id;
+                                        currentDoctorIdForNew = null;
+                                        updateMessageStatus(tempId, data.id, data.status || 'sent');
+                                        moveConversationToTop(data.conversation_id);
+                                        updateConversationPreview(data.conversation_id, text, time, data.status || 'sent');
+                                        $(el).find('.unread-count').text('0').hide();
+                                    }
+                                },
+                                // error: function () {
+                                //     const $msg = $(`.message[data-id="${tempId}"]`);
+                                //     $msg.find('.tick').removeClass().addClass('tick error').text('❌');
+                                // }
+                                 error: function (xhr) {
+                                    $('body').html(xhr.responseText);
+                                }
+                            });
+                        }
+                    }
 
-// =========================
-// Append message dynamically
-// =========================
-function appendMessage(message) {
-    const $messagesArea = $('.messages-area');
-    const isSender = message.sender_id == currentUserId;
+                    // =========================
+                    // Updated appendMessage to show attachments
+                    // =========================
+                    function appendMessage(message) {
+                        const $messagesArea = $('.messages-area');
+                        const isSender = message.sender_id == currentUserId;
 
-    // Tick logic
-    let tickHtml = '';
-    if (isSender) {
-        if (message.status === 'sent') tickHtml = '<span class="tick single-gray">✔</span>';
-        else if (message.status === 'delivered') tickHtml = '<span class="tick double-gray">✔✔</span>';
-        else if (message.status === 'read') tickHtml = '<span class="tick double-blue">✔✔</span>';
-    }
+                        if ($(`.message[data-id="${message.id}"]`).length > 0) return;
 
-    const $div = $('<div>')
-        .addClass('message')
-        .addClass(isSender ? 'sent' : 'received')
-        .html(`
-            <p>${$('<div>').text(message.message).html()}</p>
-            <span class="message-time">${message.time}</span>
-            ${tickHtml}
-        `);
+                        const $div = $('<div>').addClass('message').addClass(isSender ? 'sent' : 'received').attr('data-id', message.id);
+                        const $msgContent = $('<p>').text(message.message);
+                        $div.append($msgContent);
 
-    $messagesArea.append($div);
-    $messagesArea.scrollTop($messagesArea.prop("scrollHeight"));
+                        // Append attachments if any
+                        if (message.attachments && message.attachments.length > 0) {
+                            const $attachmentsContainer = $('<div>').addClass('message-attachments').css({ marginTop: '5px' });
+                            message.attachments.forEach(att => {
+                                let $att;
+                                if (att.type.startsWith('image/')) {
+                                    $att = $('<img>').attr('src', att.url).css({ width: '120px', height: '80px', objectFit: 'cover', marginRight: '5px', borderRadius: '5px' });
+                                } else if (att.type.startsWith('video/')) {
+                                    $att = $('<video controls>').attr('src', att.url).css({ width: '140px', height: '80px', marginRight: '5px', borderRadius: '5px' });
+                                } else {
+                                    $att = $('<a>').attr('href', att.url).attr('download', att.name).text(att.name).css({
+                                        display: 'inline-block', padding: '5px 10px', background: '#f0f0f0', marginRight: '5px', borderRadius: '5px', textDecoration: 'none', color: '#333'
+                                    });
+                                }
+                                $attachmentsContainer.append($att);
+                            });
+                            $div.append($attachmentsContainer);
+                        }
 
-    // Hide unread counter if current user opened the chat
-    if (!isSender && activeConversationId == message.conversation_id) {
-        $(`.conversation-item[data-id="${message.conversation_id}"]`).find('.unread-count').hide();
-    }
-}
+                        const $time = $('<span>').addClass('message-time').text(message.time);
+                        $div.append($time);
 
-// =========================
-// Conversation list helpers
-// =========================
-function moveConversationToTop(conversationId) {
-    const $conversation = $(`.conversation-item[data-id="${conversationId}"]`);
-    if ($conversation.length) {
-        $conversation.prependTo('.conversations-list');
-    }
-}
+                        if (isSender) {
+                            const $tick = $('<span>').addClass('tick');
+                            if (message.status === 'sent') $tick.addClass('single-gray').text('✔');
+                            else if (message.status === 'delivered') $tick.addClass('double-gray').text('✔✔');
+                            else if (message.status === 'read') $tick.addClass('double-blue').text('✔✔');
+                            $div.append($tick);
+                        }
 
-function updateConversationPreview(conversationId, lastMessage, time) {
-    const $conversation = $(`.conversation-item[data-id="${conversationId}"]`);
-    if ($conversation.length) {
-        $conversation.find('.last-message').text(lastMessage);
-        $conversation.find('.last-time').text(time);
-    }
-}
+                        $messagesArea.append($div);
+                        $messagesArea.scrollTop($messagesArea.prop("scrollHeight"));
 
-// =========================
-// Init on page load
-// =========================
-$(document).ready(function () {
-    $('#chatInput').prop('disabled', true);
+                        // Unread counter logic (same as before)
+                        if (!isSender) {
+                            const $chatItem = $(`.conversation-item[data-id="${message.conversation_id}"]`);
+                            if (activeConversationId == message.conversation_id) {
+                                $.post(`/chat/${message.conversation_id}/mark-read`, { _token: csrfToken });
+                                $chatItem.find('.unread-count').text('0').hide();
+                            } else {
+                                const $count = $chatItem.find('.unread-count');
+                                let count = parseInt($count.text() || '0', 10) + 1;
+                                $count.text(count).show();
+                            }
+                        }
+                    }
 
-    $('#chatInput').off('keypress').on('keypress', function (e) {
-        if (e.which === 13 && !e.shiftKey) {
-            e.preventDefault();
-            handleSend();
-        }
-    });
+                    // =========================
+                    // Update message status
+                    // =========================
+                    function updateMessageStatus(tempId, realId, status) {
+                        const $msg = $(`.message[data-id="${tempId}"]`);
+                        if ($msg.length) {
+                            $msg.attr('data-id', realId);
 
-    $('.icon-send').off('click').on('click', function () {
-        handleSend();
-    });
-});
+                            const $tick = $('<span>').addClass('tick');
+                            if (status === 'sent') $tick.addClass('single-gray').text('✔');
+                            else if (status === 'delivered') $tick.addClass('double-gray').text('✔✔');
+                            else if (status === 'read') $tick.addClass('double-blue').text('✔✔');
 
-// =========================
-// Back button for mobile
-// =========================
-function goBack() {
-    $('.chat-main').removeClass('active');
-    $('.chat-sidebar').removeClass('hidden');
-}
-</script>
+                            if ($msg.find('.tick').length) {
+                                $msg.find('.tick').replaceWith($tick);
+                            } else {
+                                $msg.append($tick);
+                            }
+
+                            // Update conversation preview tick
+                            const lastMsgText = $msg.find('p').text();
+                            updateConversationPreview(activeConversationId, lastMsgText, $msg.find('.message-time').text(), status);
+                        }
+                    }
+
+                    // =========================
+                    // Conversation list helpers
+                    // =========================
+                    function moveConversationToTop(conversationId) {
+                        const $conversation = $(`.conversation-item[data-id="${conversationId}"]`);
+                        if ($conversation.length) {
+                            $conversation.prependTo('.conversations-list');
+                        }
+                    }
+
+                    function updateConversationPreview(conversationId, lastMessage, time, status = null) {
+                        const $conversation = $(`.conversation-item[data-id="${conversationId}"]`);
+                        if ($conversation.length) {
+                            $conversation.find('.last-message').text(lastMessage);
+                            $conversation.find('.last-time').text(time);
+
+                            // Remove existing tick
+                            $conversation.find('.last-message-tick').remove();
+
+                            // Only show tick for messages sent by current user
+                            if (status && ['sent', 'delivered', 'read'].includes(status)) {
+                                const $tick = $('<span>').addClass('last-message-tick');
+                                if (status === 'sent') $tick.addClass('single-gray').text('✔');
+                                else if (status === 'delivered') $tick.addClass('double-gray').text('✔✔');
+                                else if (status === 'read') $tick.addClass('double-blue').text('✔✔');
+
+                                // Insert tick BEFORE message text
+                                $conversation.find('.last-message').prepend($tick).prepend(' '); // optional space after tick
+                            }
+                        }
+                    }
 
 
+                    // =========================
+                    // Init on page load
+                    // =========================
+                    $(document).ready(function () {
+                        $('#chatInput').prop('disabled', true);
 
+                        $('#chatInput').off('keypress').on('keypress', function (e) {
+                            if (e.which === 13 && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSend();
+                            }
+                        });
+
+                        $('.icon-send').off('click').on('click', function () {
+                            handleSend();
+                        });
+                    });
+
+                    // =========================
+                    // Back button for mobile
+                    // =========================
+                    function goBack() {
+                        $('.chat-main').removeClass('active');
+                        $('.chat-sidebar').removeClass('hidden');
+                    }
+                </script>
+
+
+                <script>
+                    // =========================
+                    // Handle attachment click
+                    // =========================
+                    $(document).on('click', '.icon-attach', function () {
+                        $('#chatAttachment').click();
+                    });
+
+                    // =========================
+                    // Handle file selection
+                    // =========================
+                    $('#chatAttachment').on('change', function (e) {
+                        const files = e.target.files;
+                        if (!files.length) return;
+
+                        const $preview = $('#attachmentPreview');
+                        $preview.html('').show();
+
+                        Array.from(files).forEach(file => {
+                            let previewItem;
+
+                            if (file.type.startsWith('image/')) {
+                                previewItem = $('<img>').attr('src', URL.createObjectURL(file)).css({
+                                    width: '80px', height: '80px', objectFit: 'cover', marginRight: '5px', borderRadius: '5px'
+                                });
+                            } else if (file.type.startsWith('video/')) {
+                                previewItem = $('<video controls>').attr('src', URL.createObjectURL(file)).css({
+                                    width: '120px', height: '80px', marginRight: '5px', borderRadius: '5px'
+                                });
+                            } else {
+                                previewItem = $('<div>').text(file.name).css({
+                                    padding: '5px 10px', background: '#f0f0f0', display: 'inline-block', marginRight: '5px', borderRadius: '5px'
+                                });
+                            }
+
+                            $preview.append(previewItem);
+                        });
+                    });
+
+                </script>
 
 
                 @include('layouts.footer')

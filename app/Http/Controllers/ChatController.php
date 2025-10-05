@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Conversation;
 use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Conversation;
+use App\Models\MessageAttachment;
+use Illuminate\Support\Facades\Storage;
 
 class ChatController extends Controller
 {
@@ -22,10 +23,19 @@ class ChatController extends Controller
 
             $conversations = Conversation::with(['patient', 'lastMessage'])
                 ->where('doctor_id', $doctor->id ?? 0)
+                ->withCount([
+                    'messages as unread_count' => function ($q) use ($user) {
+                        $q->where('status', '!=', 'read')
+                            ->where('sender_id', '!=', $user->id);
+                    }
+                ])
                 ->latest()
-                ->get();
+                ->get()
+                ->map(function ($conv) use ($user) {
+                    $conv->lastMessageStatus = optional($conv->lastMessage)->status;
+                    return $conv;
+                });
 
-            // No doctors list for doctors
             $doctors = null;
 
             return view('chat.chatroom', compact('conversations', 'user', 'doctors'));
@@ -35,17 +45,26 @@ class ChatController extends Controller
 
             $conversations = Conversation::with(['doctor', 'lastMessage'])
                 ->where('patient_id', $patient->id ?? 0)
+                ->withCount([
+                    'messages as unread_count' => function ($q) use ($user) {
+                        $q->where('status', '!=', 'read')
+                            ->where('sender_id', '!=', $user->id);
+                    }
+                ])
                 ->latest()
-                ->get();
+                ->get()
+                ->map(function ($conv) use ($user) {
+                    $conv->lastMessageStatus = optional($conv->lastMessage)->status;
+                    return $conv;
+                });
 
-            // Only patients get doctors to start new conversation
             $doctors = Doctor::whereNotIn('id', $conversations->pluck('doctor_id'))->get();
 
             return view('chat.chatroom', compact('conversations', 'doctors', 'user'));
         }
-
         return abort(403, 'Unauthorized');
     }
+
 
     public function storeMessage(Request $request, Conversation $conversation)
     {
@@ -214,5 +233,38 @@ class ChatController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function getUpdates()
+    {
+        $user = User::find(session('LoggedAdmin'));
+
+        // Get all conversations for the user
+        if ($user->user_role == 2) { // Doctor
+            $doctor = Doctor::where('email', $user->email)->first();
+            $conversations = Conversation::where('doctor_id', $doctor->id ?? 0)->get();
+        } else { // Patient
+            $patient = Patient::where('user_id', $user->id)->first();
+            $conversations = Conversation::where('patient_id', $patient->id ?? 0)->get();
+        }
+
+        $updates = [];
+
+        foreach ($conversations as $conv) {
+            $lastMessage = $conv->messages()->latest()->first();
+
+            if ($lastMessage) {
+                $updates[] = [
+                    'conversation_id' => $conv->id,
+                    'message_id' => $lastMessage->id,
+                    'message' => $lastMessage->message,
+                    'sender_id' => $lastMessage->sender_id,
+                    'time' => $lastMessage->created_at->format('h:i A'),
+                    'status' => $lastMessage->status,
+                    'unread_count' => $conv->messages()->where('status', '!=', 'read')->where('sender_id', '!=', $user->id)->count(),
+                ];
+            }
+        }
+
+        return response()->json($updates);
+    }
 
 }
