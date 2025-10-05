@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class MessageAttachment extends Model
 {
-    //
+    protected $fillable = ['message_id', 'filename', 'filepath', 'filetype'];
+
+    public function message()
+    {
+        return $this->belongsTo(Message::class);
+    }
 }

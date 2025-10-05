@@ -134,11 +134,13 @@ class ChatController extends Controller
 
     public function store(Request $request, Conversation $conversation = null)
     {
-        $request->validate(['message' => 'required|string']);
+        $request->validate([
+            'message' => 'nullable|string',
+            'attachments.*' => 'file|max:10240'
+        ]);
 
         $user = User::find(session('LoggedAdmin'));
 
-        // For patients, check if conversation exists between this doctor and patient
         if ($user->user_role == 3 && !$conversation) {
             $patient = Patient::where('user_id', $user->id)->first();
             $conversation = Conversation::firstOrCreate([
@@ -147,27 +149,47 @@ class ChatController extends Controller
             ]);
         }
 
-        // Create message
         $message = $conversation->messages()->create([
             'sender_id' => $user->id,
             'sender_type' => $user->user_role == 2 ? 'doctor' : 'patient',
-            'message' => $request->message,
+            'message' => $request->message ?? '',
             'status' => 'sent',
         ]);
 
+        $attachments = [];
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('chat_attachments', 'public');
+                $attachment = $message->attachments()->create([
+                    'filename' => $file->getClientOriginalName(),
+                    'filepath' => $path,
+                    'filetype' => $file->getMimeType(),
+                ]);
+                $attachments[] = [
+                    'id' => $attachment->id,
+                    'name' => $attachment->filename,
+                    'url' => asset('storage/' . $path),
+                    'type' => $attachment->filetype
+                ];
+            }
+        }
+
         return response()->json([
             'message' => $message->message,
+            'attachments' => $attachments,
             'time' => $message->created_at->format('h:i A'),
             'conversation_id' => $conversation->id,
+            'status' => $message->status,
+            'id' => $message->id,
         ]);
     }
 
     public function sendFirstMessage(Request $request)
     {
-
         $request->validate([
-            'message' => 'required|string',
-            'doctor_id' => 'required|exists:doctors,id'
+            'message' => 'nullable|string',
+            'doctor_id' => 'required|exists:doctors,id',
+            'attachments.*' => 'file|max:10240'
         ]);
 
         $user = User::find(session('LoggedAdmin'));
@@ -178,7 +200,6 @@ class ChatController extends Controller
 
         $patient = Patient::where('user_id', $user->id)->first();
 
-        // Create conversation + first message
         $conversation = Conversation::firstOrCreate([
             'doctor_id' => $request->doctor_id,
             'patient_id' => $patient->id,
@@ -187,16 +208,40 @@ class ChatController extends Controller
         $message = $conversation->messages()->create([
             'sender_id' => $user->id,
             'sender_type' => 'patient',
-            'message' => $request->message,
+            'message' => $request->message ?? '',
             'status' => 'sent',
         ]);
+
+        $attachments = [];
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('chat_attachments', 'public');
+                $attachment = $message->attachments()->create([
+                    'filename' => $file->getClientOriginalName(),
+                    'filepath' => $path,
+                    'filetype' => $file->getMimeType(),
+                ]);
+                $attachments[] = [
+                    'id' => $attachment->id,
+                    'name' => $attachment->filename,
+                    'url' => asset('storage/' . $path),
+                    'type' => $attachment->filetype
+                ];
+            }
+        }
 
         return response()->json([
             'conversation_id' => $conversation->id,
             'message' => $message->message,
+            'attachments' => $attachments,
             'time' => $message->created_at->format('h:i A'),
+            'status' => $message->status,
+            'id' => $message->id,
         ]);
     }
+
+
+
 
     public function getMessages(Conversation $conversation)
     {
@@ -209,17 +254,28 @@ class ChatController extends Controller
             ->update(['status' => 'read']);
 
         $messages = $conversation->messages()->orderBy('created_at')->get()->map(function ($msg) {
+            $attachments = $msg->attachments->map(function ($att) {
+                return [
+                    'name' => $att->filename,
+                    'type' => $att->filetype,
+                    'url' => Storage::url($att->filepath),
+                ];
+            });
+
             return [
                 'sender_id' => $msg->sender_id,
                 'message' => $msg->message,
                 'time' => $msg->created_at->timezone(config('app.timezone'))->format('h:i A'),
                 'status' => $msg->status,
                 'conversation_id' => $msg->conversation_id,
+                'attachments' => $attachments,
+                'id' => $msg->id,
             ];
         });
 
         return response()->json($messages);
     }
+
 
     public function markRead(Conversation $conversation)
     {

@@ -661,11 +661,11 @@
                                                         @if($tick)
                                                             <span
                                                                 class="last-message-tick
-                                                                                                                                                                                                                @if($status === 'sent') single-gray
-                                                                                                                                                                                                                @elseif($status === 'delivered') double-gray
-                                                                                                                                                                                                                @elseif($status === 'read') double-blue
-                                                                                                                                                                                                                @endif
-                                                                                                                                                                                                            ">
+                                                                                                                                                                                                                                                                @if($status === 'sent') single-gray
+                                                                                                                                                                                                                                                                @elseif($status === 'delivered') double-gray
+                                                                                                                                                                                                                                                                @elseif($status === 'read') double-blue
+                                                                                                                                                                                                                                                                @endif
+                                                                                                                                                                                                                                                            ">
                                                                 {{ $tick }}
                                                             </span>
                                                         @endif
@@ -741,11 +741,15 @@
                                 </div>
 
                                 <div class="chat-input-area">
-                                    <i class="icon-attach">📎</i>
+                                    <i class="icon-attach007">📎</i>
+                                    <i class="icon-mic" style="margin-left:5px; cursor:pointer;">🎤</i>
+                                    <i class="icon-video-call" style="margin-left:5px; cursor:pointer;">🎥</i>
                                     <textarea id="chatInput" placeholder="Select a conversation to start typing..."
                                         rows="1"></textarea>
                                     <i class="icon-send" onclick="sendMessage()">🚀</i>
+
                                 </div>
+
 
                                 <!-- Hidden file input for attachments -->
                                 <input type="file" id="chatAttachment" style="display: none;" multiple>
@@ -832,95 +836,80 @@
                     }
 
                     // =========================
-                    // Updated send message to include attachments
+                    // Send message handler (clean version)
                     // =========================
                     function handleSend() {
                         const text = $('#chatInput').val().trim();
-                        const files = $('#chatAttachment')[0].files;
-
-                        if (!text && files.length === 0) return; // Nothing to send
+                        if (!text) return;
 
                         const now = new Date();
                         const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
                         const tempId = 'temp-' + Date.now();
 
-                        // Optimistically append message (with attachments preview)
+                        // Optimistically append message
                         appendMessage({
                             id: tempId,
                             sender_id: currentUserId,
                             conversation_id: activeConversationId,
                             message: text,
-                            attachments: Array.from(files).map(f => ({ name: f.name, type: f.type, url: URL.createObjectURL(f) })),
                             time: time,
                             status: 'sent'
                         });
 
                         $('#chatInput').val('');
-                        $('#chatAttachment').val('');
-                        $('#attachmentPreview').hide().html('');
-
-                        // Prepare FormData to send files
-                        const formData = new FormData();
-                        formData.append('message', text);
-                        Array.from(files).forEach(file => formData.append('attachments[]', file));
-                        formData.append('_token', csrfToken);
 
                         // === Existing conversation ===
                         if (activeConversationId) {
-                            $.ajax({
-                                url: `/chat/${activeConversationId}/send`,
-                                type: 'POST',
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function (data) {
+                            $.post(`/chat/${activeConversationId}/send`, { message: text, _token: csrfToken })
+                                .done(function (data) {
+                                    // Update the temp message with real ID & status
                                     updateMessageStatus(tempId, data.id, data.status || 'sent');
+
+                                    // Move conversation to top & update preview
                                     moveConversationToTop(activeConversationId);
                                     updateConversationPreview(activeConversationId, text, time, data.status || 'sent');
-                                },
-                                // error: function () {
-                                //     const $msg = $(`.message[data-id="${tempId}"]`);
-                                //     $msg.find('.tick').removeClass().addClass('tick error').text('❌');
-                                // }
-                                error: function (xhr) {
-                                    $('body').html(xhr.responseText);
-                                }
-
-                            });
+                                })
+                                .fail(function () {
+                                    const $msg = $(`.message[data-id="${tempId}"]`);
+                                    $msg.find('.tick').removeClass().addClass('tick error').text('❌');
+                                });
 
                             // === First message in a new conversation ===
                         } else if (currentDoctorIdForNew) {
                             const el = $('.conversation-item.start-doctor.active')[0];
-                            $.ajax({
-                                url: `/chat/send-first-message`,
-                                type: 'POST',
-                                data: formData,
-                                processData: false,
-                                contentType: false,
-                                success: function (data) {
-                                    if (data.conversation_id) {
-                                        $(el).removeClass('start-doctor').attr('data-id', data.conversation_id);
-                                        activeConversationId = data.conversation_id;
-                                        currentDoctorIdForNew = null;
-                                        updateMessageStatus(tempId, data.id, data.status || 'sent');
-                                        moveConversationToTop(data.conversation_id);
-                                        updateConversationPreview(data.conversation_id, text, time, data.status || 'sent');
-                                        $(el).find('.unread-count').text('0').hide();
-                                    }
-                                },
-                                // error: function () {
-                                //     const $msg = $(`.message[data-id="${tempId}"]`);
-                                //     $msg.find('.tick').removeClass().addClass('tick error').text('❌');
-                                // }
-                                 error: function (xhr) {
-                                    $('body').html(xhr.responseText);
+                            $.post(`/chat/send-first-message`, {
+                                message: text,
+                                doctor_id: currentDoctorIdForNew,
+                                _token: csrfToken
+                            }).done(function (data) {
+                                if (data.conversation_id) {
+                                    // Assign conversation ID & reset new conversation state
+                                    $(el).removeClass('start-doctor').attr('data-id', data.conversation_id);
+                                    activeConversationId = data.conversation_id;
+                                    currentDoctorIdForNew = null;
+
+                                    // Update the temp message with real ID & status (no clearing!)
+                                    updateMessageStatus(tempId, data.id, data.status || 'sent');
+
+                                    // Update conversation list & preview
+                                    moveConversationToTop(data.conversation_id);
+                                    updateConversationPreview(data.conversation_id, text, time, data.status || 'sent');
+
+                                    $(el).find('.unread-count').text('0').hide();
                                 }
+                            }).fail(function () {
+                                const $msg = $(`.message[data-id="${tempId}"]`);
+                                $msg.find('.tick').removeClass().addClass('tick error').text('❌');
                             });
                         }
                     }
 
                     // =========================
-                    // Updated appendMessage to show attachments
+                    // Updated send message to include attachments
+                    // =========================
+
+                    // =========================
+                    // Append message dynamically
                     // =========================
                     function appendMessage(message) {
                         const $messagesArea = $('.messages-area');
@@ -930,29 +919,8 @@
 
                         const $div = $('<div>').addClass('message').addClass(isSender ? 'sent' : 'received').attr('data-id', message.id);
                         const $msgContent = $('<p>').text(message.message);
-                        $div.append($msgContent);
-
-                        // Append attachments if any
-                        if (message.attachments && message.attachments.length > 0) {
-                            const $attachmentsContainer = $('<div>').addClass('message-attachments').css({ marginTop: '5px' });
-                            message.attachments.forEach(att => {
-                                let $att;
-                                if (att.type.startsWith('image/')) {
-                                    $att = $('<img>').attr('src', att.url).css({ width: '120px', height: '80px', objectFit: 'cover', marginRight: '5px', borderRadius: '5px' });
-                                } else if (att.type.startsWith('video/')) {
-                                    $att = $('<video controls>').attr('src', att.url).css({ width: '140px', height: '80px', marginRight: '5px', borderRadius: '5px' });
-                                } else {
-                                    $att = $('<a>').attr('href', att.url).attr('download', att.name).text(att.name).css({
-                                        display: 'inline-block', padding: '5px 10px', background: '#f0f0f0', marginRight: '5px', borderRadius: '5px', textDecoration: 'none', color: '#333'
-                                    });
-                                }
-                                $attachmentsContainer.append($att);
-                            });
-                            $div.append($attachmentsContainer);
-                        }
-
                         const $time = $('<span>').addClass('message-time').text(message.time);
-                        $div.append($time);
+                        $div.append($msgContent, $time);
 
                         if (isSender) {
                             const $tick = $('<span>').addClass('tick');
@@ -965,7 +933,7 @@
                         $messagesArea.append($div);
                         $messagesArea.scrollTop($messagesArea.prop("scrollHeight"));
 
-                        // Unread counter logic (same as before)
+                        // Unread counter logic
                         if (!isSender) {
                             const $chatItem = $(`.conversation-item[data-id="${message.conversation_id}"]`);
                             if (activeConversationId == message.conversation_id) {
@@ -1106,5 +1074,58 @@
 
                 </script>
 
+                <script>
+                    // Click event to start video call
+                    $(document).on('click', '.icon-video-call', async function () {
+                        if (!activeConversationId) {
+                            alert('Select a conversation first!');
+                            return;
+                        }
 
+                        // Ask for camera + microphone
+                        try {
+                            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                            // Show your local stream in a popup or chat modal
+                            const videoModal = $('<div class="video-call-modal">')
+                                .css({ position: 'fixed', top: '10%', left: '10%', width: '80%', height: '80%', background: '#000', zIndex: 1000 })
+                                .appendTo('body');
+
+                            const localVideo = $('<video autoplay muted>').css({ width: '100%', height: '100%' }).appendTo(videoModal);
+                            localVideo[0].srcObject = stream;
+
+                            // TODO: Initiate WebRTC connection with remote user using signaling server
+
+                        } catch (err) {
+                            console.error('Camera access error:', err);
+                            alert('Could not access camera/microphone.');
+                        }
+                    });
+
+                    $(document).on('click', '.icon-mic', async function () {
+                        if (!activeConversationId) {
+                            alert('Select a conversation first!');
+                            return;
+                        }
+
+                        try {
+                            // Ask for microphone only
+                            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                            // Create an audio element to play local stream (optional, you can hide it)
+                            const localAudio = $('<audio autoplay controls>').css({ display: 'none' }).appendTo('body');
+                            localAudio[0].srcObject = stream;
+
+                            alert('Microphone is active. Ready to initiate a call.');
+
+                            // TODO: Send this stream to the remote user via WebRTC
+                            // This will require a signaling server to exchange offers/answers
+                            // e.g., Laravel WebSockets, Pusher, or Socket.IO
+
+                        } catch (err) {
+                            console.error('Microphone access error:', err);
+                            alert('Could not access microphone.');
+                        }
+                    });
+
+                </script>
                 @include('layouts.footer')
