@@ -25,11 +25,8 @@
 
                     .attention-glow {
                         position: relative;
-                        /* Essential for positioning the pseudo-element */
                         overflow: hidden;
-                        /* Ensures the glow doesn't extend beyond the card's corners */
                         z-index: 1;
-                        /* Puts the card content above the glow */
                     }
 
                     .attention-glow:before {
@@ -42,7 +39,6 @@
                         background: radial-gradient(circle, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 0) 70%);
                         transform: rotate(0deg);
                         animation: glow-rotate 3s linear infinite;
-                        /* Adjust duration for speed */
                         opacity: 0.5;
                         z-index: -1;
                     }
@@ -65,67 +61,8 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4">Our Services</h4>
 
-                        <div class="row g-4 mb-4">
-
-                            <!-- Overall User Stats -->
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Total Users</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">9</h4>
-                                                    <small class="text-success">(All roles)</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-primary rounded p-2">
-                                                <i class="bx bx-user bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Admins</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">7</h4>
-                                                    <small class="text-info">System Admins</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-secondary rounded p-2">
-                                                <i class="bx bx-shield-quarter bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Doctors</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">5</h4>
-                                                    <small class="text-success">Registered Doctors</small>
-                                                </div>
-                                            </div>
-                                            <span class="badge bg-label-success rounded p-2">
-                                                <i class="bx bx-user-circle bx-sm"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 col-xl-3">
+                        <div class="row g-4 mb-4 justify-content-center">
+                            <div class="col-sm-8 col-xl-10">
                                 <div class="card attention-glow" style="cursor: pointer;" data-bs-toggle="modal"
                                     data-bs-target="#addServiceModal">
                                     <div class="card-body">
@@ -133,8 +70,8 @@
                                             <div class="content-left">
                                                 <span>Add Service</span>
                                                 <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">2</h4>
-                                                    <small class="text-warning">Active Services</small>
+                                                    <h4 class="me-2 mb-0">{{ count($services) }}</h4>
+                                                    <small class="text-warning">All Services</small>
                                                 </div>
                                             </div>
                                             <span class="badge bg-label-warning rounded p-2">
@@ -215,12 +152,13 @@
                                         style="opacity: 0; position: absolute; z-index: -1;">
                                 </div>
 
-                                <!-- Description -->
                                 <div class="col-md-12">
                                     <label for="serviceDescription" class="form-label">Brief Description</label>
-                                    <!-- Remove display: none so CKEditor can initialize properly -->
                                     <textarea class="form-control" id="serviceDescription" name="description" rows="4"
                                         style="height: 300px;"></textarea>
+                                    <small id="charCountMessage" class="form-text text-danger">76 characters
+                                        remaining</small>
+
                                 </div>
                             </div>
 
@@ -403,21 +341,55 @@
                     });
                 </script>
                 <script>
-                    let editor; // Declare a variable to hold the editor instance
+                    let editor;
+                    const charLimit = 76;
 
                     ClassicEditor
                         .create(document.querySelector('#serviceDescription'))
                         .then(newEditor => {
-                            editor = newEditor; // Store the editor instance
-                            // Set the initial height
+                            editor = newEditor;
+
+                            // Set editor height
                             editor.editing.view.change(writer => {
                                 writer.setStyle('height', '300px', editor.editing.view.document.getRoot());
+                            });
+
+                            // Watch for changes
+                            editor.model.document.on('change:data', () => {
+                                const plainText = getPlainText(editor.getData());
+                                const charCount = plainText.length;
+                                const remaining = charLimit - charCount;
+                                const message = document.getElementById('charCountMessage');
+
+                                // Update UI message
+                                if (remaining >= 0) {
+                                    message.textContent = `${remaining} character${remaining === 1 ? '' : 's'} remaining`;
+                                    message.style.color = 'gray';
+                                } else {
+                                    message.textContent = `Character limit exceeded by ${-remaining}`;
+                                    message.style.color = 'red';
+                                }
+
+                                // Trim if exceeded
+                                if (charCount > charLimit) {
+                                    const trimmedText = plainText.slice(0, charLimit);
+                                    editor.setData(trimmedText);
+                                }
                             });
                         })
                         .catch(error => {
                             console.error(error);
                         });
+
+                    // Function to remove HTML tags and get plain text
+                    function getPlainText(html) {
+                        const div = document.createElement('div');
+                        div.innerHTML = html;
+                        return div.textContent || div.innerText || '';
+                    }
                 </script>
+
+
 
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
