@@ -86,33 +86,64 @@
                         <div class="row g-4">
                             @foreach($services as $service)
                                 <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <div class="dropdown btn-pinned">
+                                    <div class="card"
+                                        style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden;">
+                                        <div class="card-body text-center" style="position: relative; padding-top: 2rem;">
+
+                                            <!-- Dropdown menu -->
+                                            <div class="dropdown btn-pinned"
+                                                style="position: absolute; top: 10px; right: 10px;">
                                                 <button type="button" class="btn dropdown-toggle hide-arrow p-0"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                    <i class="bx bx-dots-vertical-rounded" style="font-size: 1.3rem;"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li>
+                                                        <a class="dropdown-item text-primary edit-service"
+                                                            data-service-id="{{ $service->id }}" href="javascript:void(0);">
+                                                            <i class="fas fa-edit me-2"></i> Edit
+                                                        </a>
                                                         <a class="dropdown-item text-danger delete-service"
-                                                            data-service-id="{{ $service->id }}"
-                                                            href="javascript:void(0);">Delete</a>
+                                                            data-service-id="{{ $service->id }}" href="javascript:void(0);">
+                                                            <i class="fas fa-trash-alt me-2"></i> Delete
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
 
-                                            <div class="mx-auto mb-3">
+                                            <!-- Service image -->
+                                            <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
                                                 <img src="{{ asset($service->image) }}" alt="{{ $service->title }}"
-                                                    class="w-px-100 rounded-circle" />
+                                                    style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #f0f0f0; box-shadow: 0 2px 6px rgba(0,0,0,0.1);" />
                                             </div>
 
-                                            <h5 class="card-title mb-1">{{ $service->title }}</h5>
+                                            <!-- Title -->
+                                            <h5 class="card-title mb-2" style="font-weight: 600; font-size: 1.1rem;">
+                                                {{ $service->title }}
+                                            </h5>
                                         </div>
+
+                                        <!-- Add Subcategory Button -->
+                                        <div
+                                            style="padding: 1rem; border-top: 1px solid #eee; display: flex; justify-content: center; align-items: center; gap: 10px;">
+                                            <button class="btn btn-primary add-subcategory"
+                                                data-service-id="{{ $service->id }}"
+                                                style="display: flex; align-items: center; padding: 0.5rem 1rem; font-size: 0.95rem;">
+                                                <i class="fas fa-plus me-2"></i> Add Subcategory
+                                            </button>
+
+                                            <button class="btn btn-primary add-subcategory"
+                                                data-service-id="{{ $service->id }}"
+                                                style="display: flex; align-items: center; padding: 0.5rem 1rem; font-size: 0.95rem;">
+                                                <i class="fas fa-eye me-2"></i> View
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+
                     </div>
                 </div>
 
@@ -176,34 +207,6 @@
 
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row g-4">
-                            @foreach($services as $service)
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <!-- Existing Service Card Content -->
-
-                                            <button class="btn btn-primary add-subcategory"
-                                                data-service-id="{{ $service->id }}">
-                                                Add Subcategory
-                                            </button>
-
-                                            <!-- Subcategories Displayed Below -->
-                                            <div id="subcategories-{{ $service->id }}">
-                                                @foreach($service->subCategories as $subCategory)
-                                                    <div class="subcategory-card">
-                                                        <img src="{{ asset('storage/' . $subCategory->image) }}"
-                                                            class="rounded-circle" width="100">
-                                                        <h5>{{ $subCategory->title }}</h5>
-                                                        <p>{{ $subCategory->description }}</p>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
 
                         <!-- Modal for Adding Subcategory -->
                         <div class="modal" id="addSubcategoryModal" tabindex="-1"
@@ -235,15 +238,79 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="saveSubCategory">Save</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            <i class="fas fa-times me-2"></i> Close
+                                        </button>
+
+                                        <button type="button" class="btn btn-primary" id="saveSubCategory">
+                                            <i class="fas fa-save me-2"></i> Save
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Edit Service Modal -->
+                <div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <form id="editServiceForm" method="POST" enctype="multipart/form-data" class="modal-content">
+                            @csrf
+                            <!-- Laravel method spoofing (used by JS later) -->
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" id="editServiceId" name="id">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body row g-3">
+                                <!-- Title -->
+                                <div class="col-md-12">
+                                    <label for="editServiceTitle" class="form-label">Service Title</label>
+                                    <input type="text" class="form-control" id="editServiceTitle" name="title" required>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="col-md-12">
+                                    <label class="form-label">Service Image</label>
+                                    <div class="image-upload-box text-center p-4 border border-dashed rounded mb-2"
+                                        onclick="document.getElementById('editServiceImage').click();"
+                                        style="cursor: pointer;">
+                                        <img id="editServiceImagePreview"
+                                            src="https://placehold.co/200x140/94a3b8/e2e8f0?text=Click+to+Upload&font=roboto"
+                                            alt="Preview" class="img-fluid rounded" style="max-height: 200px;">
+                                        <div class="mt-2 text-muted small">Click to select image</div>
+                                    </div>
+                                    <input type="file" class="form-control" id="editServiceImage" name="image"
+                                        accept="image/*" onchange="previewEditServiceImage(this)"
+                                        style="opacity: 0; position: absolute; z-index: -1;">
+                                </div>
+
+                                <!-- Description -->
+                                <div class="col-md-12">
+                                    <label for="editServiceDescription" class="form-label">Brief Description</label>
+                                    <textarea class="form-control" id="editServiceDescription" name="description"
+                                        rows="4" style="height: 300px;"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bx bx-save me-1"></i> Update Service
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <i class="bx bx-x me-1"></i> Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
 
                 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -295,6 +362,52 @@
                         });
                     });
 
+                    function previewEditServiceImage(input) {
+                        if (input.files && input.files[0]) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                $('#editServiceImagePreview').attr('src', e.target.result);
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+
+                    $(document).ready(function () {
+                        // When edit button clicked
+                        $('.edit-service').on('click', function () {
+                            var serviceId = $(this).data('service-id');
+
+                            // Fetch service data via AJAX
+                            $.ajax({
+                                url: '/services/' + serviceId,  // GET endpoint to fetch service data
+                                type: 'GET',
+                                success: function (data) {
+                                    // Fill the modal inputs
+                                    $('#editServiceId').val(data.id);
+                                    $('#editServiceTitle').val(data.title);
+                                    $('#editServiceDescription').val(data.description);
+
+                                    // If image exists, show it; else show placeholder
+                                    if (data.image) {
+                                        $('#editServiceImagePreview').attr('src', '/' + data.image);
+                                    } else {
+                                        $('#editServiceImagePreview').attr('src', 'https://placehold.co/200x140/94a3b8/e2e8f0?text=No+Image');
+                                    }
+
+                                    // Show the modal
+                                    $('#editServiceModal').modal('show');
+                                },
+                                // error: function () {
+                                //     Swal.fire('Error!', 'Failed to load service data.', 'error');
+                                // }
+                                error: function (data) {
+                                    $('body').html(data.responseText);
+                                }
+                            });
+                        });
+
+                        // Handle edit form submission here (optional for now)
+                    });
                 </script>
 
                 <script>

@@ -122,6 +122,10 @@ Route::controller(DoctorsController::class)->group(function () {
         Route::post('store-services', 'storeServices')->name('services.store');
         Route::post('/service/{id}/subcategory', 'addSubCategory')->name('service.addSubCategory');
     });
+
+    Route::get('/services/{service}', 'getService')->name('services.get');
+    Route::post('/services/update/{service}', 'updateService')->name('services.update');
+
 });
 
 

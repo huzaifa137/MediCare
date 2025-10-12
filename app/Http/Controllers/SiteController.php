@@ -99,5 +99,4 @@ class SiteController extends Controller
 
         return view('Site.specific-service-doctors', compact('serviceName', 'serviceImage'));
     }
-
 }

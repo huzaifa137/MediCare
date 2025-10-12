@@ -538,4 +538,49 @@ class DoctorsController extends Controller
 
         return response()->json(['success' => true, 'subCategory' => $subCategory]);
     }
+
+    public function getService($id)
+    {
+        $service = ServiceCategory::find($id);
+
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], 404);
+        }
+
+        return response()->json($service);
+    }
+
+    public function updateService(Request $request, $id)
+    {
+        $service = ServiceCategory::find($id);
+
+        if (!$service) {
+            return response()->json(['success' => false, 'message' => 'Service not found']);
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $service->title = $request->title;
+        $service->description = $request->description;
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '-' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $imageName);
+            $service->image = 'images/' . $imageName;
+        }
+
+        $service->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Service updated successfully!',
+            'service' => $service
+        ]);
+    }
+
+
 }
