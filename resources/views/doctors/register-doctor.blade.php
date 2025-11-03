@@ -464,7 +464,7 @@
           <div class="col-md-6">
             <div class="d-flex align-items-start gap-3">
               <div class="flex-grow-1">
-                <label for="cvResume" class="form-label">CV / Resume</label>
+                <label for="cvResume" class="form-label">CV / Resume (Pdf)</label>
                 <input type="file" class="form-control" id="cvResume" name="cvResume" accept=".pdf,.doc,.docx">
                 <span class="text-danger d-block mt-1" id="cvResume-error"></span>
               </div>

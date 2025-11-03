@@ -78,7 +78,6 @@ class DoctorsController extends Controller
         $data = $request->except('confirmPassword', 'password_confirmation');
         $rawPassword = $data['password'];
         $data['password'] = Hash::make($rawPassword);
-        $doctor = Doctor::create($data);
 
         $user = User::create([
             'firstname' => $firstname,
@@ -93,6 +92,10 @@ class DoctorsController extends Controller
             'account_status' => 10,
             'registration_status' => 1,
         ]);
+
+        $data['user_id'] = $user->id;
+
+        $doctor = Doctor::create($data);
 
         $emailData = [
             'fullName' => $doctor->fullName,

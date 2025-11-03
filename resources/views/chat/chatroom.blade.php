@@ -684,7 +684,6 @@
                                         @endforeach
                                     @endif
 
-                                    {{-- Doctors to start new conversation (patients only) --}}
                                     @if($user->user_role != 2 && isset($doctors) && $doctors->count() > 0)
                                         @foreach($doctors as $doctor)
                                             @php
@@ -709,9 +708,6 @@
 
                                     {{-- Empty state --}}
                                     @if((!isset($conversations) || $conversations->count() == 0) && (!isset($doctors) || $doctors->count() == 0))
-                                        {{-- <div class="empty-chat">
-                                            <p>No conversations yet. Start a chat!</p>
-                                        </div> --}}
                                         <div class="empty-chat-container">
                                             <div class="empty-chat-card">
                                                 <img src="/assets-site/img/ChatPlaceholder.jpg" alt="No messages"
