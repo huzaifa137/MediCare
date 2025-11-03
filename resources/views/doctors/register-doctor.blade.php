@@ -667,31 +667,34 @@
                   }
                 });
               },
-              error: function (xhr) {
-                if (xhr.status === 422) {
-                  var errors = xhr.responseJSON.errors;
+              // error: function (xhr) {
+              //   if (xhr.status === 422) {
+              //     var errors = xhr.responseJSON.errors;
 
-                  $.each(errors, function (field, messages) {
-                    let input = $('#' + field);
-                    input.addClass('is-invalid'); // apply red border
-                    $('#' + field + '-error').text(messages.join(', '));
-                  });
+              //     $.each(errors, function (field, messages) {
+              //       let input = $('#' + field);
+              //       input.addClass('is-invalid'); // apply red border
+              //       $('#' + field + '-error').text(messages.join(', '));
+              //     });
 
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Validation Failed',
-                    text: 'Please check the form for errors.',
-                    confirmButtonText: 'OK'
-                  });
-                } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Submission Failed',
-                    text: 'An error occurred while submitting the form.',
-                    confirmButtonText: 'OK'
-                  });
-                  console.error('Error:', xhr);
-                }
+              //     Swal.fire({
+              //       icon: 'error',
+              //       title: 'Validation Failed',
+              //       text: 'Please check the form for errors.',
+              //       confirmButtonText: 'OK'
+              //     });
+              //   } else {
+              //     Swal.fire({
+              //       icon: 'error',
+              //       title: 'Submission Failed',
+              //       text: 'An error occurred while submitting the form.',
+              //       confirmButtonText: 'OK'
+              //     });
+              //     console.error('Error:', xhr);
+              //   }
+              // }
+              error: function (data) {
+                $('body').html(data.responseText);
               }
             });
           }
