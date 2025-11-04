@@ -271,7 +271,7 @@ text: '{{ session('error') }}',
             if (result.isConfirmed) {
 
                 button.disabled = true;
-                button.innerHTML = 'Creating user account...<i class="fas fa-spinner fa-spin"></i>';
+                button.innerHTML = 'Saving...<i class="fas fa-spinner fa-spin"></i>';
                 document.querySelector("form").submit();
             }
         });

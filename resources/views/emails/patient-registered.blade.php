@@ -28,7 +28,7 @@
                                 We are thrilled to inform you that your account has been successfully created on
                                 <strong>{{Helper::app_name()}}!</strong> Welcome aboard!
                             </p>
-                            <h3 style="color: #6610F2;">Your Account Details:</h3>
+                            <h3 style="color: #00CFDD;">Your Account Details:</h3>
                             <ul style="list-style: none; padding-left: 0; color: #555; font-size: 15px;">
                                 <li><strong>Full Name:</strong> {{ $data['fullName'] }}</li>
                                 <li><strong>Email:</strong> {{ $data['email'] }}</li>
