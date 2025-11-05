@@ -201,6 +201,15 @@
                         </a>
                     </li>
                     @break
+
+                @case(5)
+                    <li class="menu-item">
+                        <a href="{{ route('delivery.dashboard') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-package"></i>
+                            <div data-i18n="Delivery Dashboard">Delivery Dashboard</div>
+                        </a>
+                    </li>
+                    @break
             @endswitch
         @endif
 

@@ -84,7 +84,7 @@
                             <strong>Contact:</strong>
                             <p>
                                 Email: <a href="mailto:dr.emili@example.com">dr.emili@example.com</a><br>
-                                Phone: <a href="tel:+441234567890">+44 1234 567 890</a><br>
+                                {{-- Phone: <a href="tel:+441234567890">+44 1234 567 890</a><br> --}}
                                 Location: London Dermatology Clinic, Harley Street, London
                             </p>
                         </div>

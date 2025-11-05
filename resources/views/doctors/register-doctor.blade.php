@@ -417,6 +417,27 @@
             <input type="number" class="form-control" id="maxPatients" name="maxPatients" placeholder="e.g. 20">
             <span class="text-danger d-block mt-1" id="maxPatients-error"></span>
           </div>
+
+          <!-- Available to Visit Client at Home -->
+          <div class="col-md-12">
+            <label class="form-label d-block">
+              Available for on-site client visits
+            </label>
+
+            <div class="border rounded p-2">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="visit_client" id="visitYes" value="Yes" required>
+                <label class="form-check-label" for="visitYes">Yes</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="visit_client" id="visitNo" value="No" required>
+                <label class="form-check-label" for="visitNo">No</label>
+              </div>
+            </div>
+
+            <span class="text-danger d-block mt-1" id="visit_client-error"></span>
+          </div>
         </div>
 
         <div class="row g-4 mt-4">

@@ -6,7 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorsController;
-
+use App\Http\Controllers\DeliveryController;
 
 Route::controller(AdminController::class)->group(function () {
 
@@ -15,6 +15,7 @@ Route::controller(AdminController::class)->group(function () {
         Route::get('patients-dashboard', 'patientsDashboard')->name('patients.dashboard');
         Route::get('doctors-dashboard', 'doctorsDashboard')->name('doctors.dashboard');
         Route::get('pharmacies-dashboard', 'pharmaciesDashboard')->name('pharmacies.dashboard');
+        Route::get('delivery-dashboard', 'deliveryDashboard')->name('delivery.dashboard');
 
         Route::group(['prefix' => '/users'], function () {
 
@@ -145,5 +146,18 @@ Route::controller(ChatController::class)->group(function () {
             return response()->json(['online' => $user->isOnline()]);
         });
 
+        Route::post('/chat/{conversation}/start-video-call', 'startVideoCall');
+        Route::post('/chat/video-call-signal', 'sendVideoCallSignal');
+
     });
+});
+
+
+Route::controller(DeliveryController::class)->group(function () {
+
+    Route::group(['prefix' => '/delivery'], function () {
+        Route::get('enroll-personnel', 'EnrollPersonnel')->name('enroll.personnel');
+        Route::post('store-new-delivery-personnel', 'storeDeliveryPersonnel')->name('delivery.store');
+    });
+
 });

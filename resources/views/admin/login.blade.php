@@ -189,6 +189,15 @@
                     <i class="fas fa-prescription-bottle-alt me-1"></i> Register Pharmacy
                   </a>
                 </div>
+
+                <!-- Delivery Staff Registration -->
+                <div class="col-12 mt-2">
+                  <a href="{{ route('enroll.personnel') }}" class="btn btn-warning btn-block w-100 text-white"
+                    id="login_button">
+                    <i class="fas fa-truck me-1"></i> Register as Delivery Partner
+                  </a>
+                </div>
+
               </div>
 
             </form>

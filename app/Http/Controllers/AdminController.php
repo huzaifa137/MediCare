@@ -98,6 +98,11 @@ class AdminController extends Controller
         return view('doctors.dashboard');
     }
 
+    public function deliveryDashboard()
+    {
+        return view('delivery.dashboard');
+    }
+
     public function userProfile()
     {
         $admin = DB::table('users')->where('id', Session('LoggedAdmin'))->first();
@@ -259,8 +264,9 @@ class AdminController extends Controller
 // Doctor   === 2 → /doctors-dashboard
 // Patient  === 3 → /patients-dashboard
 // Pharmacy === 4 → /pharmacies-dashboard
+// DeliveryGuy === 5 → /pharmacies-dashboard
 
-        $allowedRoles = [1, 2, 3, 4];
+        $allowedRoles = [1, 2, 3, 4, 5];
 
         if (in_array($userInfo->user_role, $allowedRoles)) {
             $request->session()->put('LoggedAdmin', $userInfo->id);
@@ -278,6 +284,9 @@ class AdminController extends Controller
                     break;
                 case 4:
                     $redirectUrl = route('pharmacies.dashboard');
+                    break;
+                case 5:
+                    $redirectUrl = route('delivery.dashboard');
                     break;
                 default:
                     $redirectUrl = route('user.dashboard');

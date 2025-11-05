@@ -596,6 +596,222 @@
             font-size: 1rem;
             color: #4a5568;
         }
+
+        #attachmentPreview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 5px 0;
+        }
+
+        .attachment-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .attachment-thumb {
+            max-width: 150px;
+            /* restrict width */
+            max-height: 120px;
+            /* restrict height */
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .attachment-item .remove-attachment {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Audio message inside chat bubble */
+        .message audio {
+            width: 100%;
+            max-width: 250px;
+            height: 32px;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .message.sent audio {
+            margin-left: auto;
+            display: block;
+        }
+
+        .message.received audio {
+            margin-right: auto;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .message audio {
+                max-width: 180px;
+                height: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chat-input-area {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+                padding: 10px;
+            }
+
+            /* Icons stay above textarea */
+            .chat-input-area .chat-icons {
+                order: 1;
+                /* above textarea */
+                justify-content: flex-start;
+                gap: 8px;
+            }
+
+            /* Textarea with send button inside */
+            .chat-input-area .textarea-wrapper {
+                position: relative;
+                order: 2;
+                width: 100%;
+            }
+
+            .chat-input-area textarea {
+                width: 100%;
+                font-size: 16px;
+                padding: 12px 50px 12px 15px;
+                /* right padding for send icon */
+                border-radius: 25px;
+                border: 1px solid #ddd;
+                resize: none;
+                outline: none;
+            }
+
+            .chat-input-area i.icon-send {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 24px;
+                cursor: pointer;
+                color: #007bff;
+                padding: 4px;
+                transition: 0.2s;
+            }
+
+            .chat-input-area i.icon-send:hover {
+                color: #0056b3;
+            }
+        }
+
+        /* Video Call Modal */
+        .video-call-modal {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            height: 70%;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .video-call-modal video {
+            width: 100%;
+            flex-grow: 1;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+            background: black;
+        }
+
+        .video-call-controls {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px;
+            background: #222;
+        }
+
+        .video-call-controls button {
+            background: #e74c3c;
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .video-call-controls button.accept {
+            background: #2ecc71;
+        }
+
+        .video-call-controls button:hover {
+            opacity: 0.85;
+        }
+
+        /* Small local preview */
+        .video-call-local {
+            position: absolute;
+            width: 120px;
+            height: 90px;
+            bottom: 20px;
+            right: 20px;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 2100;
+            cursor: move;
+        }
+
+        .video-call-local video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .video-call-modal {
+                width: 100%;
+                height: 60%;
+                top: 20%;
+            }
+
+            .video-call-local {
+                width: 80px;
+                height: 60px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
     </style>
 
     <!-- Layout wrapper -->
@@ -662,11 +878,11 @@
                                                         @if($tick)
                                                             <span
                                                                 class="last-message-tick
-                                                                                                                                                                                                                                                                            @if($status === 'sent') single-gray
-                                                                                                                                                                                                                                                                            @elseif($status === 'delivered') double-gray
-                                                                                                                                                                                                                                                                            @elseif($status === 'read') double-blue
-                                                                                                                                                                                                                                                                            @endif
-                                                                                                                                                                                                                                                                        ">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @if($status === 'sent') single-gray
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($status === 'delivered') double-gray
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($status === 'read') double-blue
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @endif
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ">
                                                                 {{ $tick }}
                                                             </span>
                                                         @endif
@@ -737,16 +953,82 @@
                                     <!-- Messages load dynamically -->
                                 </div>
 
-                                <div class="chat-input-area">
+                                {{-- <div class="chat-input-area">
                                     <i class="icon-attach">📎</i>
                                     <i class="icon-mic" style="margin-left:5px; cursor:pointer;">🎤</i>
                                     <i class="icon-video-call" style="margin-left:5px; cursor:pointer;">🎥</i>
                                     <textarea id="chatInput" placeholder="Select a conversation to start typing..."
                                         rows="1"></textarea>
                                     <i class="icon-send" onclick="sendMessage()">🚀</i>
+                                </div> --}}
 
+                                <div class="chat-input-area">
+                                    <div class="chat-icons">
+                                        <i class="icon-attach">📎</i>
+                                        <i class="icon-mic">🎤</i>
+                                        <i class="icon-video-call">🎥</i>
+                                    </div>
+                                    <div class="textarea-wrapper">
+                                        <textarea id="chatInput" placeholder="Type a message..." rows="1"></textarea>
+                                        <i class="icon-send" onclick="sendMessage()">🚀</i>
+                                    </div>
                                 </div>
 
+
+                                <div id="recordingPreview" style="display:none; margin-left:10px; position:relative;"
+                                    class="mb-4">
+                                    <span id="recordingLabel" style="
+                                        font-family: Arial, sans-serif;
+                                        font-weight: 600;
+                                        color: #e69539;
+                                        position: relative;
+                                        display: inline-block;
+                                        ">
+                                        🟠 Recording
+                                        <style>
+                                            #recordingLabel::after {
+                                                content: '...';
+                                                display: inline-block;
+                                                animation: waveDots 1.5s infinite steps(4);
+                                            }
+
+                                            @keyframes waveDots {
+                                                0% {
+                                                    content: '';
+                                                }
+
+                                                25% {
+                                                    content: '.';
+                                                }
+
+                                                50% {
+                                                    content: '..';
+                                                }
+
+                                                75% {
+                                                    content: '...';
+                                                }
+
+                                                100% {
+                                                    content: '';
+                                                }
+                                            }
+                                        </style>
+                                    </span>
+
+                                    <span id="stopRecording" style="
+                                    color:green;
+                                    cursor:pointer;
+                                    margin-left:8px;
+                                    font-weight:bold;
+                                ">⏹ Send ></span>
+                                    <span id="cancelRecording" style="
+                                    color:red;
+                                    cursor:pointer;
+                                    margin-left:8px;
+                                    font-weight:bold;
+                                ">❌ Cancel</span>
+                                </div>
 
                                 <!-- Hidden file input for attachments -->
                                 <input type="file" id="chatAttachment" style="display: none;" multiple>
@@ -835,64 +1117,90 @@
                     // =========================
                     // Send message handler (clean version)
                     // =========================
+
                     function handleSend() {
                         const text = $('#chatInput').val().trim();
-                        if (!text) return;
+                        const files = $('#chatAttachment')[0].files;
+
+                        // No text or file? Do nothing.
+                        if (!text && files.length === 0) return;
 
                         const now = new Date();
                         const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
                         const tempId = 'temp-' + Date.now();
 
-                        // Optimistically append message
+                        // Optimistically append message with text + previews
                         appendMessage({
                             id: tempId,
                             sender_id: currentUserId,
                             conversation_id: activeConversationId,
                             message: text,
                             time: time,
-                            status: 'sent'
+                            status: 'sending',
+                            attachments: files.length > 0 ? Array.from(files).map(f => ({
+                                name: f.name,
+                                type: f.type,
+                                url: URL.createObjectURL(f)
+                            })) : []
                         });
 
                         $('#chatInput').val('');
 
-                        // === Existing conversation ===
+                        // Prepare FormData for AJAX upload
+                        const formData = new FormData();
+                        formData.append('_token', csrfToken);
+                        if (text) formData.append('message', text);
+
+                        for (let file of files) {
+                            formData.append('attachments[]', file);
+                        }
+
+                        // === EXISTING CONVERSATION ===
                         if (activeConversationId) {
-                            $.post(`/chat/${activeConversationId}/send`, { message: text, _token: csrfToken })
-                                .done(function (data) {
-                                    // Update the temp message with real ID & status
-                                    updateMessageStatus(tempId, data.id, data.status || 'sent');
+                            $.ajax({
+                                url: `/chat/${activeConversationId}/send`,
+                                method: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                            }).done(function (data) {
+                                updateMessageStatus(tempId, data.id, data.status || 'sent');
+                                moveConversationToTop(activeConversationId);
+                                updateConversationPreview(activeConversationId, text || '[Attachment]', time, data.status || 'sent');
 
-                                    // Move conversation to top & update preview
-                                    moveConversationToTop(activeConversationId);
-                                    updateConversationPreview(activeConversationId, text, time, data.status || 'sent');
-                                })
-                                .fail(function () {
-                                    const $msg = $(`.message[data-id="${tempId}"]`);
-                                    $msg.find('.tick').removeClass().addClass('tick error').text('❌');
-                                });
+                                // Clear file input and preview
+                                $('#chatAttachment').val('');
+                                $('#attachmentPreview').empty().hide();
+                            }).fail(function () {
+                                const $msg = $(`.message[data-id="${tempId}"]`);
+                                $msg.find('.tick').removeClass().addClass('tick error').text('❌');
+                            });
 
-                            // === First message in a new conversation ===
+                            // === NEW CONVERSATION ===
                         } else if (currentDoctorIdForNew) {
                             const el = $('.conversation-item.start-doctor.active')[0];
-                            $.post(`/chat/send-first-message`, {
-                                message: text,
-                                doctor_id: currentDoctorIdForNew,
-                                _token: csrfToken
+                            formData.append('doctor_id', currentDoctorIdForNew);
+                            $.ajax({
+                                url: `/chat/send-first-message`,
+                                method: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
                             }).done(function (data) {
                                 if (data.conversation_id) {
-                                    // Assign conversation ID & reset new conversation state
                                     $(el).removeClass('start-doctor').attr('data-id', data.conversation_id);
                                     activeConversationId = data.conversation_id;
                                     currentDoctorIdForNew = null;
 
-                                    // Update the temp message with real ID & status (no clearing!)
                                     updateMessageStatus(tempId, data.id, data.status || 'sent');
-
-                                    // Update conversation list & preview
                                     moveConversationToTop(data.conversation_id);
-                                    updateConversationPreview(data.conversation_id, text, time, data.status || 'sent');
+                                    updateConversationPreview(data.conversation_id, text || '[Attachment]', time, data.status || 'sent');
 
                                     $(el).find('.unread-count').text('0').hide();
+
+                                    // Clear file input and preview
+                                    $('#chatAttachment').val('');
+                                    $('#attachmentPreview').empty().hide();
                                 }
                             }).fail(function () {
                                 const $msg = $(`.message[data-id="${tempId}"]`);
@@ -912,13 +1220,37 @@
                         const $messagesArea = $('.messages-area');
                         const isSender = message.sender_id == currentUserId;
 
+                        // Avoid duplicate messages
                         if ($(`.message[data-id="${message.id}"]`).length > 0) return;
 
+                        // Message container
                         const $div = $('<div>').addClass('message').addClass(isSender ? 'sent' : 'received').attr('data-id', message.id);
-                        const $msgContent = $('<p>').text(message.message);
-                        const $time = $('<span>').addClass('message-time').text(message.time);
-                        $div.append($msgContent, $time);
 
+                        // Text content
+                        if (message.message) {
+                            $div.append($('<p>').text(message.message));
+                        }
+
+                        // ✅ Attachments rendering
+                        if (message.attachments && message.attachments.length > 0) {
+                            const $attachments = $('<div>').addClass('attachments');
+                            message.attachments.forEach(file => {
+                                if (file.type.startsWith('image/')) {
+                                    $attachments.append(`<img src="${file.url}" class="attachment-thumb" style="max-width:200px; max-height:150px; width:auto; height:auto; border-radius:8px;">`);
+                                } else if (file.type.startsWith('video/')) {
+                                    $attachments.append(`<video src="${file.url}" controls class="attachment-thumb" style="max-width:200px; max-height:150px; border-radius:8px;"></video>`);
+                                } else {
+                                    $attachments.append(`<a href="${file.url}" target="_blank" class="attachment-file">📄 ${file.name}</a>`);
+                                }
+                            });
+                            $div.append($attachments);
+                        }
+
+                        // Time stamp
+                        const $time = $('<span>').addClass('message-time').text(message.time);
+                        $div.append($time);
+
+                        // Tick for sender
                         if (isSender) {
                             const $tick = $('<span>').addClass('tick');
                             if (message.status === 'sent') $tick.addClass('single-gray').text('✔');
@@ -927,6 +1259,7 @@
                             $div.append($tick);
                         }
 
+                        // Append message to chat area
                         $messagesArea.append($div);
                         $messagesArea.scrollTop($messagesArea.prop("scrollHeight"));
 
@@ -1048,55 +1381,52 @@
                         const $preview = $('#attachmentPreview');
                         $preview.html('').show();
 
-                        Array.from(files).forEach(file => {
-                            let previewItem;
+                        Array.from(files).forEach((file, index) => {
+                            let $previewItem;
 
                             if (file.type.startsWith('image/')) {
-                                previewItem = $('<img>').attr('src', URL.createObjectURL(file)).css({
-                                    width: '80px', height: '80px', objectFit: 'cover', marginRight: '5px', borderRadius: '5px'
-                                });
+                                $previewItem = $(`
+                <div class="attachment-item">
+                    <img src="${URL.createObjectURL(file)}" class="attachment-thumb">
+                    <span class="remove-attachment">×</span>
+                </div>
+            `);
                             } else if (file.type.startsWith('video/')) {
-                                previewItem = $('<video controls>').attr('src', URL.createObjectURL(file)).css({
-                                    width: '120px', height: '80px', marginRight: '5px', borderRadius: '5px'
-                                });
+                                $previewItem = $(`
+                <div class="attachment-item">
+                    <video src="${URL.createObjectURL(file)}" controls class="attachment-thumb"></video>
+                    <span class="remove-attachment">×</span>
+                </div>
+            `);
                             } else {
-                                previewItem = $('<div>').text(file.name).css({
-                                    padding: '5px 10px', background: '#f0f0f0', display: 'inline-block', marginRight: '5px', borderRadius: '5px'
-                                });
+                                $previewItem = $(`
+                <div class="attachment-item">
+                    <div class="file-thumb">📄 ${file.name}</div>
+                    <span class="remove-attachment">×</span>
+                </div>
+            `);
                             }
 
-                            $preview.append(previewItem);
+                            // Remove attachment on click
+                            $previewItem.find('.remove-attachment').on('click', function () {
+                                const dt = new DataTransfer();
+                                Array.from(files).forEach((f, i) => { if (i !== index) dt.items.add(f); });
+                                $('#chatAttachment')[0].files = dt.files;
+                                $previewItem.remove();
+                                if ($('#chatAttachment')[0].files.length === 0) $preview.hide();
+                            });
+
+                            $preview.append($previewItem);
                         });
                     });
 
                 </script>
 
                 <script>
-                    // Click event to start video call
-                    $(document).on('click', '.icon-video-call', async function () {
-                        if (!activeConversationId) {
-                            alert('Select a conversation first!');
-                            return;
-                        }
+                    // Click event to start Recorder call
 
-                        // Ask for camera + microphone
-                        try {
-                            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                            // Show your local stream in a popup or chat modal
-                            const videoModal = $('<div class="video-call-modal">')
-                                .css({ position: 'fixed', top: '10%', left: '10%', width: '80%', height: '80%', background: '#000', zIndex: 1000 })
-                                .appendTo('body');
-
-                            const localVideo = $('<video autoplay muted>').css({ width: '100%', height: '100%' }).appendTo(videoModal);
-                            localVideo[0].srcObject = stream;
-
-                            // TODO: Initiate WebRTC connection with remote user using signaling server
-
-                        } catch (err) {
-                            console.error('Camera access error:', err);
-                            alert('Could not access camera/microphone.');
-                        }
-                    });
+                    let mediaRecorder;
+                    let audioChunks = [];
 
                     $(document).on('click', '.icon-mic', async function () {
                         if (!activeConversationId) {
@@ -1105,18 +1435,62 @@
                         }
 
                         try {
-                            // Ask for microphone only
                             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                            mediaRecorder = new MediaRecorder(stream);
+                            audioChunks = [];
 
-                            // Create an audio element to play local stream (optional, you can hide it)
-                            const localAudio = $('<audio autoplay controls>').css({ display: 'none' }).appendTo('body');
-                            localAudio[0].srcObject = stream;
+                            mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
 
-                            alert('Microphone is active. Ready to initiate a call.');
+                            mediaRecorder.start();
 
-                            // TODO: Send this stream to the remote user via WebRTC
-                            // This will require a signaling server to exchange offers/answers
-                            // e.g., Laravel WebSockets, Pusher, or Socket.IO
+                            // Show recording preview with cancel button
+                            $('#recordingPreview').show();
+
+                            mediaRecorder.onstop = async () => {
+                                $('#recordingPreview').hide();
+                                // If canceled, just return
+                                if ($('#recordingPreview').data('canceled')) {
+                                    $('#recordingPreview').data('canceled', false);
+                                    return;
+                                }
+
+                                const blob = new Blob(audioChunks, { type: 'audio/webm' });
+                                const file = new File([blob], `voice-${Date.now()}.webm`, { type: 'audio/webm' });
+
+                                const formData = new FormData();
+                                formData.append('_token', csrfToken);
+                                formData.append('attachments[]', file);
+
+                                const url = activeConversationId
+                                    ? `/chat/${activeConversationId}/send`
+                                    : `/chat/send-first-message`;
+
+                                $.ajax({
+                                    url,
+                                    method: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (data) {
+                                        appendMessage({
+                                            id: data.id,
+                                            sender_id: currentUserId,
+                                            conversation_id: data.conversation_id,
+                                            message: data.message,
+                                            attachments: data.attachments,
+                                            time: data.time,
+                                            status: data.status
+                                        });
+                                    },
+                                    error: function (xhr) {
+                                        console.error(xhr.responseJSON);
+                                        alert('Failed to send voice message.');
+                                    }
+                                });
+                            };
+
+                            // Stop recording after a certain time or when user clicks stop
+                            // You can implement a stop button as before, here we just keep as-is
 
                         } catch (err) {
                             console.error('Microphone access error:', err);
@@ -1124,5 +1498,280 @@
                         }
                     });
 
+                    // Cancel recording handler
+                    $('#cancelRecording').on('click', function () {
+                        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                            mediaRecorder.stop();
+                            $('#recordingPreview').data('canceled', true);
+                            $('#recordingPreview').hide();
+                            audioChunks = []; // discard chunks
+                        }
+                    });
+
+                    $('#stopRecording').on('click', function () {
+                        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                            mediaRecorder.stop(); // triggers onstop and sends
+                        }
+                    });
+
                 </script>
-                @include('layouts.footer')
+
+                <script>
+
+                    // Click event to start video call
+                    let localStream = null;
+                    let peerConnection = null;
+                    let currentCallConversationId = null;
+                    const config = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+                    // Start call (Caller)
+                    $(document).on('click', '.icon-video-call', async function () {
+                        if (!activeConversationId) return alert('Select a conversation first!');
+
+                        currentCallConversationId = activeConversationId;
+
+                        const res = await $.post(`/chat/${activeConversationId}/start-video-call`, { _token: csrfToken });
+
+                        // Prepare local stream
+                        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                        showVideoModal(localStream, true); // true = caller
+                    });
+
+                    // Listen for incoming calls & signals
+                    window.Echo.private(`user.${currentUserId}`)
+                        .listen('VideoCallSignal', async (e) => {
+                            if (e.type === 'call_initiated') {
+                                showIncomingCallPopup(e.from_user, e.conversation_id);
+                            } else if (e.type === 'offer') {
+                                await handleOffer(e);
+                            } else if (e.type === 'answer') {
+                                await handleAnswer(e);
+                            } else if (e.type === 'ice') {
+                                await handleIceCandidate(e);
+                            }
+                        });
+
+                    // Accept call (Receiver)
+                    async function acceptCall(fromUserId, conversationId) {
+                        currentCallConversationId = conversationId;
+                        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                        showVideoModal(localStream, false);
+
+                        peerConnection = createPeerConnection(fromUserId, conversationId);
+                    }
+
+                    // Reject call
+                    function rejectCall(fromUserId) {
+                        closeVideoModal();
+                    }
+
+                    // Create PeerConnection
+                    function createPeerConnection(remoteUserId, conversationId) {
+                        const pc = new RTCPeerConnection(config);
+
+                        // Add local tracks
+                        localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
+
+                        // Remote stream
+                        const remoteVideo = document.getElementById('remoteVideo');
+                        pc.ontrack = event => {
+                            remoteVideo.srcObject = event.streams[0];
+                        };
+
+                        // ICE candidates
+                        pc.onicecandidate = event => {
+                            if (event.candidate) {
+                                $.post('/chat/video-call-signal', {
+                                    _token: csrfToken,
+                                    to_user: remoteUserId,
+                                    conversation_id: conversationId,
+                                    type: 'ice',
+                                    data: event.candidate
+                                });
+                            }
+                        };
+
+                        return pc;
+                    }
+
+                    // Handle offer (receiver)
+                    async function handleOffer(e) {
+                        peerConnection = createPeerConnection(e.from_user, e.conversation_id);
+                        await peerConnection.setRemoteDescription(new RTCSessionDescription(e.data));
+                        const answer = await peerConnection.createAnswer();
+                        await peerConnection.setLocalDescription(answer);
+
+                        $.post('/chat/video-call-signal', {
+                            _token: csrfToken,
+                            to_user: e.from_user,
+                            conversation_id: e.conversation_id,
+                            type: 'answer',
+                            data: answer
+                        });
+                    }
+
+                    // Handle answer (caller)
+                    async function handleAnswer(e) {
+                        await peerConnection.setRemoteDescription(new RTCSessionDescription(e.data));
+                    }
+
+                    // Handle ICE
+                    async function handleIceCandidate(e) {
+                        try {
+                            await peerConnection.addIceCandidate(new RTCIceCandidate(e.data));
+                        } catch (err) {
+                            console.error(err);
+                        }
+                    }
+
+                    // Video Modal UI
+                    let localPreviewEl = null;
+
+                    function showVideoModal(stream, isCaller) {
+                        // Remove existing modal if any
+                        const existingModal = document.querySelector('.video-call-modal');
+                        if (existingModal) existingModal.remove();
+                        if (localPreviewEl) localPreviewEl.remove();
+
+                        // Create modal
+                        const modal = document.createElement('div');
+                        modal.className = 'video-call-modal';
+
+                        // Remote video
+                        const remoteVideo = document.createElement('video');
+                        remoteVideo.id = 'remoteVideo';
+                        remoteVideo.autoplay = true;
+                        modal.appendChild(remoteVideo);
+
+                        // Controls (Accept, Reject, End)
+                        const controls = document.createElement('div');
+                        controls.className = 'video-call-controls';
+                        if (!isCaller) {
+                            const acceptBtn = document.createElement('button');
+                            acceptBtn.className = 'accept';
+                            acceptBtn.innerText = '✔';
+                            acceptBtn.title = 'Accept Call';
+                            acceptBtn.onclick = () => acceptCall(remoteUserId, currentCallConversationId);
+                            controls.appendChild(acceptBtn);
+
+                            const rejectBtn = document.createElement('button');
+                            rejectBtn.innerText = '✖';
+                            rejectBtn.title = 'Reject Call';
+                            rejectBtn.onclick = () => rejectCall(remoteUserId);
+                            controls.appendChild(rejectBtn);
+                        }
+
+                        const endBtn = document.createElement('button');
+                        endBtn.innerText = '⏹';
+                        endBtn.title = 'End Call';
+                        endBtn.onclick = closeVideoModal;
+                        controls.appendChild(endBtn);
+
+                        modal.appendChild(controls);
+                        document.body.appendChild(modal);
+
+                        // Local small preview
+                        localPreviewEl = document.createElement('div');
+                        localPreviewEl.className = 'video-call-local';
+                        const localVideo = document.createElement('video');
+                        localVideo.autoplay = true;
+                        localVideo.muted = true;
+                        localPreviewEl.appendChild(localVideo);
+                        document.body.appendChild(localPreviewEl);
+
+                        localVideo.srcObject = stream;
+                        document.getElementById('remoteVideo').srcObject = null; // initially empty
+                        localVideo.srcObject = stream;
+
+                        // Make draggable
+                        makeDraggable(localPreviewEl);
+                    }
+
+                    // Draggable function
+                    function makeDraggable(el) {
+                        let offsetX = 0, offsetY = 0, startX = 0, startY = 0;
+                        el.onmousedown = dragMouseDown;
+
+                        function dragMouseDown(e) {
+                            e.preventDefault();
+                            startX = e.clientX;
+                            startY = e.clientY;
+                            document.onmouseup = closeDragElement;
+                            document.onmousemove = elementDrag;
+                        }
+
+                        function elementDrag(e) {
+                            e.preventDefault();
+                            offsetX = startX - e.clientX;
+                            offsetY = startY - e.clientY;
+                            startX = e.clientX;
+                            startY = e.clientY;
+                            el.style.top = (el.offsetTop - offsetY) + "px";
+                            el.style.left = (el.offsetLeft - offsetX) + "px";
+                        }
+
+                        function closeDragElement() {
+                            document.onmouseup = null;
+                            document.onmousemove = null;
+                        }
+                    }
+
+                    // Close modal
+                    function closeVideoModal() {
+                        if (peerConnection) { peerConnection.close(); peerConnection = null; }
+                        if (localStream) { localStream.getTracks().forEach(t => t.stop()); localStream = null; }
+                        const modal = document.querySelector('.video-call-modal');
+                        if (modal) modal.remove();
+                        if (localPreviewEl) { localPreviewEl.remove(); localPreviewEl = null; }
+                    }
+
+                    // Show incoming call popup
+                    function showIncomingCallPopup(fromUserId, conversationId) {
+                        if (confirm('Incoming video call! Accept?')) {
+                            acceptCall(fromUserId, conversationId);
+                        } else {
+                            rejectCall(fromUserId);
+                        }
+                    }
+
+                </script>
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+
+    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+    <div class="drag-target"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+
+    <script src="../../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../../assets/js/dashboards-ecommerce.js"></script>
+</body>
+
+</html>

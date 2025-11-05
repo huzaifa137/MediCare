@@ -136,7 +136,7 @@ class ChatController extends Controller
     {
         $request->validate([
             'message' => 'nullable|string',
-            'attachments.*' => 'file|max:10240'
+            'attachments.*' => 'file|max:10240|mimes:jpg,jpeg,png,gif,webm,mp3,wav,m4a,mp4'
         ]);
 
         $user = User::find(session('LoggedAdmin'));
@@ -321,6 +321,35 @@ class ChatController extends Controller
         }
 
         return response()->json($updates);
+    }
+
+    public function startVideoCall(Conversation $conversation)
+    {
+        $user = User::find(session('LoggedAdmin'));
+
+        $receiverId = $conversation->doctor_id == $user->id
+            ? $conversation->patient->user_id
+            : $conversation->doctor->user_id;
+
+        event(new \App\Events\VideoCallSignal($receiverId, $user->id, $conversation->id, 'call_initiated', null));
+
+        return response()->json(['status' => 'call_initiated']);
+    }
+
+    public function sendVideoCallSignal(Request $request)
+    {
+        $request->validate([
+            'to_user' => 'required|exists:users,id',
+            'conversation_id' => 'required|exists:conversations,id',
+            'type' => 'required|string',
+            'data' => 'required'
+        ]);
+
+        $fromUser = User::find(session('LoggedAdmin'));
+
+        event(new \App\Events\VideoCallSignal($request->to_user, $fromUser->id, $request->conversation_id, $request->type, $request->data));
+
+        return response()->json(['status' => 'signal_sent']);
     }
 
 }
