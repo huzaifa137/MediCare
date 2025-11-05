@@ -106,15 +106,46 @@
                                 <li><a href=" {{ url('contact') }}">Contact</a></li>
                             </ul>
                         </nav>
-                        @if (Session('LoggedAdmin'))
-                            <div class="header__btn">
-                                <a href=" {{ url('/users/login') }}" class="primary-btn">Dashboard</a>
-                            </div>
-                        @else
-                            <div class="header__btn">
-                                <a href=" {{ url('/users/login') }}" class="primary-btn">Login</a>
-                            </div>
-                        @endif
+                       @php
+                            use App\Models\User;
+
+                            // Check if there's a logged-in user
+                            $loggedUser = session()->has('LoggedAdmin') ? User::find(session('LoggedAdmin')) : null;
+                            @endphp
+
+                            @if ($loggedUser)
+                                <div class="header__btn">
+                                    @switch($loggedUser->user_role)
+                                        @case(1)
+                                            <a href="{{ route('user.dashboard') }}" class="primary-btn">Dashboard</a>
+                                            @break
+
+                                        @case(2)
+                                            <a href="{{ route('doctors.dashboard') }}" class="primary-btn">Dashboard</a>
+                                            @break
+
+                                        @case(3)
+                                            <a href="{{ route('patients.dashboard') }}" class="primary-btn">Dashboard</a>
+                                            @break
+
+                                        @case(4)
+                                            <a href="{{ route('pharmacies.dashboard') }}" class="primary-btn">Dashboard</a>
+                                            @break
+
+                                        @case(5)
+                                            <a href="{{ route('delivery.dashboard') }}" class="primary-btn">Dashboard</a>
+                                            @break
+
+                                        @default
+                                            <a href="{{ url('/users/login') }}" class="primary-btn">Dashboard</a>
+                                    @endswitch
+                                </div>
+                            @else
+                                <div class="header__btn">
+                                    <a href="{{ url('/users/login') }}" class="primary-btn">Login</a>
+                                </div>
+                            @endif
+
 
                     </div>
                 </div>

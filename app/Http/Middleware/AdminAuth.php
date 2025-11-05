@@ -55,6 +55,8 @@ class AdminAuth
                             return redirect()->route('patients.dashboard');
                         case 4:
                             return redirect()->route('pharmacies.dashboard');
+                        case 5:
+                            return redirect()->route('delivery.dashboard');
                         default:
                             return redirect()->route('user.dashboard');
                     }

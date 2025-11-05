@@ -62,7 +62,7 @@ class ChatController extends Controller
 
             return view('chat.chatroom', compact('conversations', 'doctors', 'user'));
         }
-        return abort(403, 'Unauthorized');
+        return abort(403, 'Chat coming soon for this role 😊');
     }
 
 
