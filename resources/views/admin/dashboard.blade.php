@@ -90,60 +90,69 @@
 
                             <!-- Overall User Stats -->
                             <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Total Users</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['totalUsers'] }}</h4>
-                                                    <small class="text-success">(All roles)</small>
+                                <a href="{{ route('total.users', ['userrole' => 'all']) }}"
+                                    class="text-decoration-none text-dark">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div class="content-left">
+                                                    <span>Total Users</span>
+                                                    <div class="d-flex align-items-end mt-2">
+                                                        <h4 class="me-2 mb-0">{{ $metrics['totalUsers'] }}</h4>
+                                                        <small class="text-success">(All System Users)</small>
+                                                    </div>
                                                 </div>
+                                                <span class="badge bg-label-primary rounded p-2">
+                                                    <i class="bx bx-user bx-sm"></i>
+                                                </span>
                                             </div>
-                                            <span class="badge bg-label-primary rounded p-2">
-                                                <i class="bx bx-user bx-sm"></i>
-                                            </span>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                             <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Admins</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['adminsCount'] }}</h4>
-                                                    <small class="text-info">System Admins</small>
+                                <a href="{{ route('total.users', ['userrole' => '1']) }}"
+                                    class="text-decoration-none text-dark">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div class="content-left">
+                                                    <span>Admins</span>
+                                                    <div class="d-flex align-items-end mt-2">
+                                                        <h4 class="me-2 mb-0">{{ $metrics['adminsCount'] }}</h4>
+                                                        <small class="text-info">System Admins</small>
+                                                    </div>
                                                 </div>
+                                                <span class="badge bg-label-secondary rounded p-2">
+                                                    <i class="bx bx-shield-quarter bx-sm"></i>
+                                                </span>
                                             </div>
-                                            <span class="badge bg-label-secondary rounded p-2">
-                                                <i class="bx bx-shield-quarter bx-sm"></i>
-                                            </span>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                             <div class="col-sm-6 col-xl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div class="content-left">
-                                                <span>Doctors</span>
-                                                <div class="d-flex align-items-end mt-2">
-                                                    <h4 class="me-2 mb-0">{{ $metrics['doctorsCount'] }}</h4>
-                                                    <small class="text-success">Registered Doctors</small>
+                                <a href="{{ route('total.users', ['userrole' => '1']) }}"
+                                    class="text-decoration-none text-dark">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div class="content-left">
+                                                    <span>Doctors</span>
+                                                    <div class="d-flex align-items-end mt-2">
+                                                        <h4 class="me-2 mb-0">{{ $metrics['doctorsCount'] }}</h4>
+                                                        <small class="text-success">Registered Doctors</small>
+                                                    </div>
                                                 </div>
+                                                <span class="badge bg-label-success rounded p-2">
+                                                    <i class="bx bx-user-circle bx-sm"></i>
+                                                </span>
                                             </div>
-                                            <span class="badge bg-label-success rounded p-2">
-                                                <i class="bx bx-user-circle bx-sm"></i>
-                                            </span>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                             <div class="col-sm-6 col-xl-3">

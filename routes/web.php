@@ -43,6 +43,12 @@ Route::controller(AdminController::class)->group(function () {
         Route::post('/admin/change-password', 'changePassword')->name('admin.change.password');
 
 
+        Route::group(['prefix' => '/users-management'], function () {
+
+            Route::get('total-users/{userrole}', 'totalUsers')->name('total.users');
+
+        });
+
     });
 
 

@@ -537,4 +537,23 @@ class AdminController extends Controller
         }
     }
 
+    public function totalUsers($userrole)
+    {
+        if ($userrole === 'all') {
+            $totalUsers = User::all();
+
+        } else {
+
+            $validRoles = [1, 2, 3, 4, 5];
+
+            if (!in_array($userrole, $validRoles)) {
+                abort(404, "Invalid user role");
+            }
+
+            $totalUsers = User::where('user_role', $userrole)->get();
+        }
+
+        return view('admin.users.total-users', compact('totalUsers', 'userrole'));
+    }
+
 }
