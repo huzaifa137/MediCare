@@ -7,6 +7,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\PharmacyController;
 
 Route::controller(AdminController::class)->group(function () {
 
@@ -166,4 +167,15 @@ Route::controller(DeliveryController::class)->group(function () {
         Route::post('store-new-delivery-personnel', 'storeDeliveryPersonnel')->name('delivery.store');
     });
 
+});
+
+
+Route::controller(PharmacyController::class)->group(function () {
+
+    Route::group(['prefix' => '/pharmacy'], function () {
+
+        Route::get('add-medicine', 'addMedicine')->name('add.medicine');
+        Route::post('/store-medicine', 'storeMedicine')->name('store.medicine');
+
+    });
 });

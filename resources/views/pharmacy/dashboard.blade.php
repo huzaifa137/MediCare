@@ -209,7 +209,7 @@
                         <!-- Quick Actions -->
                         <div class="row g-4">
                             <div class="col-md-3">
-                                <a href="#" class="card shadow-sm text-center p-3 text-decoration-none">
+                                <a href="{{ route('add.medicine') }}" class="card shadow-sm text-center p-3 text-decoration-none">
                                     <i class="bx bx-plus-circle text-primary fs-2"></i>
                                     <h6 class="mt-2">Add Medicine</h6>
                                 </a>
