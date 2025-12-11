@@ -209,13 +209,15 @@
                         <!-- Quick Actions -->
                         <div class="row g-4">
                             <div class="col-md-3">
-                                <a href="{{ route('add.medicine') }}" class="card shadow-sm text-center p-3 text-decoration-none">
+                                <a href="{{ route('add.medicine') }}"
+                                    class="card shadow-sm text-center p-3 text-decoration-none">
                                     <i class="bx bx-plus-circle text-primary fs-2"></i>
                                     <h6 class="mt-2">Add Medicine</h6>
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href="#" class="card shadow-sm text-center p-3 text-decoration-none">
+                                <a href="{{ route('pharmacy.inventory') }}"
+                                    class="card shadow-sm text-center p-3 text-decoration-none">
                                     <i class="bx bx-box text-success fs-2"></i>
                                     <h6 class="mt-2">Manage Inventory</h6>
                                 </a>
@@ -352,7 +354,7 @@
                                                     <td>
                                                         <span
                                                             class="badge 
-                                                                                                                {{ $order->status == 'Pending' ? 'bg-warning' : ($order->status == 'Delivered' ? 'bg-success' : 'bg-danger') }}">
+                                                                                                                    {{ $order->status == 'Pending' ? 'bg-warning' : ($order->status == 'Delivered' ? 'bg-success' : 'bg-danger') }}">
                                                             {{ $order->status }}
                                                         </span>
                                                     </td>

@@ -175,7 +175,14 @@ Route::controller(PharmacyController::class)->group(function () {
     Route::group(['prefix' => '/pharmacy'], function () {
 
         Route::get('add-medicine', 'addMedicine')->name('add.medicine');
+        Route::get('/inventory', 'inventory')->name('pharmacy.inventory');
+
+        Route::get('/medicine/{id}', 'viewMedicine')->name('medicine.view');
+
         Route::post('/store-medicine', 'storeMedicine')->name('store.medicine');
+
+        Route::get('/medicine/edit/{id}', 'editMedicine')->name('medicine.edit');
+        Route::post('/medicine/update/{id}', 'updateMedicine')->name('medicine.update');
 
     });
 });
